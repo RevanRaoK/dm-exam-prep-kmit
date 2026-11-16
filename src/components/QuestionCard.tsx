@@ -11,10 +11,20 @@ import {
   RotateCcw,
 } from "lucide-react";
 import type { Question } from "@/data/types";
+import { PAPER_COUNT } from "@/data/types";
 import RichText from "./RichText";
 import { DiagramById } from "./diagrams";
 
-const STORAGE_KEY = "dm-kr21-revised-v1";
+const STORAGE_KEY = "irs-merged-revised-v1";
+
+const walkthroughLabels: Record<string, string> = {
+  porter: "Porter Stemming",
+  signature: "Signature Hashing",
+  pat: "PAT Tree",
+  termcluster: "Term-Term Clustering",
+  boyer: "Boyer–Moore",
+  fsa: "FSA / Hardware Search",
+};
 
 function readRevisedIds(): string[] {
   try {
@@ -75,12 +85,12 @@ export default function QuestionCard({
 
   const frequencyText =
     q.freq >= 2
-      ? `Repeated ${q.freq} / ${12} KMIT papers`
-      : `Seen in ${q.freq} / ${12} KMIT papers`;
+      ? `Repeated in ${q.freq} / ${PAPER_COUNT} merged sources`
+      : `Seen in ${q.freq} / ${PAPER_COUNT} merged sources`;
 
   const detail =
     q.papers ??
-    "This question appeared once across the twelve collected KR20 and KR21 papers.";
+    "This question appears once across the IRS question bank and the JNTUH R18 papers.";
 
   return (
     <article className={`qcard ${open ? "open" : ""}`} id={q.id}>
@@ -101,12 +111,12 @@ export default function QuestionCard({
             {q.freq >= 2 ? (
               <span className="tag hot">
                 <Flame size={12} aria-hidden="true" />
-                🔥 Repeated {q.freq}/12
+                🔥 Repeated {q.freq}/{PAPER_COUNT}
               </span>
             ) : (
               <span className="tag fresh">
                 <History size={12} aria-hidden="true" />
-                1/12 papers
+                1/{PAPER_COUNT} sources
               </span>
             )}
             {q.walkthrough ? (
@@ -242,17 +252,8 @@ export default function QuestionCard({
                 onClick={() => onOpenWalkthrough?.(q.walkthrough as string)}
               >
                 <PlayCircle size={14} aria-hidden="true" />
-                Open the interactive {q.walkthrough === "id3"
-                  ? "ID3"
-                  : q.walkthrough === "nb"
-                    ? "Naïve Bayes"
-                    : q.walkthrough === "fpgrowth"
-                      ? "FP-Growth"
-                      : q.walkthrough === "kmeans"
-                        ? "K-Means"
-                        : q.walkthrough === "dbscan"
-                          ? "DBSCAN"
-                          : "Apriori"} walkthrough
+                Open the interactive{" "}
+                {walkthroughLabels[q.walkthrough ?? ""] ?? "algorithm"} walkthrough
               </button>
             </div>
           ) : null}

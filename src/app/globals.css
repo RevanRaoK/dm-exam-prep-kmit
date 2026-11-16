@@ -3,8 +3,9 @@
 @tailwind utilities;
 
 /* ------------------------------------------------------------------
-   Theme cloned from the reference "DM Course" site.
-   Light theme only. Fonts and subject colours match the exam tracker.
+   Theme extracted from the Claude-generated "IRS Course" reference.
+   Light theme only. Layout and typography stay unchanged; the subject
+   colour moves from Data Mining olive to Information Retrieval pink.
 ------------------------------------------------------------------ */
 :root {
   color-scheme: light;
@@ -30,10 +31,10 @@
   --v-olive: #4d7c0f;
   --brick: #a83d1d;
   --brick-bg: #faeee7;
-  --c: #4d7c0f;
-  --c-ink: #3f6212;
+  --c: #be185d;
+  --c-ink: #9d174d;
   --c-bg: color-mix(in srgb, var(--c) 9%, #ffffff);
-  --c-mid: color-mix(in srgb, var(--c) 24%, #ffffff);
+  --c-mid: color-mix(in srgb, var(--c) 22%, #ffffff);
   --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
   --font-body: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;

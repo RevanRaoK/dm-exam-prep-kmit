@@ -1,11 +1,11 @@
 import type { ComponentType } from "react";
-import KddPipeline from "./KddPipeline";
-import DataMiningArchitecture from "./DataMiningArchitecture";
-import DwDmIntegration from "./DwDmIntegration";
-import ClassificationTwoStep from "./ClassificationTwoStep";
-import HierarchicalDendrogram from "./HierarchicalDendrogram";
-import WebMiningTaxonomy from "./WebMiningTaxonomy";
-import TimeSeriesComponents from "./TimeSeriesComponents";
+import IrsProcesses from "./IrsProcesses";
+import InvertedFileStructure from "./InvertedFileStructure";
+import NormalizationPipeline from "./NormalizationPipeline";
+import HypertextXmlTree from "./HypertextXmlTree";
+import SingleLinkDendrogram from "./SingleLinkDendrogram";
+import RelevanceFeedbackVector from "./RelevanceFeedbackVector";
+import HardwareFastDataFinder from "./HardwareFastDataFinder";
 
 export type DiagramInfo = {
   id: string;
@@ -18,65 +18,66 @@ export type DiagramInfo = {
 
 export const diagrams: DiagramInfo[] = [
   {
-    id: "kdd",
-    title: "KDD Pipeline",
+    id: "processes",
+    title: "IRS 4 Major Functional Processes",
     caption:
-      "The seven-step knowledge discovery process: the first four steps form data preprocessing, data mining extracts the patterns and pattern evaluation keeps the interesting ones.",
+      "Item normalization, selective dissemination of information, archival document database search, and index database search with automatic file build. The same normalized item feeds the document store and the index store.",
     unit: "unit1",
     wide: true,
-    component: KddPipeline,
+    component: IrsProcesses,
   },
   {
-    id: "architecture",
-    title: "Data Mining System Architecture",
+    id: "normalization",
+    title: "Item Normalization Pipeline",
     caption:
-      "The six components of a typical data mining system: repositories, the database or warehouse server, the knowledge base, the mining engine, the pattern evaluation module and the GUI.",
+      "The eight-step normalization pipeline: standardize input, zone the item, identify processing tokens, apply the stop algorithm, characterize tokens, stem, and create the searchable data structure.",
     unit: "unit1",
     wide: true,
-    component: DataMiningArchitecture,
+    component: NormalizationPipeline,
   },
   {
-    id: "dwdm",
-    title: "Data Warehouse–Data Mining Coupling",
+    id: "inverted",
+    title: "Inverted File Structure",
     caption:
-      "No coupling, loose coupling, semi-tight coupling and tight coupling. The trend is towards tighter coupling because precomputed summaries speed up mining.",
-    unit: "unit1",
+      "The document file stores normalized items, the dictionary stores the sorted vocabulary with document frequency and a pointer, and the inversion lists store the posting lists. A Boolean query intersects the posting lists to form the hit file.",
+    unit: "unit2",
     wide: true,
-    component: DwDmIntegration,
+    component: InvertedFileStructure,
   },
   {
-    id: "classification",
-    title: "Classification 2-Step Process",
+    id: "hypertext",
+    title: "Hypertext & XML Tree",
     caption:
-      "Step 1 learns a model from labelled training tuples, and step 2 tests it on an independent test set before classifying new tuples.",
-    unit: "unit3",
-    component: ClassificationTwoStep,
+      "Hypertext is a graph of nodes joined by embedded links, while XML is a hierarchical element tree defined by a DTD. Both provide zoning-like structure, but only hypertext creates a navigable link space.",
+    unit: "unit2",
+    wide: true,
+    component: HypertextXmlTree,
   },
   {
     id: "dendrogram",
-    title: "Hierarchical Dendrogram",
+    title: "Single-Link Cluster Hierarchy Dendrogram",
     caption:
-      "Single-link merges for objects A–E at heights 2, 3, 4 and 5. Cutting the tree at a height gives the corresponding clusters.",
+      "Agglomerative single-link clustering merges A–B at height 2, (A,B)–C at 3, D–E at 4 and the two groups at 6. Cutting the dendrogram at 3.5 gives two classes, {A,B,C} and {D,E}.",
+    unit: "unit3",
+    component: SingleLinkDendrogram,
+  },
+  {
+    id: "feedback",
+    title: "Relevance Feedback Vector Shift",
+    caption:
+      "The new query vector is the old query plus a weighted relevant centroid minus a weighted non-relevant centroid, so ranking moves toward terms in relevant items and away from terms in non-relevant items.",
     unit: "unit4",
-    component: HierarchicalDendrogram,
+    wide: true,
+    component: RelevanceFeedbackVector,
   },
   {
-    id: "webmining",
-    title: "Web Mining Taxonomy",
+    id: "hardware",
+    title: "Streaming / Hardware Fast Data Finder Architecture",
     caption:
-      "Web content mining works on page content, web structure mining works on links and web usage mining works on server logs and click streams.",
+      "Text streams from storage through a term detector to a query resolver and user interface. The Fast Data Finder implements the detector as a pipeline of programmable comparator cells, one cell per pattern character.",
     unit: "unit5",
     wide: true,
-    component: WebMiningTaxonomy,
-  },
-  {
-    id: "timeseries",
-    title: "Time-Series Components",
-    caption:
-      "An observed series is the combination of trend, cyclic, seasonal and irregular movements; trend analysis and moving averages isolate the long-term direction.",
-    unit: "unit5",
-    wide: true,
-    component: TimeSeriesComponents,
+    component: HardwareFastDataFinder,
   },
 ];
 

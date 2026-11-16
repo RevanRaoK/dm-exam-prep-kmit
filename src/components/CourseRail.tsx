@@ -32,10 +32,10 @@ export default function CourseRail({
   return (
     <aside className="rail" aria-label="Course navigation">
       <div className="brand">
-        <div className="eyebrow">KMIT · KR21 / KR22</div>
-        <div className="code">DM</div>
-        <div className="full">Data Mining · Exam Prep</div>
-        <div className="exam">12 PYQ papers · 5 units · 2-mark recall</div>
+        <div className="eyebrow">Question bank · JNTUH R18</div>
+        <div className="code">IRS</div>
+        <div className="full">Information Retrieval Systems</div>
+        <div className="exam">5 units · 2-mark recall · 6 walkthroughs</div>
         <div className="prog">
           <div className="prow">
             <span>Overall revision</span>

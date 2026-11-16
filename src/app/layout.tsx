@@ -3,9 +3,9 @@ import "./globals.css";
 import "./mobile.css";
 
 export const metadata: Metadata = {
-  title: "DM Exam Prep · KR21 / KR22 · KMIT",
+  title: "IRS Exam Prep · Question Bank + JNTUH R18",
   description:
-    "Data Mining (KR21/KR22, KMIT) exam preparation: 12 PYQ papers distilled into ranked, exam-ready answers, rapid recall cards and interactive algorithm walkthroughs.",
+    "Information Retrieval Systems (IRS) exam preparation: merged question bank and JNTUH R18 PYQs distilled into ranked, exam-ready answers, rapid recall cards and interactive algorithm walkthroughs.",
 };
 
 export const viewport: Viewport = {

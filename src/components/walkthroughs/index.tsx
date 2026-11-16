@@ -1,10 +1,10 @@
 import type { ComponentType } from "react";
-import AprioriWalkthrough from "./AprioriWalkthrough";
-import FpGrowthWalkthrough from "./FpGrowthWalkthrough";
-import Id3Walkthrough from "./Id3Walkthrough";
-import NaiveBayesWalkthrough from "./NaiveBayesWalkthrough";
-import KMeansWalkthrough from "./KMeansWalkthrough";
-import DbscanWalkthrough from "./DbscanWalkthrough";
+import PorterWalkthrough from "./PorterWalkthrough";
+import SignatureWalkthrough from "./SignatureWalkthrough";
+import PatTreeWalkthrough from "./PatTreeWalkthrough";
+import TermClusterWalkthrough from "./TermClusterWalkthrough";
+import BoyerMooreWalkthrough from "./BoyerMooreWalkthrough";
+import FsaWalkthrough from "./FsaWalkthrough";
 
 export type WalkthroughInfo = {
   id: string;
@@ -15,40 +15,40 @@ export type WalkthroughInfo = {
 
 export const walkthroughs: WalkthroughInfo[] = [
   {
-    id: "apriori",
-    label: "Apriori",
-    blurb: "T100–T900 · min_sup 2 · candidate lattice and rules",
-    component: AprioriWalkthrough,
+    id: "porter",
+    label: "Porter Stemming",
+    blurb: "Steps 1a–5 · measure m · duplicatable worked case",
+    component: PorterWalkthrough,
   },
   {
-    id: "fpgrowth",
-    label: "FP-Growth",
-    blurb: "Book Mart 101–105 · min_sup 25% · FP-tree build",
-    component: FpGrowthWalkthrough,
+    id: "signature",
+    label: "Signature Hashing",
+    blurb: "Exact PYQ text · h(made) = 001100 · block OR · false drop",
+    component: SignatureWalkthrough,
   },
   {
-    id: "id3",
-    label: "Decision Tree (ID3)",
-    blurb: "Weather data · entropy, gain and tree splits",
-    component: Id3Walkthrough,
+    id: "pat",
+    label: "PAT Tree",
+    blurb: "Sistrings of 100110001101 · bit-by-bit Patricia tree",
+    component: PatTreeWalkthrough,
   },
   {
-    id: "nb",
-    label: "Naïve Bayes",
-    blurb: "Fruit query (Yellow, Sweet, Long) · priors to final class",
-    component: NaiveBayesWalkthrough,
+    id: "termcluster",
+    label: "Term-Term Clustering",
+    blurb: "JNTUH Feb-2023 Q7 · threshold 10 · clique, star, single link",
+    component: TermClusterWalkthrough,
   },
   {
-    id: "kmeans",
-    label: "K-Means",
-    blurb: "Eight points · centroid distances across three rounds",
-    component: KMeansWalkthrough,
+    id: "boyer",
+    label: "Boyer–Moore",
+    blurb: "Pattern abcac in ababdcabcdacabcac · bad character + good suffix",
+    component: BoyerMooreWalkthrough,
   },
   {
-    id: "dbscan",
-    label: "DBSCAN",
-    blurb: "ε-neighbourhoods · core, border and noise points",
-    component: DbscanWalkthrough,
+    id: "fsa",
+    label: "FSA / Hardware Search",
+    blurb: "Five-tuple FSA · state trace · term detector hardware",
+    component: FsaWalkthrough,
   },
 ];
 

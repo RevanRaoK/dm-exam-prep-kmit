@@ -16,6 +16,7 @@ import {
   X,
 } from "lucide-react";
 import type { Question, Unit } from "@/data/types";
+import { PAPER_COUNT } from "@/data/types";
 import { unit1 } from "@/data/unit1";
 import { unit2 } from "@/data/unit2";
 import { unit3 } from "@/data/unit3";
@@ -48,15 +49,14 @@ type TabKey =
 type FreqFilter = "all" | "repeat" | "hot";
 type SortKey = "freq" | "marks";
 
-const STORAGE_KEY = "dm-kr21-revised-v1";
-const PAPER_COUNT = 12;
+const STORAGE_KEY = "irs-merged-revised-v1";
 
 const twoMarkUnitTitles: Record<string, string> = {
-  "Unit I": "Unit I · Introduction & preprocessing",
-  "Unit II": "Unit II · Frequent patterns & association rules",
-  "Unit III": "Unit III · Classification & prediction",
-  "Unit IV": "Unit IV · Cluster analysis",
-  "Unit V": "Unit V · Mining complex data",
+  "Unit I": "Unit I · Introduction & capabilities",
+  "Unit II": "Unit II · Cataloging, indexing & data structures",
+  "Unit III": "Unit III · Automatic indexing & clustering",
+  "Unit IV": "Unit IV · Search techniques & visualization",
+  "Unit V": "Unit V · Text search, hardware & multimedia",
 };
 
 function readIds(): string[] {
@@ -127,7 +127,7 @@ function findTopicForQuestion(questionId: string) {
 export default function HomePage() {
   const [tab, setTab] = useState<TabKey>("all");
   const [activeTopic, setActiveTopic] = useState<string | null>(null);
-  const [walkthroughId, setWalkthroughId] = useState("apriori");
+  const [walkthroughId, setWalkthroughId] = useState("porter");
   const [search, setSearch] = useState("");
   const [freqFilter, setFreqFilter] = useState<FreqFilter>("all");
   const [sort, setSort] = useState<SortKey>("freq");
@@ -236,8 +236,8 @@ export default function HomePage() {
           freq: item.freq,
           papers:
             item.freq > 1
-              ? `Part-A short question repeated in ${item.freq} of the 12 KMIT papers.`
-              : "Part-A short question from one of the 12 KMIT papers.",
+              ? `Part-A short question repeated in ${item.freq} of the ${PAPER_COUNT} merged sources.`
+              : "Part-A short question from one of the merged IRS question sources.",
           answer: item.answer,
           formula: item.formula,
         } as Question,
@@ -385,10 +385,10 @@ export default function HomePage() {
     <div className="shell">
       <main>
         <div className="mobile-top">
-          <span className="mcode">DM</span>
+          <span className="mcode">IRS</span>
           <div className="mname">
-            <b>Data Mining · Exam Prep</b>
-            <span>KMIT · KR21 / KR22 · 12 PYQ papers</span>
+            <b>Information Retrieval Systems · Exam Prep</b>
+            <span>Question bank + JNTUH R18 · Units I–V</span>
           </div>
           <span className="mprog">
             {totalRevised}/{totalItems}
@@ -399,19 +399,19 @@ export default function HomePage() {
           <header className="hero">
             <div className="hero-kicker">
               <GraduationCap size={14} aria-hidden="true" />
-              KMIT · KR21 / KR22 · DATA MINING
+              IRS · QUESTION BANK + JNTUH R18
             </div>
             <h1>
-              Every PYQ, <em>ranked and answered.</em>
+              Every IRS question, <em>indexed and answered.</em>
             </h1>
             <p className="sub">
-              Twelve KMIT question papers (KR20 + KR21) deduplicated into frequency-ranked
-              5-mark and 10-mark answers, every unique Part-A short question, and six
-              interactive algorithm walkthroughs built from the same exam data.
+              The complete IRS question bank, the NR20 model paper and both JNTUH R18
+              papers deduplicated into frequency-ranked 10-mark answers, every unique
+              Part-A short question, and six interactive algorithm walkthroughs.
             </p>
             <div className="chips">
               <span className="chip hot">
-                <Flame size={12} /> {PAPER_COUNT} PYQ papers
+                <Flame size={12} /> {PAPER_COUNT} merged sources
               </span>
               <span className="chip">
                 <BookOpen size={12} /> {totalMainQuestions} ranked question sets
@@ -500,11 +500,12 @@ export default function HomePage() {
               </>
             ) : tab === "twomarks" ? (
               <>
-                <div className="pagehead-kicker">Part A · 2 marks · all twelve papers</div>
+                <div className="pagehead-kicker">Part A · 2 marks · all merged sources</div>
                 <h1>2-Mark Rapid Recall</h1>
                 <p>
-                  Every unique Part-A short question across all twelve papers, answered with
-                  two or three complete sentences or points and the exact formula where needed.
+                  Every unique Part-A short question across the IRS question bank, NR20
+                  model paper and both JNTUH R18 papers, answered with two or three
+                  complete sentences and the exact formula where needed.
                 </p>
                 <div className="chips">
                   <span className="chip">
@@ -514,7 +515,7 @@ export default function HomePage() {
                     <Flame size={12} /> {repeatedTwoMarks} repeated 2+
                   </span>
                   <span className="chip">
-                    <BookOpen size={12} /> 12 papers covered
+                    <BookOpen size={12} /> {PAPER_COUNT} sources covered
                   </span>
                 </div>
               </>
@@ -706,7 +707,7 @@ export default function HomePage() {
               <div className="section-head">
                 <div>
                   <div className="kicker">Most repeated</div>
-                  <h2>Hot list across the 12 papers</h2>
+                  <h2>Hot list across the merged sources</h2>
                   <p className="section-sub">
                     Ranked by PYQ frequency, then by marks. Open a row to jump straight to its
                     full answer in the right topic slug.
@@ -781,8 +782,8 @@ export default function HomePage() {
                 <Search size={26} style={{ color: "var(--line-strong)", margin: "0 auto" }} />
                 <h3>Nothing matched that search</h3>
                 <p>
-                  Try a shorter keyword such as Apriori, entropy, DBSCAN, web mining,
-                  preprocessing or normalization.
+                  Try a shorter keyword such as Porter, signature, PAT tree, clustering,
+                  relevance feedback or Boyer–Moore.
                 </p>
               </div>
             ) : (
@@ -939,7 +940,7 @@ export default function HomePage() {
                         <span>
                           <RichText text={question.question} />
                         </span>
-                        <span className="afreq">🔥 {question.freq}/12</span>
+                        <span className="afreq">🔥 {question.freq}/{PAPER_COUNT}</span>
                       </div>
                     ))}
                   </div>
@@ -1055,7 +1056,7 @@ export default function HomePage() {
               <div className="empty">
                 <Search size={26} style={{ color: "var(--line-strong)", margin: "0 auto" }} />
                 <h3>No short question matched</h3>
-                <p>Try a keyword such as entropy, support, dendrogram, outlier or TF-IDF.</p>
+                <p>Try a keyword such as precision, stem, inverted, thesaurus or FSA.</p>
               </div>
             ) : (
               twoMarkGroups.map((group) => (
@@ -1130,8 +1131,8 @@ export default function HomePage() {
 
         <footer>
           <span>
-            Built from 12 KMIT papers (KR20 / KR21) and the unit notes · Data Mining, B.Tech
-            CSE/IT.
+            Built from the IRS question bank (NR21), the NR20 model paper, both JNTUH R18
+            papers and the Kowalski textbook notes · Information Retrieval Systems, B.Tech.
           </span>
           <span>
             Revision state is stored in localStorage only · No account, no server, no tracking.

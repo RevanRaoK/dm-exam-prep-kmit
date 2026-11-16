@@ -3,507 +3,620 @@ import type { Unit } from "./types";
 export const unit3: Unit = {
   id: "unit3",
   roman: "III",
-  title: "Unit III · Classification & Prediction",
+  title: "Unit III · Automatic Indexing & Clustering",
   subtitle:
-    "Two-step classification, decision trees, attribute selection, Bayesian classifiers, rules, lazy learners, k-NN, evaluation, pruning and SVM.",
-  color: "var(--v-teal)",
+    "Classes of automatic indexing, statistical indexing and weighting, natural language and concept indexing, clustering, thesaurus generation, item clustering, hierarchy of clusters and hypertext linkages.",
+  color: "var(--v-blue)",
   questions: [
     {
-      id: "u3-id3",
+      id: "u3-indexing-classes",
       question:
-        "Explain decision tree induction with the ID3 algorithm using the 14-tuple weather data set.",
+        "Explain the different classes of automatic indexing in detail with their data flow.",
       marks: 10,
-      freq: 10,
-      papers: "ID3 or decision tree induction appears in 10 of 12 papers, usually as a 10-mark numerical.",
+      freq: 3,
+      papers:
+        "Asked in the IRS question bank and the NR20 model paper as 'different classes of automatic indexing'; also Part A in JNTUH Feb 2023 as the basis for concept indexing.",
       sections: [
         {
-          heading: "Decision tree structure and induction",
+          heading: "Automatic indexing and its data flow",
           bullets: [
-            "A **decision tree** is a flowchart-like tree in which each **internal node** tests an attribute, each **branch** is an outcome of the test and each **leaf** holds a class label.",
-            "The topmost node is the **root**, and a tuple is classified by following the tests from the root to a leaf.",
-            "Decision tree induction is a **greedy, top-down and recursive** procedure that selects the best splitting attribute at every node.",
-            "The algorithm stops when all tuples belong to the same class, when no attributes remain, or when a branch has no tuples.",
+            "**Automatic indexing** is the process of analysing an item to extract the information that will be permanently kept in an index.",
+            "It is associated with the generation of the **searchable data structure** for the item.",
+            "The indexing process starts with **standardize input**, **logical subsetting (zoning)** and **identify processing tokens**.",
+            "It then applies **stop lists**, **characterizes tokens**, **applies stemming** and **creates the searchable data structure**.",
+            "The searchable structure updates the document file and later supports the creation of the **hit list**.",
           ],
         },
         {
-          heading: "Root entropy and information gain",
+          heading: "Class 1 · statistical indexing",
           bullets: [
-            "For the weather data with 9 yes and 5 no labels, the overall entropy is **Info(D) = −(9/14)log₂(9/14) − (5/14)log₂(5/14) = 0.940 bits**.",
-            "The information gain of each attribute is **Gain(Outlook) = 0.246, Gain(Temperature) = 0.029, Gain(Humidity) = 0.152 and Gain(Wind) = 0.048**.",
-            "**Outlook** has the largest gain, so it becomes the **root** with the branches Sunny, Overcast and Rain.",
-            "The **Overcast** branch contains four tuples that all have class yes, so it becomes a **leaf labelled yes**.",
+            "**Statistical indexing** uses the frequency of occurrence of processing tokens to calculate a number that indicates the relevance of an item.",
+            "It covers the broadest range of indexing techniques and is the most prevalent class in commercial systems.",
+            "It stores statistics such as **document frequency** and **term frequency** and uses them to rank the output of a Boolean search.",
+            "The main sub-approaches are **vector weighting**, **probabilistic weighting**, the **Bayesian model** and the **neural network model**.",
           ],
         },
         {
-          heading: "Sunny branch: choose Humidity",
+          heading: "Class 2 · natural language indexing",
           bullets: [
-            "The **Sunny** branch contains five tuples with two yes and three no, so its entropy is **0.971** and it still needs a split.",
-            "On the Sunny subset, **Humidity** has the highest gain of **0.971**, so Humidity becomes the next test.",
-            "The Sunny-High branch is labelled **no** and the Sunny-Normal branch is labelled **yes**.",
+            "**Natural language indexing** uses semantic information in addition to statistical information to enhance the index.",
+            "It performs more complex parsing to identify **phrases**, **syntactic roles** and **discourse semantics**.",
+            "The semantic information is extracted by processing the language rather than treating each word as an independent entity.",
+            "The simplest output is a set of **phrases** that become indexes to the item, and the strongest output is a **thematic representation**.",
           ],
         },
         {
-          heading: "Rain branch: choose Wind",
+          heading: "Class 3 · concept indexing",
           bullets: [
-            "The **Rain** branch contains five tuples with three yes and two no, so its entropy is **0.971** and it also needs a split.",
-            "On the Rain subset, **Wind** has the highest gain of **0.971**, so Wind becomes the next test.",
-            "The Rain-Weak branch is labelled **yes** and the Rain-Strong branch is labelled **no**.",
+            "**Concept indexing** uses the words within an item to correlate to the **concepts** discussed in the item.",
+            "It generalizes specific words to the concept values used to index the item.",
+            "When concept classes are generated automatically, a class may have no natural name and only a statistical significance.",
+            "Concept indexing improves **recall** and can use **neural networks** to determine concept classes.",
           ],
         },
         {
-          heading: "Final tree and rules",
+          heading: "Class 4 · hypertext linkage indexing",
           bullets: [
-            "The final tree is **Outlook → Sunny: Humidity(High = no, Normal = yes), Overcast: yes, Rain: Wind(Weak = yes, Strong = no)**.",
-            "ID3 uses **information gain** as its attribute selection measure, and the learned tree can be converted into IF-THEN classification rules.",
+            "**Hypertext linkage indexing** creates hypertext linkages that provide **virtual threads of concepts** between items.",
+            "It indexes relationships between items instead of directly defining every concept within one item.",
+            "Traditional items are two-dimensional constructs, and hypertext linkages add a third retrieval dimension.",
+            "The internet uses manually generated indexes, automatically generated indexes with web crawlers, and hypertext linkage indexes.",
           ],
         },
       ],
-      formula:
-        "Info(D) = −Σ pᵢ log₂(pᵢ)\nInfo_A(D) = Σ (|Dⱼ| / |D|) × Info(Dⱼ)\nGain(A) = Info(D) − Info_A(D)",
       table: {
-        head: ["Attribute", "Info after split", "Gain", "Selected?"],
+        head: ["Class", "Main information used", "Output", "Main benefit"],
         rows: [
-          ["Outlook", "0.694", "0.246", "Yes, root"],
-          ["Temperature", "0.911", "0.029", "No"],
-          ["Humidity", "0.789", "0.152", "Yes, on Sunny"],
-          ["Wind", "0.892", "0.048", "Yes, on Rain"],
-        ],
-      },
-      walkthrough: "id3",
-    },
-    {
-      id: "u3-nb",
-      question:
-        "Explain the Naïve Bayes classifier and classify the fruit with the properties yellow, sweet and long using the given probability table.",
-      marks: 10,
-      freq: 6,
-      papers: "Naïve Bayes numericals appear in 6 of 12 papers, including the fruit table in KR21 July/August 2024 and small weather data sets.",
-      sections: [
-        {
-          heading: "Bayes' theorem and the naïve assumption",
-          bullets: [
-            "**Bayesian classification** predicts class membership probabilities by applying **Bayes' theorem** to the evidence tuple X.",
-            "**Naïve Bayes** assumes **class-conditional independence**, which means that the attributes are conditionally independent of one another given the class.",
-          ],
-        },
-        {
-          heading: "Step 1: class priors",
-          bullets: [
-            "The classifier first computes the **prior probability P(Cᵢ)** of every class from the training data.",
-            "From the fruit table, the priors are **P(Orange) = 650/1200 = 0.542, P(Banana) = 400/1200 = 0.333 and P(Others) = 150/1200 = 0.125**.",
-          ],
-        },
-        {
-          heading: "Step 2: attribute likelihoods",
-          bullets: [
-            "It then computes each **likelihood P(xₖ | Cᵢ)** from the fraction of class Cᵢ tuples that contain the attribute value xₖ.",
-            "For Orange, the likelihoods are **P(Yellow | Orange) = 350/650, P(Sweet | Orange) = 450/650 and P(Long | Orange) = 0/650**, so the numerator becomes **0**.",
-          ],
-        },
-        {
-          heading: "Step 3: posterior numerators and final class",
-          bullets: [
-            "The **posterior numerator** for a class is P(Cᵢ) multiplied by the product of all attribute likelihoods.",
-            "The class with the largest posterior numerator is chosen because the evidence P(X) is the same for every class.",
-            "For Banana, the numerator is **0.333 × 1.000 × 0.750 × 0.0875 = 0.0219**.",
-            "For Others, the numerator is **0.125 × 0.333 × 0.667 × 2.667 = 0.0741** when the counts are used exactly as printed in the question.",
-            "Because **0.0741 is the largest numerator**, the fruit with properties yellow, sweet and long is classified as **Others**.",
-          ],
-        },
-        {
-          heading: "Zero counts, correction and strengths",
-          bullets: [
-            "The zero count for Orange would normally be handled by **Laplacian correction**, which adds 1 to every count so that one missing value does not wipe out an entire class.",
-            "Naïve Bayes is fast, handles many attributes and is easy to update, but its independence assumption is often unrealistic in real data.",
-          ],
-        },
-      ],
-      formula:
-        "P(Cᵢ | X) = P(X | Cᵢ) × P(Cᵢ) / P(X)\nP(X | Cᵢ) = ∏ P(xₖ | Cᵢ)\nChoose class Cᵢ with the largest P(X | Cᵢ) × P(Cᵢ)",
-      table: {
-        head: ["Fruit", "Yellow", "Sweet", "Long", "Total"],
-        rows: [
-          ["Orange", "350", "450", "0", "650"],
-          ["Banana", "400", "300", "35", "400"],
-          ["Others", "50", "100", "400", "150"],
-          ["Total", "800", "850", "435", "1200"],
+          ["**Statistical**", "term and document frequency", "weights and ranks", "simple and fast"],
+          ["**Natural language**", "syntax, semantics and phrases", "phrases and thematic concepts", "higher precision"],
+          ["**Concept**", "concept classes and neural networks", "concept values", "higher recall"],
+          ["**Hypertext linkage**", "links between items", "virtual concept threads", "new retrieval dimension"],
         ],
       },
       note:
-        "Use the counts exactly as printed in the exam question. The Long entry for Others makes that row internally inconsistent, but the arithmetic and the winning class follow the standard solution.",
-      walkthrough: "nb",
+        "The four-class list is short. Write the data-flow diagram first, then one paragraph per class, and finish with the benefit each class gives.",
     },
     {
-      id: "u3-knn",
+      id: "u3-statistical-indexing",
       question:
-        "Explain lazy learners and the k-nearest neighbour classifier with its algorithm, advantages, disadvantages and an example.",
+        "Explain statistical indexing in detail. Discuss term frequency, document frequency, inverse document frequency, vector weighting, probabilistic and Bayesian weighting and their problems.",
       marks: 10,
-      freq: 6,
-      papers: "k-NN or lazy learning appears in 6 of 12 papers, often as a 5-mark or 10-mark theory question.",
+      freq: 3,
+      papers:
+        "Asked in the IRS question bank and as Part A in JNTUH Feb 2023 ('what is logarithmic term frequency?'); the weighting theory is repeated across all sources.",
       sections: [
         {
-          heading: "Lazy learning and the k-NN idea",
+          heading: "Basis of statistical indexing",
           bullets: [
-            "A **lazy learner** stores the training tuples and postpones generalisation until a test tuple is presented.",
-            "**k-nearest neighbour** is the classic lazy learner and is also called an **instance-based learner**.",
-            "Each training tuple is treated as a point in **n-dimensional space**, where n is the number of attributes.",
-            "For an unknown tuple, k-NN finds the **k closest training tuples** using a distance measure such as **Euclidean distance**.",
-            "For classification, the unknown tuple receives the **most common class** among its k neighbours.",
-            "For numeric prediction, the unknown tuple receives the **average** of the values of its k neighbours.",
+            "**Statistical indexing** uses the frequency of occurrence of events to calculate a number that indicates the relevance of an item.",
+            "The events are usually occurrences of **processing tokens** within documents and within the database.",
+            "The words and phrases are the domain of searchable values, and their frequencies become the raw evidence for ranking.",
+            "A simple statistical system stores one statistic, such as how often each word occurs in an item, and uses it after a standard **Boolean search**.",
           ],
         },
         {
-          heading: "Distance, normalisation and choosing k",
+          heading: "The frequency family",
           bullets: [
-            "The Euclidean distance between two tuples is the square root of the sum of the squared differences of their attribute values.",
-            "Attributes must be **normalised** first, because an attribute with a large range such as income would otherwise dominate the distance.",
-            "**Min-max normalisation** maps a value v to **(v − min)/(max − min)**, which places every attribute on a 0 to 1 scale.",
-            "For a nominal attribute, the difference is **0** when the values are the same and **1** when they differ.",
-            "The value of k is chosen by experiment, and the k with the **lowest error on a test set** is selected.",
+            "**Word frequency (WF)** is the number of times a term occurs in an item.",
+            "**Total frequency (TF)** is the total number of term occurrences in the whole database or collection.",
+            "**Document frequency (DF)** is the number of documents that contain the term.",
+            "**Inverse document frequency (IDF)** rewards rare terms because a term that appears in every document has little discriminating power.",
+            "The standard weight combines the two ideas as **TF-IDF = TF × log(N / DF)**.",
+            "**Logarithmic term frequency** dampens the effect of very large raw counts, typically as **1 + log(tf)** or **log(1 + tf)**, so the tenth occurrence adds less than the first.",
           ],
         },
         {
-          heading: "Advantages and disadvantages",
+          heading: "Vector weighting",
           bullets: [
-            "The main advantages are that k-NN is simple, needs no model-building phase and can learn complex decision boundaries.",
-            "The main disadvantages are that classification is **expensive**, storage is large and noisy or irrelevant attributes reduce accuracy.",
+            "One of the earliest statistical approaches was the **SMART system** at Cornell University, which implemented vector weighting.",
+            "Every item is represented as a **vector** whose positions correspond to processing tokens.",
+            "The binary approach stores **0 or 1**, where 1 means the token exists in the item.",
+            "The weighted approach stores a positive real number that represents the importance of the term in the item.",
+            "Search is performed by calculating the distance or similarity between the query vector and each document vector.",
           ],
         },
         {
-          heading: "Worked example",
+          heading: "Probabilistic weighting",
           bullets: [
-            "As a worked example, if the three nearest neighbours of a query point are one red and two blue, the query is classified as **blue**.",
+            "The **probabilistic approach** applies probability theory directly to information retrieval.",
+            "It stores the information used to calculate the probability that an item is relevant to a query.",
+            "The approach is summarized by the **Probability Ranking Principle (PRP)**, which ranks items by decreasing probability of relevance.",
+            "A common representation is the log-odds form: **log O(R | Q, D, tₖ) = C₀ + C₁V₁ + … + CₙVₙ**.",
+            "The logarithm of the odds of relevance for a document and query is the sum of the log odds for all terms present.",
+          ],
+        },
+        {
+          heading: "Bayesian and neural models",
+          bullets: [
+            "The **Bayesian model** uses conditional probabilities and provides a complete conceptual model for information systems.",
+            "It stresses the information used to generate a **relative confidence level** of an item's relevance rather than an absolute probability.",
+            "A Bayesian network uses nodes for random variables and arcs for probabilistic dependencies; a two-level network has query concepts **c** and item concepts **f**.",
+            "The **neural network model** is a dynamic learning structure used to determine concept classes and improve recall.",
+            "Concept class hierarchies and domain-specific systems are the best examples of the neural approach.",
+          ],
+        },
+        {
+          heading: "Need and importance of weighting",
+          bullets: [
+            "**Weighting** is needed because not every term in an item is equally important for describing its content.",
+            "It turns a Boolean presence test into a **ranked relevance score**, so the most useful items can be shown first.",
+            "Weights let the system combine term frequency, document frequency and collection size in a single relevance value.",
+            "Without weighting, a long document that repeats common words can outrank a short focused document.",
+            "The importance of weighting is therefore both **effectiveness** and **efficiency** of the search.",
+          ],
+        },
+        {
+          heading: "Problems with weighting schemes",
+          bullets: [
+            "Frequent terms can dominate the vector unless they are normalized or weighted by IDF.",
+            "Term weights depend on collection statistics, so a change in the database can change the ranking of the same query.",
+            "The vector model assumes term independence, which is not true for phrases and related terms.",
+            "Weighting can create a false sense of precision when the underlying index has poor terms or noisy text.",
           ],
         },
       ],
       formula:
-        "dist(X1, X2) = √(Σ (x1ᵢ − x2ᵢ)²)\nv′ = (v − min) / (max − min)",
+        "WF = occurrences of a term in an item\nDF = number of documents containing the term\nIDF = log(N / DF)\nTF-IDF = TF × log(N / DF)\nLogarithmic TF = 1 + log(tf)\nLog odds = C₀ + C₁V₁ + … + CₙVₙ",
       table: {
-        head: ["Criterion", "Eager learner", "Lazy learner (k-NN)"],
+        head: ["Weight", "Formula or meaning", "Effect"],
         rows: [
-          ["Model building", "Before test tuples arrive", "At classification time"],
-          ["Training cost", "High", "Almost zero"],
-          ["Classification cost", "Low", "High, O(|D|) comparisons"],
-          ["Incremental learning", "Usually difficult", "Easy, simply store new tuples"],
+          ["**WF**", "raw count in one item", "favours long or repeated mentions"],
+          ["**DF**", "documents containing the term", "measures commonness"],
+          ["**IDF**", "log(N / DF)", "rewards rare discriminating terms"],
+          ["**TF-IDF**", "TF × log(N / DF)", "balances frequency and rarity"],
+          ["**Log TF**", "1 + log(tf)", "dampens very large counts"],
         ],
       },
+      note:
+        "The 2023 Part A asks only for logarithmic term frequency, but the 10-mark answer needs WF, DF, IDF, vector, probabilistic and Bayesian subheadings.",
     },
     {
-      id: "u3-measures",
+      id: "u3-nlp-concept",
       question:
-        "Explain the attribute selection measures entropy, information gain, gain ratio and Gini index with an example.",
+        "Explain natural language processing and concept indexing in detail. Discuss cohesion, phrase generation, the Convectis system and latent semantic indexing.",
       marks: 10,
-      freq: 6,
-      papers: "Entropy, information gain, gain ratio and Gini index appear in 6 of 12 papers.",
-      sections: [
-        {
-          heading: "Attribute selection and entropy",
-          bullets: [
-            "An **attribute selection measure** ranks the attributes at each node so that the tree can choose the best split.",
-            "**Entropy** measures the impurity or mixed-up-ness of a set of tuples, and a pure set has entropy zero.",
-            "For a data set D with class probabilities pᵢ, the entropy is **Info(D) = −Σ pᵢ log₂(pᵢ)**.",
-            "For the weather data with 9 yes and 5 no tuples, the entropy is **0.940 bits**.",
-          ],
-        },
-        {
-          heading: "Information gain",
-          bullets: [
-            "**Information gain** is the reduction in entropy obtained by splitting D on attribute A.",
-            "It is computed as **Gain(A) = Info(D) − Info_A(D)**, where Info_A(D) is the weighted entropy of the child partitions.",
-            "**Outlook** has the highest gain of **0.246** in the weather data, so it is selected as the root.",
-            "Information gain tends to favor attributes with many distinct values, because many small partitions look pure.",
-          ],
-        },
-        {
-          heading: "Gain ratio",
-          bullets: [
-            "**Gain ratio** corrects the multi-valued bias by dividing the gain by the **split information** of the attribute.",
-            "Split information is **SplitInfo(A) = −Σ (|Dⱼ|/|D|) log₂(|Dⱼ|/|D|)**, and the gain ratio is **Gain(A)/SplitInfo(A)**.",
-          ],
-        },
-        {
-          heading: "Gini index and algorithm use",
-          bullets: [
-            "The **Gini index** measures impurity as **Gini(D) = 1 − Σ pᵢ²**, and the Gini index of a split is the weighted average of the child Gini values.",
-            "A smaller Gini index means a purer split, so the attribute with the smallest Gini index is chosen.",
-            "Information gain is used by ID3, gain ratio by C4.5 and the Gini index by CART.",
-          ],
-        },
-      ],
-      formula:
-        "Info(D) = −Σ pᵢ log₂(pᵢ)\nGain(A) = Info(D) − Info_A(D)\nSplitInfo(A) = −Σ (|Dⱼ|/|D|) log₂(|Dⱼ|/|D|)\nGainRatio(A) = Gain(A) / SplitInfo(A)\nGini(D) = 1 − Σ pᵢ²",
-    },
-    {
-      id: "u3-rules",
-      question:
-        "Explain rule-based classification, rule coverage, accuracy, conflict resolution, rule pruning and FOIL measures.",
-      marks: 10,
-      freq: 4,
-      papers: "Rule-based classification and rule pruning appear in 4 of 12 papers.",
-      sections: [
-        {
-          heading: "Rules, coverage and accuracy",
-          bullets: [
-            "A **rule-based classifier** uses IF-THEN rules, where the IF part is the **antecedent** and the THEN part is the **consequent**.",
-            "A rule is **triggered** when its antecedent is true for a tuple, and it **fires** when it is the rule chosen to classify that tuple.",
-            "**Coverage** is the fraction of all tuples that the rule covers, computed as **n_covers / |D|**.",
-            "**Accuracy** is the fraction of covered tuples that the rule classifies correctly, computed as **n_correct / n_covers**.",
-            "A rule that covers 2 of 14 tuples and classifies both correctly has coverage **14.28%** and accuracy **100%**.",
-          ],
-        },
-        {
-          heading: "Conflicts and rule ordering",
-          bullets: [
-            "When several rules are triggered, **size ordering** lets the rule with the most conditions fire, while **rule ordering** uses a pre-ranked decision list.",
-            "If no rule is triggered, a **default rule** assigns the majority class.",
-          ],
-        },
-        {
-          heading: "Rules from trees and sequential covering",
-          bullets: [
-            "Rules can be extracted from a decision tree by creating one rule for every root-to-leaf path and ANDing the tests on the path.",
-            "Rules from an unpruned tree are **mutually exclusive** and **exhaustive**, so they never conflict and never need a default rule.",
-            "**Sequential covering** learns one rule at a time, removes the tuples it covers and repeats on the remaining tuples.",
-          ],
-        },
-        {
-          heading: "Rule pruning and FOIL measures",
-          bullets: [
-            "**Rule pruning** removes conditions or whole rules that do not improve accuracy on an independent set of tuples.",
-            "**FOIL_Gain** rewards an added condition that improves purity while still covering many positive tuples.",
-            "**FOIL_Prune** compares the pruned rule with the original rule, and the pruned version is kept when its value is higher.",
-            "Pruning reduces **overfitting**, because rule quality measured on the training data alone is usually optimistic.",
-          ],
-        },
-      ],
-      formula:
-        "coverage(R) = n_covers / |D|\naccuracy(R) = n_correct / n_covers\nFOIL_Gain = pos′ × (log₂(pos′/(pos′ + neg′)) − log₂(pos/(pos + neg)))\nFOIL_Prune = (pos − neg) / (pos + neg)",
-    },
-    {
-      id: "u3-bayes",
-      question:
-        "State Bayes' theorem and explain its role in classification with the alarm network example.",
-      marks: 10,
-      freq: 3,
-      papers: "Bayes' theorem appears in 3 of 12 papers, including the alarm belief-network numerical.",
-      sections: [
-        {
-          heading: "Bayes' theorem and its terms",
-          bullets: [
-            "**Bayes' theorem** relates the posterior probability of a hypothesis to its prior probability and the likelihood of the observed evidence.",
-            "The theorem is **P(H | X) = P(X | H) × P(H) / P(X)**, where X is the evidence and H is the hypothesis.",
-            "**P(H | X)** is the **posterior probability**, **P(H)** is the **prior probability**, **P(X | H)** is the **likelihood** and **P(X)** is the **evidence**.",
-            "In classification, the hypothesis H is the class Cᵢ and the evidence X is the tuple being classified.",
-            "The evidence P(X) is the same for every class, so it can be ignored when the classes are compared.",
-          ],
-        },
-        {
-          heading: "Belief networks and the alarm example",
-          bullets: [
-            "A **Bayesian belief network** represents variables and their conditional dependencies with a directed acyclic graph and conditional probability tables.",
-            "In the alarm network, the variables are **Burglary**, **Earthquake**, **Alarm**, **JohnCalls** and **MaryCalls**.",
-            "The priors are **P(Burglary) = 0.001** and **P(Earthquake) = 0.002**, and the alarm fires with probability **0.001** when neither event occurs.",
-          ],
-        },
-        {
-          heading: "Joint and conditional probability",
-          bullets: [
-            "The joint probability of an alarm, no burglary, no earthquake, John calling and Mary calling is **0.999 × 0.998 × 0.001 × 0.90 × 0.70 = 0.000628**.",
-            "If the question asks for the probability of an alarm given all the evidence, the numerator is normalised by the probability of the evidence, which gives about **0.558 or 55.8%**.",
-          ],
-        },
-        {
-          heading: "Where Bayes is used and why it is strong",
-          bullets: [
-            "Bayes' theorem is the foundation of **naïve Bayes** and **Bayesian belief networks**, which are used for diagnosis, risk analysis and uncertain reasoning.",
-            "The main strength is that it combines prior knowledge with observed evidence in a principled way.",
-          ],
-        },
-      ],
-      formula:
-        "P(H | X) = P(X | H) × P(H) / P(X)\nP(A, ¬B, ¬E, J, M) = 0.999 × 0.998 × 0.001 × 0.90 × 0.70 = 0.000628",
-      table: {
-        head: ["Node", "Probability table"],
-        rows: [
-          ["P(Burglary)", "0.001"],
-          ["P(Earthquake)", "0.002"],
-          ["P(Alarm | B, E)", "0.95, 0.95, 0.29, 0.001"],
-          ["P(JohnCalls | Alarm)", "0.90 true, 0.05 false"],
-          ["P(MaryCalls | Alarm)", "0.70 true, 0.01 false"],
-        ],
-      },
-    },
-    {
-      id: "u3-eval",
-      question:
-        "How is a classification algorithm evaluated? Explain accuracy, confusion matrix, precision, recall, F1 and cross-validation.",
-      marks: 10,
-      freq: 3,
-      papers: "Classification evaluation and accuracy measurement appear in 3 of 12 papers.",
-      sections: [
-        {
-          heading: "Accuracy and the confusion matrix",
-          bullets: [
-            "**Accuracy** is the percentage of test tuples that a classifier labels correctly.",
-            "Accuracy alone can be misleading when the classes are imbalanced, because a classifier can be right most of the time by always predicting the majority class.",
-            "A **confusion matrix** counts true positives, true negatives, false positives and false negatives for the classes.",
-          ],
-        },
-        {
-          heading: "Precision, recall, specificity and F1",
-          bullets: [
-            "**Precision** is TP divided by TP + FP, and it measures how many of the predicted positives are actually positive.",
-            "**Recall** or **sensitivity** is TP divided by TP + FN, and it measures how many of the actual positives were found.",
-            "**Specificity** is TN divided by TN + FP, and it measures how well the classifier recognises the negative class.",
-            "The **F1 score** is the harmonic mean of precision and recall, computed as **2 × P × R / (P + R)**.",
-          ],
-        },
-        {
-          heading: "Holdout and resampling",
-          bullets: [
-            "The **holdout method** uses one part of the data for training and a separate part for testing, with a typical split such as two-thirds training and one-third testing.",
-            "**Random subsampling** repeats the holdout several times and averages the accuracy.",
-          ],
-        },
-        {
-          heading: "Cross-validation, bootstrap and other criteria",
-          bullets: [
-            "**Cross-validation** divides the data into k folds, trains on k−1 folds and tests on the remaining fold, and repeats the process k times.",
-            "**Stratified 10-fold cross-validation** keeps the class distribution of every fold close to the original distribution.",
-            "The **bootstrap** method samples with replacement and is useful for small data sets.",
-            "Other comparison criteria are **speed**, **robustness**, **scalability** and **interpretability**.",
-          ],
-        },
-      ],
-      formula:
-        "Accuracy = (TP + TN) / (TP + TN + FP + FN)\nPrecision = TP / (TP + FP)\nRecall = TP / (TP + FN)\nF1 = 2 × Precision × Recall / (Precision + Recall)",
-      table: {
-        head: ["", "Predicted positive", "Predicted negative"],
-        rows: [
-          ["Actual positive", "TP", "FN"],
-          ["Actual negative", "FP", "TN"],
-        ],
-      },
-    },
-    {
-      id: "u3-pruning",
-      question: "Explain decision tree pruning and its importance.",
-      marks: 5,
-      freq: 3,
-      papers: "Decision tree pruning appears in 3 of 12 papers.",
-      answer: [
-        "**Decision tree pruning** removes branches that are based on noise or outliers and do not improve classification on unseen data.",
-        "An unpruned tree can **overfit** the training data, so it fits noise and gives poor accuracy on new tuples.",
-        "**Pre-pruning** stops the growth of a branch early, before it reaches the stage where it would overfit.",
-        "Pre-pruning is efficient because the tree never grows those branches, but it can stop too early and cause **underfitting**.",
-        "**Post-pruning** grows the full tree first and then removes or replaces weak subtrees with leaves.",
-        "**Subtree replacement** replaces a subtree with a leaf labelled by the majority class, while **subtree raising** moves a branch up to replace its parent.",
-        "Pruning improves **accuracy on unseen data**, reduces tree size and makes the tree easier to understand.",
-        "The pruning decision must be based on a separate **validation set**, because accuracy on the training set is too optimistic.",
-      ],
-    },
-    {
-      id: "u3-vs-prediction",
-      question:
-        "Compare classification and prediction with suitable examples. How do supervised tasks differ?",
-      marks: 5,
-      freq: 3,
-      papers: "Classification versus prediction appears in 3 of 12 papers as a 2-mark or 5-mark comparison.",
-      answer: [
-        "**Classification** predicts a **categorical class label**, such as whether a loan applicant is safe or risky.",
-        "**Prediction** in the numeric sense predicts a **continuous value**, such as the amount a customer will spend next month.",
-        "Classification is usually implemented with **decision trees**, **Bayes classifiers**, **rule-based classifiers** or **k-NN**.",
-        "Numeric prediction is usually implemented with **regression**, such as linear regression or multiple regression.",
-        "Classification accuracy is measured by the percentage of test tuples classified correctly.",
-        "Prediction error is measured by the difference between the predicted value and the actual value, such as mean squared error.",
-        "Both are **supervised** tasks because the training tuples include the target value or class label.",
-        "Classification outputs a discrete decision boundary, while prediction outputs a numeric trend line.",
-        "Classification examples include spam detection, fraud detection and medical diagnosis, while prediction examples include sales forecasting, stock prices and temperature.",
-      ],
-      table: {
-        head: ["Aspect", "Classification", "Prediction"],
-        rows: [
-          ["Output", "Class label", "Continuous value"],
-          ["Typical tool", "Decision tree, Bayes, k-NN", "Regression"],
-          ["Evaluation", "Accuracy, precision, recall", "Mean absolute or squared error"],
-          ["Example", "Loan safe or risky", "Expected monthly sales"],
-        ],
-      },
-    },
-    {
-      id: "u3-eagerlazy",
-      question:
-        "Write the differences between eager learners and lazy learners in classification.",
-      marks: 5,
-      freq: 3,
-      papers: "Eager versus lazy learners appears in 3 of 12 papers.",
-      answer: [
-        "**Eager learners** build a general model before any test tuple is presented.",
-        "**Lazy learners** store the training tuples and generalise only when a test tuple arrives.",
-        "Decision trees, Bayesian classifiers, rule-based classifiers, backpropagation and SVM are **eager learners**.",
-        "k-nearest neighbour and case-based reasoning are **lazy learners**.",
-        "Eager learners spend more time on model building but classify new tuples quickly.",
-        "Lazy learners spend almost no time on training but classify new tuples slowly and need large storage.",
-        "Lazy learners support **incremental learning**, because new tuples can simply be added to the stored set.",
-        "Eager learners usually give a clearer explanation of the learned model, while lazy learners give little explanation of data structure.",
-        "Lazy learners can model complex, hyper-polygonal decision boundaries, but they are sensitive to noisy and irrelevant attributes.",
-      ],
-    },
-    {
-      id: "u3-twostep",
-      question:
-        "Explain the two-step classification process with a diagram and explain why a separate test set is needed.",
-      marks: 5,
       freq: 2,
-      papers: "Asked in 2 of 12 papers as 'describe the data classification process with a neat diagram'.",
-      answer: [
-        "Data classification is a **two-step process** consisting of a **learning step** and a **classification step**.",
-        "In the **learning step**, a classification algorithm builds a model from a **training set** whose tuples already carry class labels.",
-        "The model can be represented as **classification rules**, a **decision tree**, a mathematical formula or a neural network.",
-        "This is **supervised learning**, because the class of every training tuple is known.",
-        "In the **classification step**, the model is first tested on a separate **test set** to estimate its **accuracy**.",
-        "The test tuples were not used during training, so they give an independent estimate of how well the model generalises.",
-        "If the accuracy is acceptable, the model is used to classify **new tuples whose class labels are unknown**.",
-        "Using the training set for testing produces an **over-optimistic** accuracy because of **overfitting**, where the model memorises the training tuples.",
-        "The model is therefore evaluated on unseen data before it is deployed.",
+      papers:
+        "Asked in the IRS question bank as 'explain natural language processing' and 'explain concept indexing'; also Part A on the basis of concept indexing.",
+      sections: [
+        {
+          heading: "Goal of natural language processing",
+          bullets: [
+            "**Natural language processing (NLP)** aims to use **semantic information** in addition to statistical information to enhance the indexing of an item.",
+            "Semantic analysis captures the meaning of text while taking into account context, logical structure and grammatical roles.",
+            "NLP improves the **precision** of searches by reducing the number of false hits a user must review.",
+            "The semantic information is extracted by processing the language rather than treating each word as an independent entity.",
+          ],
+        },
+        {
+          heading: "Phrase generation and cohesion",
+          bullets: [
+            "The simplest NLP output is a set of **phrases** that become indexes to an item.",
+            "Statistical approaches use **proximity** as the basis for determining the strength of word relationships in a phrase.",
+            "One of the earliest statistical methods was the **cohesion factor** between terms.",
+            "The formula is **Cohesion = Size-factor × (PAIR-FREQₖ,ₕ / (TOTFₖ × TOTFₕ))**, where PAIR-FREQ is the co-occurrence count and TOTF is the total frequency of a term.",
+            "Term phrases allow additional specification and focusing of a concept, which improves precision and reduces the user's overhead of reading non-relevant items.",
+          ],
+        },
+        {
+          heading: "Thematic representations",
+          bullets: [
+            "NLP can combine concepts into higher-level concepts called **thematic representations**.",
+            "A thematic representation captures what a passage is about rather than only which words it contains.",
+            "This helps retrieval when the query and the document use different words for the same theme.",
+            "The trade-off is greater processing cost and dependence on the quality of the parser and lexicon.",
+          ],
+        },
+        {
+          heading: "Concept indexing",
+          bullets: [
+            "**Concept indexing** uses the words within an item to correlate to the concepts discussed in the item.",
+            "It is a generalization of the specific words to the values used to index the item.",
+            "When concept classes are generated automatically, a class may not have a name and may be known only by its statistical significance.",
+            "Concept indexing improves **recall** and can be combined with **neural networks** to determine concept classes.",
+            "An example is the **Convectis** system, which uses a neural network algorithm and terms in a similar context to other terms.",
+          ],
+        },
+        {
+          heading: "Latent semantic indexing",
+          bullets: [
+            "**Latent semantic indexing (LSI)** determines a canonical set of concepts from a test set of terms and uses them to index all items.",
+            "It uses the strength of word relationships, such as synonymy, and generates **context vectors**.",
+            "Two neural networks are used: one generates stem context vectors and the other performs the query.",
+            "The interpretation of the resulting values is the same as term weights.",
+            "LSI reduces the dimension of the term space and can retrieve items that share concepts even when they do not share exact words.",
+          ],
+        },
+        {
+          heading: "Strengths and limits",
+          bullets: [
+            "NLP and concept indexing improve semantic matching and recall, especially for synonym-rich collections.",
+            "They are computationally expensive and require dictionaries, parsers and training data.",
+            "Concept classes can be hard to name and hard to explain to the user, which reduces transparency.",
+            "The mapping from a term to a concept is complex because one term can represent several concepts to different degrees.",
+          ],
+        },
       ],
-      diagrams: ["classification"],
+      formula:
+        "Cohesion = Size-factor × (PAIR-FREQₖ,ₕ / (TOTFₖ × TOTFₕ))\nLSI: terms × documents matrix → reduced concept space\nConcept map: specific term → concept class → index value",
+      table: {
+        head: ["Approach", "Unit of indexing", "Strength", "Cost"],
+        rows: [
+          ["**Statistical**", "word or phrase frequency", "fast and broad", "term independence"],
+          ["**NLP**", "syntax, semantics and phrases", "higher precision", "parser and lexicon"],
+          ["**Concept**", "concept class or context vector", "higher recall", "training and ambiguity"],
+          ["**LSI**", "reduced latent dimensions", "handles synonymy", "matrix computation"],
+        ],
+      },
+      note:
+        "Link the topic to the previous question: statistical indexing uses frequency, NLP adds semantics and concept indexing adds generalization. The cohesion formula is the formula to quote.",
     },
     {
-      id: "u3-svm",
+      id: "u3-clustering",
       question:
-        "What is a hyperplane in the context of SVM? Explain the margin and support vectors.",
-      marks: 5,
-      freq: 1,
-      papers: "Asked in KR21 December 2025 as a 5-mark question.",
-      answer: [
-        "A **support vector machine** is a supervised classifier that finds the best separating boundary between classes.",
-        "A **hyperplane** is a decision boundary that separates the classes in the feature space.",
-        "In two dimensions the hyperplane is a line, and in three dimensions it is a plane.",
-        "The SVM chooses the hyperplane that has the **maximum margin**, which is the largest distance to the nearest training tuples of either class.",
-        "The training tuples that lie closest to the hyperplane and determine the margin are called **support vectors**.",
-        "A larger margin usually gives better generalisation on unseen data.",
-        "When the classes are not linearly separable, SVM uses a **kernel function** to map the data into a higher-dimensional space.",
-        "Common kernels are the **linear kernel**, **polynomial kernel** and **radial basis function kernel**.",
-        "SVM is effective in high-dimensional spaces but training can be expensive on very large data sets.",
+        "Define clustering and explain the clustering process, its types, guidelines and the difference between term clustering, document clustering and item clustering.",
+      marks: 10,
+      freq: 3,
+      papers:
+        "Asked in the IRS question bank and the NR20 model paper as 'define clustering and explain the process and its types'; Part A asks for the steps of clustering.",
+      sections: [
+        {
+          heading: "Definition and purpose",
+          bullets: [
+            "**Clustering** partitions the documents of a collection into **classes** so that items associated with each other are assigned to the same **cluster**.",
+            "It improves both the **efficiency** and the **effectiveness** of retrieval.",
+            "A cluster provides a grouping of similar objects under a more general title, and clustering also allows **links between clusters** to be specified.",
+            "An information database can be viewed as independent items indexed by terms, and clustering adds a grouping on top of that structure.",
+          ],
+        },
+        {
+          heading: "Two types of clustering",
+          bullets: [
+            "**Term clustering** groups terms to create a **statistical thesaurus**, which is then used for **query expansion**.",
+            "Term clustering increases **recall** by expanding a search with related terms.",
+            "**Document clustering** groups documents by the terms they contain and supports **result-set expansion**.",
+            "Document clustering lets a search retrieve items similar to an item of interest even when the original query would not have retrieved them.",
+            "**Item clustering** groups any item type, including a phrase, word, sentence, diagram or picture.",
+          ],
+        },
+        {
+          heading: "The four steps of clustering",
+          bullets: [
+            "**Define the domain** for clustering; for a thesaurus the domain may be medical or education, and the terms must be relevant to it.",
+            "**Determine the attributes** of the objects to be clustered; for a thesaurus these are the specific words, and for documents it may be a specific zone.",
+            "**Determine the relationships** between attributes, because co-occurrence of attributes suggests that two objects belong in the same class.",
+            "**Apply an algorithm** that decides which class each object goes into.",
+          ],
+        },
+        {
+          heading: "Guidelines for good classes",
+          bullets: [
+            "Every class needs a **well-defined semantic definition**, although the name given to the class can still be misleading.",
+            "The sizes of the classes should be within the **same order of magnitude**.",
+            "Within a class, **one object should not dominate** the class.",
+            "It must be decided at creation time whether an object can belong to **multiple classes** or only one.",
+          ],
+        },
+        {
+          heading: "Manual versus automatic clustering",
+          bullets: [
+            "**Manual clustering** requires large space, time and computational overhead because a human analyst makes the decisions.",
+            "**Automatic clustering** is very efficient and gives one **primary category** and several **secondary categories**.",
+            "Manual thesaurus generation uses **KWOC**, **KWIC** and **KWAC** listings to help the analyst.",
+            "Automatic term clustering is based on the idea that the more frequently two terms co-occur in the same items, the more likely they are about the same concept.",
+          ],
+        },
+        {
+          heading: "Why clustering helps retrieval",
+          bullets: [
+            "It reduces the search space because the system can search cluster representatives first.",
+            "It supports **query expansion** through related terms and **result-set expansion** through similar documents.",
+            "It provides a **visual representation** of the information space through a hierarchy or dendrogram.",
+            "The user can move to child clusters for more specific items or to parent clusters for more general items.",
+          ],
+        },
       ],
+      table: {
+        head: ["Type", "Objects clustered", "Main use", "Expansion"],
+        rows: [
+          ["**Term clustering**", "words or phrases", "statistical thesaurus", "query expansion"],
+          ["**Document clustering**", "whole documents", "similar-item retrieval", "result-set expansion"],
+          ["**Item clustering**", "phrases, sentences, diagrams, pictures", "general grouping", "similar-item browsing"],
+        ],
+      },
+      note:
+        "Remember the two-type answer: term clustering builds a thesaurus for query expansion, and document clustering supports result-set expansion. Add the four steps and four guidelines.",
     },
     {
-      id: "u3-cbr",
-      question: "Write a note on case-based reasoning (CBR).",
-      marks: 5,
-      freq: 1,
-      papers: "Asked in KR21 January 2025 as a 5-mark question.",
-      answer: [
-        "**Case-based reasoning** is a lazy learning method that stores past problems and their solutions as **cases**.",
-        "For a new problem, CBR first searches for an **identical case** and reuses its solution.",
-        "If no identical case exists, it retrieves **similar cases** and combines their solutions to fit the new problem.",
-        "The similarity between cases is measured with a **domain-specific similarity metric** rather than Euclidean distance alone.",
-        "If the retrieved solutions conflict, the system may **backtrack** and search for other similar cases.",
-        "CBR is used in **help-desk problem solving**, **engineering design**, **law** and **medical diagnosis**.",
-        "Its main challenges are designing a good similarity metric, combining solutions, indexing a large case base and balancing accuracy against retrieval cost.",
-        "Unlike k-NN, CBR works with complex **symbolic descriptions** instead of points in a numeric feature space.",
+      id: "u3-thesaurus",
+      question:
+        "Explain thesaurus generation in detail. Describe KWOC, KWIC and KWAC, automatic term clustering and the word relationships used in a thesaurus.",
+      marks: 10,
+      freq: 3,
+      papers:
+        "Asked in the IRS question bank as 'thesaurus generation' and as Part A on KWOC, KWIC and KWAC; the manual/automatic comparison is repeated.",
+      sections: [
+        {
+          heading: "What a thesaurus is",
+          bullets: [
+            "A **thesaurus** comes from the Latin word for *treasure* and is similar to a dictionary because it stores words.",
+            "It also stores the **relationships** between words, so it can support query expansion and concept navigation.",
+            "The collection of terms can be generated manually or automatically.",
+            "Automatically generated thesauri contain classes that reflect the actual use of words in the collection.",
+          ],
+        },
+        {
+          heading: "Word relationships",
+          bullets: [
+            "The **word coordination approach** decides whether phrases as well as individual terms are clustered.",
+            "**Equivalence** links words with the same meaning, such as *car* and *automobile*.",
+            "**Hierarchical** links a broader term to a narrower term, such as *vehicle → car*.",
+            "**Non-hierarchical** links related terms where neither is above or inside the other, such as *doctor–hospital*.",
+            "**Parts-wholes** covers aggregation and composition, such as *wheel–car*.",
+            "**Collocation** is a statistical measure that relates words co-occurring in the same sentence, phrase or paragraph, such as *heavy–rain*.",
+            "**Paradigmatic** relates words with the same semantic base, such as *formula–equation*.",
+          ],
+        },
+        {
+          heading: "Manual clustering with KWOC",
+          bullets: [
+            "**KWOC (Keyword Out of Context)** shows each term with its **frequency** and the **IDs of the items** that contain it.",
+            "For the notes example, *chips* has frequency 3 and item IDs DOC1, DOC3 and DOC4.",
+            "*Computer* has frequency 3 and IDs DOC1, DOC3 and DOC4, *design* has frequency 2 and IDs DOC2 and DOC3, and *memory* has frequency 3 and IDs DOC1, DOC2 and DOC4.",
+            "The corrected memory list is DOC1, DOC2 and DOC4, because DOC3 contains computer, chips and design but not memory.",
+          ],
+        },
+        {
+          heading: "KWIC and KWAC",
+          bullets: [
+            "**KWIC (Keyword In Context)** displays the term inside its phrase context, and the sentence is rotated so the keyword comes first.",
+            "The character **/** marks the end of the phrase in KWIC, for example *chips/ computer design contains memory*.",
+            "**KWAC (Keyword And Context)** lists the keyword first and then the whole phrase it came from.",
+            "KWIC and KWAC help determine the meaning of **homographs**, because they show which sense of the word is being used.",
+          ],
+        },
+        {
+          heading: "Automatic term clustering",
+          bullets: [
+            "The basis for automatic generation is a set of items that represents the **vocabulary** to be included in the thesaurus.",
+            "The **processing tokens** in those items are the attributes used to create the clusters.",
+            "All methods share the concept that the more frequently two terms co-occur in the same items, the more likely they are about the same concept.",
+            "The methods differ in the **completeness** with which they correlate terms.",
+            "The resulting classes reflect the use of words in the database but do not have natural names.",
+          ],
+        },
+        {
+          heading: "Manual versus automatic",
+          bullets: [
+            "Manual clustering uses a human analyst, who gives the classes meaningful names and judges the strength of relationships.",
+            "Automatic clustering is efficient but produces statistically similar groups without natural names.",
+            "The **complete term relation method**, clustering using existing clusters and one-pass assignment are the main automatic techniques.",
+            "The complete term relation method compares all term pairs and therefore has a higher computational cost.",
+          ],
+        },
       ],
+      table: {
+        head: ["Listing", "Shows", "Example", "Best use"],
+        rows: [
+          ["**KWOC**", "term + frequency + item IDs", "chips · 3 · DOC1, DOC3, DOC4", "counting and locating terms"],
+          ["**KWIC**", "term inside a rotated phrase", "chips/ computer design contains memory", "homograph disambiguation"],
+          ["**KWAC**", "term + whole context phrase", "chips │ computer design contains memory chips", "seeing the full usage"],
+        ],
+      },
+      note:
+        "The examiner often asks only for KWOC, KWIC and KWAC. Add one example each, then write two lines on automatic clustering and the co-occurrence principle.",
+    },
+    {
+      id: "u3-term-matrix",
+      question:
+        "Explain item clustering and the term-term matrix. For the JNTUH Feb-2023 Q7 matrix with threshold 10, determine the Term Relationship matrix and the clique, star and single-link clusters.",
+      marks: 10,
+      freq: 3,
+      papers:
+        "Asked directly in JNTUH Feb 2023 Q7 and repeated in the IRS question bank as item clustering and the similarity matrix.",
+      sections: [
+        {
+          heading: "Item clustering and similarity",
+          bullets: [
+            "**Item clustering** groups items such as phrases, words, sentences, diagrams or pictures.",
+            "Similarity between two items is based on the terms they have in common, and the function is calculated between **rows of the item matrix**.",
+            "The similarity formula is **SIM(Itemᵢ, Itemⱼ) = Σₖ (termᵢ,ₖ)(termⱼ,ₖ)**.",
+            "The results form an **item-item relationship matrix**, which is converted to a binary matrix using a threshold.",
+            "The default threshold in the notes is **10**: values of 10 or more become 1, and values below 10 become 0.",
+          ],
+        },
+        {
+          heading: "The exact 6 × 6 matrix",
+          bullets: [
+            "The JNTUH Feb-2023 matrix has six terms **T1 to T6**, and the diagonal is empty because a term is not correlated with itself.",
+            "The upper-triangle values are **T1–T2 15, T1–T3 6, T1–T4 8, T1–T5 12, T1–T6 14, T2–T3 12, T2–T4 10, T2–T5 6, T2–T6 8, T3–T4 16, T3–T5 4, T3–T6 10, T4–T5 9, T4–T6 4 and T5–T6 13**.",
+            "The matrix is symmetric, so the lower triangle repeats the upper triangle.",
+          ],
+        },
+        {
+          heading: "Term Relationship matrix at threshold 10",
+          bullets: [
+            "Replace every value **≥ 10** with 1 and every value **< 10** with 0.",
+            "The 1 pairs are **T1–T2, T1–T5, T1–T6, T2–T3, T2–T4, T3–T4, T3–T6 and T5–T6**.",
+            "The 0 pairs are **T1–T3, T1–T4, T2–T5, T2–T6, T3–T5, T4–T5 and T4–T6**.",
+            "The diagonal remains blank because a term is not compared with itself.",
+          ],
+        },
+        {
+          heading: "Clique technique",
+          bullets: [
+            "A **clique** is a maximal complete subgraph in which every pair of terms is directly connected.",
+            "The first maximal clique is **{T1, T5, T6}**, because T1–T5, T1–T6 and T5–T6 all pass the threshold.",
+            "The second maximal clique is **{T2, T3, T4}**, because T2–T3, T2–T4 and T3–T4 all pass the threshold.",
+            "T1 and T2 are not in the same clique because T1–T3 and T1–T4 are below threshold.",
+          ],
+        },
+        {
+          heading: "Star technique",
+          bullets: [
+            "Start with the lowest-numbered term **T1** and place it in a class with every term directly similar to it.",
+            "The first star is **{T1, T2, T5, T6}**.",
+            "The next seed is the smallest term not already in a class, which is **T3**.",
+            "The second star is **{T3, T2, T4}**, so **T2 appears in both classes** and star clusters may overlap.",
+          ],
+        },
+        {
+          heading: "Single-link technique",
+          bullets: [
+            "**Single link** merges two clusters when any one pair of their members is similar.",
+            "The chain **T4–T2–T1–T6–T3** connects the two triangles, so the final result is **one cluster {T1, T2, T3, T4, T5, T6}**.",
+            "A term cannot appear in two single-link clusters because single link produces a partition of the terms.",
+            "**Proof:** if a term X were in two clusters, the two clusters would share X and therefore be one connected component, which contradicts the assumption that they are separate.",
+            "This is the proof requested by the JNTUH Feb 2022 question on single-link clustering.",
+          ],
+        },
+      ],
+      formula:
+        "SIM(Itemᵢ, Itemⱼ) = Σₖ (termᵢ,ₖ)(termⱼ,ₖ)\nThreshold rule: value ≥ 10 → 1; value < 10 → 0\nCliques: {T1,T5,T6} and {T2,T3,T4}\nStar: {T1,T2,T5,T6} and {T2,T3,T4}\nSingle link: {T1,T2,T3,T4,T5,T6}",
+      table: {
+        head: ["Technique", "Classes for the JNTUH matrix", "Overlap", "Key risk"],
+        rows: [
+          ["**Clique**", "{T1,T5,T6} · {T2,T3,T4}", "yes", "too many small classes"],
+          ["**Star**", "{T1,T2,T5,T6} · {T2,T3,T4}", "yes", "hub term pulls weak neighbours"],
+          ["**Single link**", "{T1,T2,T3,T4,T5,T6}", "no", "chaining merges distinct concepts"],
+        ],
+      },
+      walkthrough: "termcluster",
+      note:
+        "The walkthrough solves the exact Feb-2023 matrix step by step. In the exam, always write the Term Relationship matrix before naming any cluster.",
+    },
+    {
+      id: "u3-hierarchy",
+      question:
+        "Explain the hierarchy of clusters. Describe hierarchical agglomerative and divisive clustering, the objectives of a hierarchy and the use of a dendrogram.",
+      marks: 10,
+      freq: 2,
+      papers:
+        "Asked in the IRS question bank as 'cluster hierarchy' and as a Part-B subquestion on automatic term clustering and cluster hierarchy.",
+      sections: [
+        {
+          heading: "Definition",
+          bullets: [
+            "A **hierarchy of clusters** is a set of clusters arranged as a tree with a **root**, a second level below it and lower levels below that.",
+            "The visual representation of the hierarchy is called a **dendrogram**.",
+            "It can be built bottom-up or top-down, which gives the two families of hierarchical clustering.",
+          ],
+        },
+        {
+          heading: "Hierarchical agglomerative clustering (HAC)",
+          bullets: [
+            "**HAC** starts with **un-clustered items** and uses **pair-wise similarity** to merge them step by step.",
+            "The closest pair is merged first, and the new cluster is then compared with the remaining items.",
+            "The process continues until all items belong to one root cluster.",
+            "The merge height in the dendrogram records the similarity at which each merge occurred.",
+          ],
+        },
+        {
+          heading: "Hierarchical divisive clustering",
+          bullets: [
+            "**Divisive clustering** starts with **one large cluster** and keeps breaking it into smaller clusters.",
+            "At each step the cluster with the greatest internal dissimilarity is split.",
+            "The process continues until each item is in its own leaf or until a stopping criterion is reached.",
+            "Divisive methods are top-down and can be more expensive because they must consider many possible splits.",
+          ],
+        },
+        {
+          heading: "Objectives of a hierarchy",
+          bullets: [
+            "It **reduces the overhead of search** because the system can search centroids and trim irrelevant branches.",
+            "It provides a **visual representation** of the information space with cues for cluster size and link strength.",
+            "It **expands retrieval** so that a user who finds an item of interest can request the other items in its cluster.",
+            "The user can increase **specificity** by moving to child clusters or increase **generality** by moving to parent clusters.",
+          ],
+        },
+        {
+          heading: "Reading a dendrogram",
+          bullets: [
+            "The leaves are the individual items, and the height at which two branches join is the **merge similarity or distance**.",
+            "Cutting the dendrogram at a chosen height gives the clusters at that level of the hierarchy.",
+            "A low cut gives many small clusters, while a high cut gives a few large clusters.",
+            "The dendrogram makes the **nested structure** of the data visible, which a flat clustering cannot show.",
+          ],
+        },
+        {
+          heading: "Trade-offs",
+          bullets: [
+            "Hierarchical methods do not need the number of clusters in advance, unlike k-means.",
+            "They are often O(n²) or worse, so they are expensive for very large collections.",
+            "A wrong merge or split early in the process cannot be undone later.",
+            "The choice of linkage measure strongly changes the shape of the dendrogram.",
+          ],
+        },
+      ],
+      formula:
+        "Single link: distance(A,B) = min distance between any a ∈ A, b ∈ B\nComplete link: distance(A,B) = max distance between any a ∈ A, b ∈ B\nAverage link: mean of all pairwise distances\nCut the dendrogram at a height to obtain the clusters",
+      table: {
+        head: ["Method", "Direction", "Starts with", "Ends with"],
+        rows: [
+          ["**HAC**", "bottom-up", "individual items", "one root cluster"],
+          ["**Divisive**", "top-down", "one large cluster", "individual items or small clusters"],
+        ],
+      },
+      diagrams: ["dendrogram"],
+      note:
+        "Draw a small dendrogram with five leaves and mark a cut line. Then write the four objectives of a hierarchy, because that list is easy to remember and easy to mark.",
+    },
+    {
+      id: "u3-hypertext-linkages",
+      question:
+        "Explain hypertext linkage indexing and the three classes of mechanisms used to find information on the Internet.",
+      marks: 10,
+      freq: 2,
+      papers:
+        "Asked in the IRS question bank as 'write a short note on hypertext linkages' and as a Part-B subquestion in the automatic-indexing question.",
+      sections: [
+        {
+          heading: "Hypertext as a retrieval dimension",
+          bullets: [
+            "**Hypertext linkage indexing** creates hypertext links that provide **virtual threads of concepts** between items.",
+            "Traditional items are viewed as **two-dimensional constructs**, where the text of the item is one dimension and the index terms are the other.",
+            "Hypertext linkages add an additional retrieval dimension because a link expresses a relationship between items.",
+            "The linkage is a special class of indexing because it defines the relationship instead of directly defining the concept within each item.",
+          ],
+        },
+        {
+          heading: "How links are created",
+          bullets: [
+            "Links can be generated **manually** by the author or by an editor.",
+            "Links can be generated **automatically** by analysing term co-occurrence, citation patterns or document similarity.",
+            "Each separate item is a **node**, and each reference pointer is a **link**.",
+            "A node is displayed by a viewer chosen for the file type of that node.",
+          ],
+        },
+        {
+          heading: "Three classes of internet finding mechanisms",
+          bullets: [
+            "**Manually generated indexes** are built by human editors who classify and describe sites.",
+            "**Automatically generated indexes and web crawlers** use a spider-bot that systematically browses the web for indexing.",
+            "**Hypertext linkage indexes** follow links between items and use the link structure itself as a source of relevance evidence.",
+            "A **web crawler** is an internet bot operated by search engines for web indexing and is a form of intelligent agent.",
+          ],
+        },
+        {
+          heading: "Benefits and risks",
+          bullets: [
+            "Linkage indexing can connect items that use different vocabulary but discuss the same concept.",
+            "It supports browsing and link analysis, which can reveal hubs and authorities in a collection.",
+            "Links can become outdated, misleading or commercial, so link quality must be evaluated.",
+            "Link spam and link farms can distort ranking if the search engine trusts links blindly.",
+          ],
+        },
+      ],
+      table: {
+        head: ["Mechanism", "Who builds it", "Main evidence", "Example"],
+        rows: [
+          ["**Manual index**", "human editor", "classification and description", "early web directories"],
+          ["**Automatic index**", "web crawler", "page text and metadata", "search engine index"],
+          ["**Hypertext linkage**", "author or algorithm", "links between items", "link analysis and navigation"],
+        ],
+      },
+      note:
+        "The key sentence is that hypertext linkages add a third retrieval dimension through virtual concept threads between items.",
     },
   ],
 };

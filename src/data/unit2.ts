@@ -3,480 +3,715 @@ import type { Unit } from "./types";
 export const unit2: Unit = {
   id: "unit2",
   roman: "II",
-  title: "Unit II · Frequent Patterns & Association Rules",
+  title: "Unit II · Cataloging, Indexing & Data Structures",
   subtitle:
-    "Market basket analysis, support and confidence, Apriori, FP-Growth, correlation, constraints, closed and maximal itemsets, graph and sequential patterns.",
-  color: "var(--v-blue)",
+    "Cataloguing and the indexing process, automatic indexing and information extraction, stemming, inverted files, N-grams, PAT trees, signature files and hypertext/XML structures.",
+  color: "var(--v-teal)",
   questions: [
     {
-      id: "u2-apriori",
+      id: "u2-indexing-process",
       question:
-        "Apply the Apriori algorithm to the T100–T900 transaction database with minimum support count 2, and generate association rules.",
+        "Explain cataloguing and the indexing process in Information Retrieval Systems with a neat diagram. Discuss objectives, scope, exhaustivity, specificity and pre-coordination.",
       marks: 10,
-      freq: 8,
-      papers: "The same T100–T900 numerical appears in KR21 Dec 2025 (IT) and KR21 Jan 2025, while other Apriori numericals appear in 6 more papers.",
+      freq: 3,
+      papers:
+        "Asked in the IRS question bank as 'explain the indexing process with a neat diagram' and in JNTUH Feb 2022 as 'history and objectives of indexing'.",
       sections: [
         {
-          heading: "Setup, first scan and C1",
+          heading: "Cataloguing and its types",
           bullets: [
-            "**Apriori** finds frequent itemsets with a **level-wise search** that uses the **Apriori property** to prune candidates.",
-            "The **Apriori property** states that every non-empty subset of a frequent itemset is frequent and every superset of an infrequent itemset is infrequent.",
-            "The first database scan counts each item and builds the candidate set **C1**.",
-            "With **min_sup = 2**, the frequent 1-itemsets are **I1 = 6, I2 = 7, I3 = 6, I4 = 2 and I5 = 2**, so all five items enter **L1**.",
+            "**Cataloguing** is the systematic arrangement of items in alphabetical or another logical order with a brief description.",
+            "A **catalogue** is the record of a library collection, and the card catalogue has largely been replaced by the **Online Public Access Catalogue (OPAC)**.",
+            "An **author catalogue** uses author names as headings, including writers, illustrators, performers, producers and translators.",
+            "A **title catalogue** uses titles as headings, while an **author/title catalogue** files both types of entry together.",
+            "A **subject catalogue** uses the subject of the document as its heading, such as *cars* or *lawyers*, arranged alphabetically or by a classification scheme.",
           ],
         },
         {
-          heading: "C2 and L2: join, prune and count",
+          heading: "Indexing and its history",
           bullets: [
-            "The **join step** combines pairs of items in L1 to form **C2**, and the **prune step** removes any candidate that contains an infrequent subset.",
-            "The support counts in C2 are **{I1,I2} = 4, {I1,I3} = 4, {I1,I5} = 2, {I2,I3} = 4, {I2,I4} = 2 and {I2,I5} = 2**, so these six itemsets form **L2**.",
-            "The candidates **{I1,I4}, {I3,I4}, {I3,I5} and {I4,I5}** fall below the threshold and are removed.",
+            "**Indexing** reduces documents to the informative terms they contain and creates the searchable data structure.",
+            "The transformation from a received item to a searchable data structure is called indexing, and it can be **manual or automatic**.",
+            "Indexing was originally called **cataloguing**, the oldest technique for identifying the contents of items to assist retrieval.",
+            "Both cataloguing and indexing are systematic arrangements, and they overlap with **full-item indexing**, **public indexing** and **private indexing**.",
           ],
         },
         {
-          heading: "C3, L3 and termination",
+          heading: "Objectives of indexing",
           bullets: [
-            "The join of L2 with itself produces **{I1,I2,I3}** and **{I1,I2,I5}**, while every other candidate is pruned because one of its 2-subsets is not frequent.",
-            "Both candidates occur in exactly **2 transactions**, so **L3 = {{I1,I2,I3}, {I1,I2,I5}}**.",
-            "The next join would create **{I1,I2,I3,I5}**, but it is pruned because the subset **{I2,I3,I5}** is not in L3, so the algorithm stops.",
+            "The primary objective is to **represent the concepts within an item** so that users can find relevant information.",
+            "The public file indexer must consider the information needs of **all users** of the library system.",
+            "Users may use public index files to **increase recall**, and they can constrain a search with private index files to improve precision.",
+            "Indexing must decide both the **scope** and the **level of detail** based on the usage scenario of the users.",
           ],
         },
         {
-          heading: "Association rules from the frequent itemsets",
+          heading: "The indexing process",
           bullets: [
-            "Association rules are generated from each frequent itemset by putting a non-empty subset in the **antecedent** and the remaining items in the **consequent**.",
-            "For **{I1,I2,I5}**, the rule **I1 ∧ I5 → I2** has support **2/9 = 22.2%** and confidence **2/2 = 100%**.",
-            "For the same itemset, **I2 ∧ I5 → I1** also has confidence **100%**, while **I1 ∧ I2 → I5** has confidence **2/4 = 50%**.",
-            "For **{I1,I2,I3}**, the rules **I1 ∧ I2 → I3**, **I1 ∧ I3 → I2** and **I2 ∧ I3 → I1** each have confidence **2/4 = 50%**.",
-            "Only the rules whose confidence is at least the **minimum confidence threshold** are kept as strong association rules.",
+            "Indexing is the **collecting, parsing and storing** of data to facilitate fast and accurate information retrieval.",
+            "Index design combines ideas from **linguistics**, **cognitive psychology**, **mathematics**, **informatics** and **computer science**.",
+            "The data flow is: standardize input → zone → identify processing tokens → apply stop lists → characterize tokens → stem → create the searchable data structure → create the hit list.",
+            "The first two steps, zoning and token identification, are common to all systems, while the later search strategy differs between statistical, natural-language and concept systems.",
+          ],
+        },
+        {
+          heading: "Text-processing phases",
+          bullets: [
+            "**Document parsing** breaks a document into components and splits multi-part items such as an email with attachments.",
+            "**Lexical analysis** tokenizes the text into words and must handle accents, abbreviations, dates and case.",
+            "**Stop-word removal** deletes high-frequency words such as *the*, *is* and *of*.",
+            "**Phrase detection** identifies noun groups and other phrases so meaning is not reduced to a bag of words.",
+            "**Stemming and lemmatization** normalize word endings, and **weighting** assigns importance values to terms.",
+          ],
+        },
+        {
+          heading: "Scope: exhaustivity, specificity and portion",
+          bullets: [
+            "**Exhaustivity** is the extent to which the different concepts in an item are indexed, so high exhaustivity indexes even briefly mentioned topics.",
+            "**Specificity** is the preciseness of the index terms, so indexing *Pentium* is more specific than indexing *processor*.",
+            "Indexing only the most important concept with general terms yields **low exhaustivity and low specificity**.",
+            "The simplest scope decision is to index only the **title and abstract zone**, which saves effort but can lose precision and recall.",
+            "Manual indexing problems arise from differences between the **author's vocabulary domain** and the **indexer's vocabulary domain**.",
+          ],
+        },
+        {
+          heading: "Pre-coordination, post-coordination and linkages",
+          bullets: [
+            "**Linkages** determine whether relationships between index terms are stored at index time.",
+            "**Pre-coordination** correlates attributes at index time, for example storing *drilling of oil wells in Mexico by CITGO* as one coordinated concept.",
+            "**Post-coordination** delays coordination to search time, usually by **AND**-ing index terms in the query.",
+            "A linkage decision must fix the number of terms that can be related and the roles that each term plays.",
+            "Pre-coordination increases precision but reduces flexibility, while post-coordination is flexible but can produce false combinations.",
           ],
         },
       ],
-      formula:
-        "support(A → B) = count(A ∪ B) / |D|\nconfidence(A → B) = count(A ∪ B) / count(A)\nmin_sup count = 2 out of 9 transactions = 22.2%",
       table: {
-        head: ["2-itemset", "Transactions", "Support", "Frequent?"],
+        head: ["Decision", "Question", "Effect"],
         rows: [
-          ["{I1, I2}", "T100, T400, T800, T900", "4", "Yes"],
-          ["{I1, I3}", "T500, T700, T800, T900", "4", "Yes"],
-          ["{I1, I5}", "T100, T800", "2", "Yes"],
-          ["{I2, I3}", "T300, T600, T800, T900", "4", "Yes"],
-          ["{I2, I4}", "T200, T400", "2", "Yes"],
-          ["{I2, I5}", "T100, T800", "2", "Yes"],
-          ["{I1, I4}", "T400", "1", "No"],
-          ["{I3, I5}", "T800", "1", "No"],
-        ],
-      },
-      walkthrough: "apriori",
-    },
-    {
-      id: "u2-frequent",
-      question:
-        "Explain frequent pattern mining in detail and compare frequent, closed and maximal itemsets with an example.",
-      marks: 10,
-      freq: 6,
-      papers: "Asked in 6 of 12 papers as 'frequent pattern mining', 'closed and maximal itemsets' or both.",
-      sections: [
-        {
-          heading: "Frequent itemsets and support",
-          bullets: [
-            "**Frequent pattern mining** searches a data set for itemsets, subsequences or substructures that occur at least as often as a minimum support threshold.",
-            "An **itemset** is a set of one or more items, and a **k-itemset** contains exactly k items.",
-            "The **support count** of an itemset is the number of transactions that contain all of its items.",
-            "An itemset is **frequent** when its support is at least the minimum support count, and the set of frequent k-itemsets is denoted **Lk**.",
-          ],
-        },
-        {
-          heading: "Closed itemsets",
-          bullets: [
-            "A **closed itemset** is a frequent itemset that has no proper superset with the same support count.",
-            "The set of closed itemsets preserves all support information, so it can replace the full frequent set.",
-          ],
-        },
-        {
-          heading: "Maximal frequent itemsets",
-          bullets: [
-            "A **maximal frequent itemset** is a frequent itemset that has no frequent proper superset.",
-            "Every maximal itemset is closed, but not every closed itemset is maximal.",
-            "The set of maximal itemsets is smaller than the closed set but loses the support of some itemsets.",
-          ],
-        },
-        {
-          heading: "Why closed and maximal sets help",
-          bullets: [
-            "Closed and maximal itemsets reduce the output size and therefore make mining more efficient.",
-          ],
-        },
-        {
-          heading: "The a, b, c example",
-          bullets: [
-            "In the example, {a,b,c} is the only maximal frequent itemset, because no larger itemset is frequent.",
-            "In the same example, {a}, {a,b}, {a,c} and {a,b,c} are closed, while {b}, {c} and {b,c} are not closed.",
-            "The itemset {b} is not closed because its superset {a,b} has the same support count of 3.",
-          ],
-        },
-      ],
-      formula:
-        "Frequent: support(X) ≥ min_sup\nClosed: no proper superset Y ⊃ X has support(Y) = support(X)\nMaximal: no proper superset Y ⊃ X is frequent",
-      table: {
-        head: ["Itemset", "Support", "Frequent?", "Closed?", "Maximal?"],
-        rows: [
-          ["{a}", "4", "Yes", "Yes", "No"],
-          ["{b}", "3", "Yes", "No", "No"],
-          ["{c}", "3", "Yes", "No", "No"],
-          ["{a,b}", "3", "Yes", "Yes", "No"],
-          ["{a,c}", "3", "Yes", "Yes", "No"],
-          ["{b,c}", "2", "Yes", "No", "No"],
-          ["{a,b,c}", "2", "Yes", "Yes", "Yes"],
+          ["**Exhaustivity**", "How many concepts in the item should be indexed?", "High exhaustivity raises recall, costs more effort"],
+          ["**Specificity**", "How precise should each index term be?", "High specificity raises precision, may reduce recall"],
+          ["**Portion**", "Which part of the item is indexed?", "Title/abstract only is cheap but less complete"],
+          ["**Pre-coordination**", "Are term relationships fixed at index time?", "Higher precision, less search flexibility"],
+          ["**Post-coordination**", "Are terms combined at search time?", "Flexible searches, risk of false combinations"],
         ],
       },
       note:
-        "The example uses four transactions: T1 = {a,b,c}, T2 = {a,b}, T3 = {a,c} and T4 = {a,b,c}.",
+        "Draw the data-flow diagram from standardize input to create hit list. The examiner rewards the words exhaustivity, specificity, pre-coordination and post-coordination.",
     },
     {
-      id: "u2-association",
+      id: "u2-automatic-indexing",
       question:
-        "Explain association rule mining with a simple example, and define support and confidence.",
+        "Explain automatic indexing and its classes. Differentiate weighted and unweighted indexing and describe the data flow of an information processing system.",
       marks: 10,
-      freq: 6,
-      papers: "Asked in 6 of 12 papers as 'association rule mining with an example' or 'support and confidence'.",
+      freq: 3,
+      papers:
+        "Asked in the IRS question bank as 'automatic indexing' and 'classes of automatic indexing'; also a Part-A question in JNTUH Feb 2023.",
       sections: [
         {
-          heading: "Rule form, support and confidence",
+          heading: "Definition and purpose",
           bullets: [
-            "**Association rule mining** finds interesting relationships among items in large transactional or relational databases.",
-            "An association rule has the form **A → B**, where A and B are disjoint itemsets and A is the **antecedent** and B is the **consequent**.",
-            "The **support** of A → B is the percentage of transactions that contain both A and B.",
-            "The **confidence** of A → B is the percentage of transactions containing A that also contain B, which is the conditional probability P(B | A).",
-            "A rule is **strong** when its support is at least **min_sup** and its confidence is at least **min_conf**.",
+            "**Automatic indexing** is the computerized process of scanning large volumes of documents against a controlled vocabulary, taxonomy or ontology.",
+            "It then uses those controlled terms to quickly and effectively index large electronic document depositories.",
+            "It supports **total document indexing** and can generate indexes in seconds depending on the processor and algorithm complexity.",
+            "The output is an **index**, which is the data structure created to support a particular search strategy.",
           ],
         },
         {
-          heading: "Two-step mining and the market basket example",
+          heading: "Weighted versus unweighted indexing",
           bullets: [
-            "Mining is performed in two steps: first find all frequent itemsets, and then generate strong rules from those itemsets.",
-            "In a five-transaction market basket database, the rule **{milk, bread} → {diapers}** can have support 60% and confidence 75%.",
-            "This means that 60% of all baskets contain milk, bread and diapers, and 75% of baskets with milk and bread also contain diapers.",
+            "A **weighted indexing system** places a value on each index term to represent the importance of its concept in the document.",
+            "The weight is usually based on the **frequency of occurrence** of the term in the item, and values are normalized between **0 and 1**.",
+            "An **unweighted indexing system** stores only the existence of an index term in a document and sometimes its word location.",
+            "Weighted results are presented in **rank order** from the highest value to the lowest value, while unweighted results are not ranked by term importance.",
           ],
         },
         {
-          heading: "Interpreting and evaluating the rule",
+          heading: "Indexing by term: statistical versus natural language",
           bullets: [
-            "**Support** removes rules that are too rare to be profitable, while **confidence** measures the reliability of the inference.",
-            "Support and confidence can still miss negative correlations, so measures such as **lift** are used together with them.",
+            "**Indexing by term** uses the vocabulary of the original item as the basis of the index process.",
+            "The two major techniques are **statistical indexing** and **natural language indexing**.",
+            "**Statistical indexing** calculates weights from information such as word frequency and can use vector models, probabilistic models and Bayesian models.",
+            "**Natural language indexing** also uses statistical information but performs more complex parsing to define the final set of index concepts.",
+            "A **vectorised information system** stores a weight for each term, with one vector per document and one position per unique processing token.",
           ],
         },
         {
-          heading: "Applications",
+          heading: "The four classes of automatic indexing",
           bullets: [
-            "Applications include **market basket analysis**, **cross-marketing**, **catalog design**, **loss-leader analysis**, **clustering** and **classification**.",
+            "**Statistical indexing** uses the frequency of occurrence of processing tokens to calculate relevance values and ranking scores.",
+            "**Natural language processing** uses semantic information, syntax and context to produce phrases and thematic representations.",
+            "**Concept indexing** maps words to a canonical set of concepts and generalizes specific words to concept values.",
+            "**Hypertext linkage indexing** creates virtual threads of concepts between items through manually or automatically created links.",
+          ],
+        },
+        {
+          heading: "Human versus automatic indexing",
+          bullets: [
+            "**Human indexing** uses an expert indexer who understands the domain, selects concepts and assigns controlled vocabulary terms.",
+            "**Automatic indexing** uses algorithms to extract terms from the item text and is much faster on large electronic collections.",
+            "The advantages of automatic indexing are **speed**, **consistency**, **low cost** and the ability to handle very large document volumes.",
+            "The disadvantages are weaker **semantic understanding**, dependence on the quality of the text and difficulty with ambiguous or multimedia content.",
+            "Human indexing gives better conceptual quality, but it is slow, expensive and subject to differences between indexers.",
+          ],
+        },
+        {
+          heading: "Multimedia indexing",
+          bullets: [
+            "**Multimedia indexing** differs from text indexing because the raw data is image, audio or video rather than words.",
+            "Indexing video or images can be accomplished at the **raw data level** by extracting low-level features.",
+            "Image features include **colour, texture and shape**, audio features include spectral and energy measures, and video adds **motion** and **spatial-temporal composition**.",
+            "A second approach is **description-based indexing**, which attaches captions, keywords and metadata to the media item.",
+            "Content-based indexing is harder because low-level features do not always match the user's high-level concept of relevance.",
+          ],
+        },
+        {
+          heading: "Data flow in an information processing system",
+          bullets: [
+            "The flow starts with **standardize input** and **logical subsetting (zoning)**.",
+            "It continues with **identify processing tokens**, **apply stop lists**, **characterize tokens**, **apply stemming** and **create the searchable data structure**.",
+            "The searchable structure updates the document file and supports the creation of the **hit list** when a user command arrives.",
+            "All systems pass through zoning and token identification, but the later steps depend on the chosen search strategy.",
           ],
         },
       ],
-      formula:
-        "support(A → B) = P(A ∪ B)\nconfidence(A → B) = P(B | A) = P(A ∪ B) / P(A)\nstrong rule: support ≥ min_sup and confidence ≥ min_conf",
       table: {
-        head: ["TID", "Items"],
+        head: ["Class", "Basis", "Strength", "Typical output"],
         rows: [
-          ["T1", "bread, milk"],
-          ["T2", "bread, diapers, beer, eggs"],
-          ["T3", "milk, diapers, beer, cola"],
-          ["T4", "bread, milk, diapers, beer"],
-          ["T5", "bread, milk, diapers, cola"],
+          ["**Statistical**", "frequency of terms", "simple, fast, broad commercial use", "weighted terms and ranks"],
+          ["**Natural language**", "syntax, semantics, phrases", "higher precision, fewer false hits", "phrases and thematic concepts"],
+          ["**Concept**", "canonical concepts and neural nets", "higher recall across vocabulary", "concept classes or vectors"],
+          ["**Hypertext linkage**", "links between items", "adds a new retrieval dimension", "linked item network"],
         ],
       },
       note:
-        "For {milk, bread} → {diapers}: 3 of 5 baskets contain all three items, so support = 60%, and 3 of the 4 baskets with milk and bread contain diapers, so confidence = 75%.",
+        "The four classes are the most repeated Unit-II list: statistical, natural language, concept and hypertext linkage. Write one line of explanation and one example for each.",
     },
     {
-      id: "u2-sequential",
+      id: "u2-information-extraction",
       question:
-        "Explain sequential pattern mining in transactional databases with an example.",
+        "Explain the two processes associated with information extraction. Discuss recall, precision, overgeneration, fallout and document summarization.",
       marks: 10,
-      freq: 6,
-      papers: "Asked in 6 of 12 papers, including 'describe sequential pattern mining with an example' and 'examine the process for mining sequence patterns'.",
-      sections: [
-        {
-          heading: "Sequences, support and frequent patterns",
-          bullets: [
-            "A **sequence** is an ordered list of **itemsets**, such as ⟨(a b) c⟩, which means a and b occur together and c occurs later.",
-            "A **sequence database** is a set of sequences, each attached to a sequence identifier called **SID**.",
-            "The **support** of a sequence is the number of database sequences that contain it as an ordered subsequence.",
-            "A sequence is **frequent** when its support is at least the minimum support threshold **min_sup**.",
-            "**Sequential pattern mining** finds all frequent subsequences in a sequence database.",
-          ],
-        },
-        {
-          heading: "Apriori property and main algorithms",
-          bullets: [
-            "The **Apriori property** is antimonotonic for sequences, because any super-sequence of an infrequent sequence must also be infrequent.",
-            "This property allows candidate pruning during a level-wise search.",
-            "**GSP** is an Apriori-style algorithm that generates candidates and scans the database for each level.",
-            "**SPADE** uses a vertical database format and computes support through intersections of item identifier lists.",
-            "**PrefixSpan** uses pattern growth and avoids candidate generation by projecting the database around frequent prefixes.",
-          ],
-        },
-        {
-          heading: "Event folding window and an example",
-          bullets: [
-            "An **event folding window w** treats events that occur within w time units as one itemset.",
-            "For example, ⟨{a,b} {c}⟩ is supported by a sequence where a and b occur together in one event and c occurs in a later event.",
-          ],
-        },
-        {
-          heading: "Applications",
-          bullets: [
-            "Sequential patterns are used in customer shopping sequences, web click streams, medical histories and stock movements.",
-          ],
-        },
-      ],
-      formula:
-        "support(s) = number of sequences containing s as an ordered subsequence\ns is frequent when support(s) ≥ min_sup",
-    },
-    {
-      id: "u2-constraint",
-      question:
-        "Explain constraint-based association mining and the role of constraints in improving efficiency.",
-      marks: 10,
-      freq: 5,
-      papers: "Asked in 5 of 12 papers, including 'describe constraint-based association mining' and 'apply constraint-based mining to sequential patterns'.",
-      sections: [
-        {
-          heading: "What constraint-based mining does",
-          bullets: [
-            "**Constraint-based mining** lets the user add conditions to an association mining task so that only relevant patterns are discovered.",
-            "A **constraint** can restrict the items, the support threshold, the confidence threshold or the form of the rule.",
-          ],
-        },
-        {
-          heading: "Types of constraints",
-          bullets: [
-            "**Antimonotonic constraints** satisfy the property that if a pattern violates the constraint, every super-pattern also violates it.",
-            "**Monotonic constraints** satisfy the property that if a pattern satisfies the constraint, every super-pattern also satisfies it.",
-            "**Succinct constraints** can be checked by selecting the allowed items directly, without scanning the transaction data.",
-            "**Convertible constraints** can be made antimonotonic by processing items in a suitable order.",
-            "Examples include **minimum support**, **item constraints** such as 'rules must contain milk', and **SQL-like constraints** such as region = Hyderabad.",
-          ],
-        },
-        {
-          heading: "Why pushing constraints helps",
-          bullets: [
-            "Antimonotonic constraints can be pushed deep into the mining process because they prune entire branches of the search space.",
-            "Pushing constraints into the algorithm reduces the number of candidates and avoids generating patterns that the user will reject anyway.",
-            "Constraint-based mining is especially useful in web, spatial and sequential data, where the search space is extremely large.",
-          ],
-        },
-        {
-          heading: "Trade-off",
-          bullets: [
-            "The trade-off is that a badly chosen constraint set can hide useful patterns, so constraints must reflect the true analysis goal.",
-          ],
-        },
-      ],
-      formula:
-        "Antimonotonic: if X violates C, then every superset Y ⊃ X also violates C\nMonotonic: if X satisfies C, then every superset Y ⊃ X also satisfies C",
-    },
-    {
-      id: "u2-graph",
-      question:
-        "Explain graph pattern mining and the approaches used to mine graph patterns.",
-      marks: 5,
-      freq: 5,
-      papers: "Asked in 5 of 12 papers as 'graph pattern mining', 'graph pattern approach' or a related Part-A question.",
-      answer: [
-        "**Graph pattern mining** searches for frequently occurring subgraphs, subtrees or other structural patterns in graph data.",
-        "A **graph** consists of vertices, which represent entities, and edges, which represent relationships.",
-        "A **subgraph** is a graph whose vertices and edges are all contained in a larger graph.",
-        "The **support** of a subgraph is the number of graphs or transactions in which it appears.",
-        "**Apriori-based graph mining** generates larger candidate subgraphs from smaller frequent ones and then checks their support.",
-        "**Pattern-growth graph mining** extends a frequent subgraph directly without generating a separate candidate set.",
-        "**gSpan** is a well-known pattern-growth algorithm that uses a depth-first search and a canonical representation to avoid duplicate graphs.",
-        "Graph mining is harder than itemset mining because graph isomorphism and the huge number of candidate subgraphs make counting expensive.",
-        "Applications include **web link analysis**, **social network analysis**, **chemical compound discovery**, **protein interaction networks** and **program flow analysis**.",
-      ],
-    },
-    {
-      id: "u2-fp",
-      question:
-        "Apply FP-Growth to the Book Mart transactions 101–105 with min_sup = 25% and construct the FP-tree, conditional pattern bases and conditional FP-trees.",
-      marks: 10,
-      freq: 4,
-      papers: "Asked in 4 of 12 papers, including the Book Mart 101–105 numerical in KR21 January 2025.",
-      sections: [
-        {
-          heading: "Frequency counting and ordering",
-          bullets: [
-            "**FP-Growth** finds frequent itemsets without candidate generation by storing the database in a compressed **FP-tree**.",
-            "The first scan counts item frequencies, and with **min_sup = 25% of 5 = 1.25**, the required support count becomes **2**.",
-            "The frequent items are **B = 4, P = 4, E = 3 and N = 2**, while **PN = 1** is removed.",
-            "The items are ordered by descending frequency as **B, P, E, N**, and every transaction is rewritten in that order.",
-            "The sorted transactions are **BPE, P, BPEN, BP and BEN**.",
-          ],
-        },
-        {
-          heading: "FP-tree construction",
-          bullets: [
-            "The **FP-tree** shares common prefixes, so the five transactions are compressed into one tree with a header table and node links.",
-            "The final tree has **B:4**, a separate **P:1** at the root, **B-P:3**, **B-P-E:2**, **B-E:1**, **B-P-E-N:1** and **B-E-N:1**.",
-          ],
-        },
-        {
-          heading: "Conditional pattern bases and conditional FP-trees",
-          bullets: [
-            "The **conditional pattern base of N** is **{B,P,E}:1 and {B,E}:1**, because these are the prefixes of the paths that reach N.",
-            "The conditional FP-tree of N keeps **B:2 and E:2**, because P occurs only once in the pattern base.",
-            "The frequent itemsets containing N are **{B,N}, {E,N} and {B,E,N}**, all with support 2.",
-            "The **conditional pattern base of E** is **{B,P}:2 and {B}:1**, and its conditional FP-tree is **B:3 → P:2**.",
-            "The conditional FP-tree of E gives **{P,E}, {B,E} and {B,P,E}**, while the conditional pattern base of P gives **{B,P}**.",
-            "The complete frequent itemset set is **{B}, {P}, {E}, {N}, {B,P}, {B,E}, {P,E}, {B,P,E}, {B,N}, {E,N} and {B,E,N}**.",
-          ],
-        },
-        {
-          heading: "Why FP-Growth is fast",
-          bullets: [
-            "FP-Growth scans the database twice and avoids the expensive candidate generation and testing of Apriori, so it is usually faster on dense data.",
-          ],
-        },
-      ],
-      formula:
-        "min_sup count = 25% × 5 = 1.25 → 2 transactions\nFrequent order: B(4) > P(4) > E(3) > N(2) > PN(1, removed)",
-      table: {
-        head: ["Item", "Conditional pattern base", "Conditional FP-tree", "Frequent itemsets"],
-        rows: [
-          ["N", "{B,P,E}:1, {B,E}:1", "B:2, E:2", "{N}, {B,N}, {E,N}, {B,E,N}"],
-          ["E", "{B,P}:2, {B}:1", "B:3 → P:2", "{E}, {B,E}, {P,E}, {B,P,E}"],
-          ["P", "{B}:3", "B:3", "{P}, {B,P}"],
-          ["B", "empty", "B:4", "{B}"],
-        ],
-      },
-      walkthrough: "fpgrowth",
-    },
-    {
-      id: "u2-correlation",
-      question:
-        "Evaluate support, confidence and correlation measures in association rule mining.",
-      marks: 10,
-      freq: 4,
-      papers: "Asked in 4 of 12 papers, including 'evaluate support, confidence and correlation measures' and 'correlation analysis for transactional databases'.",
-      sections: [
-        {
-          heading: "Support, confidence and their limitation",
-          bullets: [
-            "**Support** measures how frequently the items in a rule occur together in the database.",
-            "**Confidence** measures the conditional probability that the consequent occurs when the antecedent occurs.",
-            "A rule can have high confidence even when its consequent is very common, so confidence alone may suggest a misleading relationship.",
-          ],
-        },
-        {
-          heading: "Lift and the tea–coffee example",
-          bullets: [
-            "**Lift** compares the observed co-occurrence of A and B with the co-occurrence expected if A and B were independent.",
-            "A **lift value greater than 1** indicates a positive correlation, a value equal to 1 indicates independence and a value below 1 indicates a negative correlation.",
-            "In a 100-transaction database with 80 coffee buyers, 20 tea buyers and 15 buyers of both, the rule tea → coffee has support 15%, confidence 75% and lift 0.94.",
-            "The lift is below 1 even though the confidence is 75%, because coffee is already bought by 80% of all customers.",
-          ],
-        },
-        {
-          heading: "Chi-square, all-confidence and Kulczynski",
-          bullets: [
-            "The **chi-square test** compares observed and expected frequencies in a contingency table to test whether the two items are independent.",
-            "**All-confidence** is the minimum confidence among all rules that can be generated from an itemset, and **max-confidence** is the maximum.",
-            "The **Kulczynski measure** averages the confidence of A → B and the confidence of B → A so that the result is not biased by a very frequent item.",
-            "**Cosine similarity** is the geometric mean of the two conditional probabilities, which also reduces the effect of item frequency.",
-          ],
-        },
-        {
-          heading: "How to evaluate in practice",
-          bullets: [
-            "In practice, a good evaluation combines **support**, **confidence** and at least one correlation measure such as **lift** or **chi-square**.",
-          ],
-        },
-      ],
-      formula:
-        "lift(A → B) = P(A ∪ B) / (P(A) × P(B))\nchi-square = Σ (observed − expected)² / expected\nall-confidence(X) = min confidence of every rule A → X − A\nKulczynski(A,B) = 0.5 × (P(B | A) + P(A | B))",
-      table: {
-        head: ["Measure", "Question it answers", "Tea → coffee example"],
-        rows: [
-          ["Support", "How often do A and B occur together?", "15%"],
-          ["Confidence", "How often is B present when A is present?", "15/20 = 75%"],
-          ["Lift", "Is the co-occurrence more than chance?", "0.75 / 0.80 = 0.94"],
-          ["Conclusion", "Is the rule useful?", "Not useful, because lift < 1"],
-        ],
-      },
-    },
-    {
-      id: "u2-principle",
-      question:
-        "Explain the Apriori principle, candidate generation, the join step and the prune step.",
-      marks: 5,
-      freq: 4,
-      papers: "Asked in 4 of 12 papers as 'What is the Apriori principle' or 'Explain candidate generation'.",
-      answer: [
-        "The **Apriori principle** states that if an itemset is frequent, then all of its subsets must also be frequent.",
-        "Its contrapositive states that if an itemset is infrequent, then all of its supersets must also be infrequent.",
-        "This property is also called **downward closure** or **antimonotonicity** of support.",
-        "**Candidate generation** creates the candidate set **Ck** from the frequent set **Lk−1**.",
-        "The **join step** joins Lk−1 with itself and keeps pairs whose first k−2 items are equal and whose last items are in increasing order.",
-        "The **prune step** deletes every candidate from Ck that contains a (k−1)-subset that is not in Lk−1.",
-        "The database is then scanned to count the support of the surviving candidates, and those meeting min_sup become **Lk**.",
-        "The process repeats until no new frequent itemsets are found, which is why Apriori is called a **level-wise** algorithm.",
-      ],
-      formula:
-        "Join: Lk−1 ⋈ Lk−1 with p.item1 = q.item1 … p.itemk−2 = q.itemk−2, p.itemk−1 < q.itemk−1\nPrune: delete c ∈ Ck if any (k−1)-subset of c is not in Lk−1",
-    },
-    {
-      id: "u2-market",
-      question: "Explain market basket analysis and its relevance to association rule mining.",
-      marks: 5,
-      freq: 3,
-      papers: "Asked in 3 of 12 papers, including combined market-basket and Apriori questions.",
-      answer: [
-        "**Market basket analysis** studies customer buying habits by finding associations among the items placed in a shopping basket.",
-        "It is the classic application of **frequent itemset mining** and **association rule mining**.",
-        "The input is a transactional database where each transaction lists the items bought together.",
-        "The discovered rules show which products are frequently purchased together, such as bread → milk.",
-        "Retailers use these rules for **cross-selling**, **product placement**, **promotion design** and **catalog layout**.",
-        "The two main measures are **support**, which shows how often the combination occurs, and **confidence**, which shows the strength of the implication.",
-        "Market basket analysis is also used in **cross-marketing**, **loss-leader analysis** and **customer segmentation**.",
-        "The results are most useful when support, confidence and correlation measures are evaluated together.",
-      ],
-    },
-    {
-      id: "u2-multilevel",
-      question:
-        "Explain the types of association rules in data mining, including multilevel and multidimensional association rules.",
-      marks: 5,
-      freq: 3,
-      papers: "Asked in 3 of 12 papers as 'types of association rules', 'multilevel association rules' and 'multidimensional association rules'.",
-      answer: [
-        "Association rules are classified by the **abstraction level** of the items and by the **number of dimensions** involved.",
-        "**Multilevel association rules** use concept hierarchies, so items can be generalised from low-level values to high-level concepts.",
-        "For example, a multilevel rule can associate 'milk' with 'bread' at a high level and 'Amul milk' with 'brown bread' at a lower level.",
-        "Multilevel mining uses **uniform support**, **reduced minimum support** or **group-based minimum support** to handle different levels.",
-        "**Multidimensional association rules** involve more than one dimension or attribute, such as age, income and purchase behaviour.",
-        "A multidimensional rule can state that customers with age = young and income = high tend to buy a laptop.",
-        "**Quantitative association rules** are a special case in which numeric attributes are discretised into intervals before mining.",
-        "**Single-dimensional association rules** involve repeated predicates on one attribute, such as buys(x, milk) → buys(x, bread).",
-        "Rule mining also distinguishes **Boolean association rules**, which only record presence or absence, from **quantitative association rules**, which use numeric values.",
-        "The choice of rule type controls both the search space and the interpretability of the final rules.",
-      ],
-    },
-    {
-      id: "u2-apriori-limits",
-      question:
-        "Discuss the limitations of the Apriori algorithm and explain how FP-Growth overcomes them.",
-      marks: 5,
       freq: 2,
-      papers: "Asked in 2 of 12 papers, including 'discuss the limitations of Apriori' alongside the FP-tree question.",
-      answer: [
-        "Apriori may generate a very large number of **candidate itemsets**, especially when the data is dense or min_sup is low.",
-        "It repeatedly scans the whole database, and the number of scans grows with the length of the longest frequent itemset.",
-        "Candidate support counting is expensive because each candidate must be checked against the transactions.",
-        "Apriori can suffer from **pattern explosion**, because a low support threshold produces a huge number of frequent itemsets.",
-        "FP-Growth avoids candidate generation by building a compressed **FP-tree** that shares common prefixes.",
-        "FP-Growth scans the database only twice and then mines the tree through **conditional pattern bases** and **conditional FP-trees**.",
-        "The main cost of FP-Growth is memory, because a dense database may produce a large tree and many conditional pattern bases.",
+      papers:
+        "Asked as a Part-B subquestion in the IRS question bank and directly in JNTUH Feb 2023 as 'illustrate the two processes associated with information extraction'.",
+      sections: [
+        {
+          heading: "The two extraction processes",
+          bullets: [
+            "The first process is the **determination of facts** that go into structured fields in a database.",
+            "The second process is the **extraction of text** that can be used to summarize an item.",
+            "The process of extracting facts for indexes is called **Automatic File Build (AFB)**.",
+            "AFB selects incoming documents, applies automatic file build profiles and produces **candidate index records** for review and editing by a user.",
+          ],
+        },
+        {
+          heading: "Extraction metrics",
+          bullets: [
+            "In information extraction, **recall** is how much correct and relevant information was extracted compared with how much should have been extracted from the item.",
+            "**Precision** is how much extracted information is accurate compared with the total information extracted.",
+            "**Overgeneration** measures the amount of irrelevant information that is extracted, such as templates filled for topics that were not intended.",
+            "**Fallout** measures how often a system assigns incorrect slot fillers, and it is also used for extraction quality.",
+            "These measures apply to both human and automated extraction processes.",
+          ],
+        },
+        {
+          heading: "Document summarization",
+          bullets: [
+            "**Document summarization** extracts a summary that keeps the most important ideas while significantly reducing size.",
+            "It differs from fact extraction because it does not try to fill specific slots; it compresses the item's content.",
+            "Titles, tables of contents and abstracts are common summaries, and the **abstract** is the closest to a true summary.",
+            "An abstract can represent the item for search or help a user judge utility without reading the complete item.",
+          ],
+        },
+        {
+          heading: "Why information extraction matters",
+          bullets: [
+            "Extraction turns unstructured text into structured facts that can be queried, joined and aggregated.",
+            "It reduces the user's reading overhead because the relevant facts are already isolated.",
+            "The main risk is that extraction errors silently populate a database, so precision and overgeneration must be monitored.",
+          ],
+        },
       ],
+      table: {
+        head: ["Measure", "Question it answers", "Failure it detects"],
+        rows: [
+          ["**Recall**", "How much of the correct information was extracted?", "missed facts"],
+          ["**Precision**", "How much of the extracted information is correct?", "wrong facts"],
+          ["**Overgeneration**", "How much irrelevant information was extracted?", "filling templates for the wrong topic"],
+          ["**Fallout**", "How often are incorrect slot fillers assigned?", "bad slot values"],
+        ],
+      },
+      note:
+        "The two-process answer is short: facts into structured fields, and text into a summary. Add the four extraction metrics for the 10-mark version.",
+    },
+    {
+      id: "u2-stemming",
+      question:
+        "Explain stemming algorithms in detail. Compare table-lookup, Porter, dictionary look-up and successor stemming, and state the advantages and limitations of stemming.",
+      marks: 10,
+      freq: 4,
+      papers:
+        "Asked in both JNTUH R18 papers (dictionary versus successor stemmers, Porter algorithm) and repeated in the question bank as a major data-structure question.",
+      sections: [
+        {
+          heading: "What stemming is and why it is used",
+          bullets: [
+            "**Stemming** is the cutting and trimming of words to a common stem that represents the concept.",
+            "The goal is to **improve performance** and require fewer system resources by reducing the number of unique words the system must contain.",
+            "Stemming improves **recall**, reduces **diversity**, increases search **efficiency** and performs **conflation** of word variants.",
+            "The cost is reduced **precision**, because unrelated words can collapse to the same stem.",
+            "Stemming is applied to the user's query as well as to the incoming text, so a bad stem can confuse the user and damage trust in the system.",
+          ],
+        },
+        {
+          heading: "Table-lookup stemming",
+          bullets: [
+            "**Table-lookup stemming** uses a large data structure that maps each word form to its stem.",
+            "It is used in systems such as **RetrievalWare** that already contain a large thesaurus or concept network.",
+            "It is accurate for known words but expensive in storage and unable to handle words that are not in the table.",
+          ],
+        },
+        {
+          heading: "Porter stemming algorithm",
+          bullets: [
+            "The **Porter algorithm** is based on a set of **conditions on the stem, suffix and prefix** and associated actions.",
+            "The **measure m** is the number of VC sequences in **C(VC)ᵐV**, where the initial C and final V are optional.",
+            "The stem conditions are ***<X>** (ends with X), ***v*** (contains a vowel), ***d** (ends in a double consonant) and ***o** (ends in CVC, final consonant not w, x or y).",
+            "Rules are grouped into steps 1a to 5, and only **one rule per step** is applied, for example **stresses → stress**, **making → mak**, **happy → happi**, **formaliti → formal**, **duplicate → duplic**, **adjustable → adjust** and **inflate → inflat**.",
+            "The worked word **duplicatable** becomes **duplicat** by rule 4, then **duplicate** by rule 1b1, then **duplic** by rule 2.",
+          ],
+        },
+        {
+          heading: "Dictionary look-up and K-stem",
+          bullets: [
+            "**Dictionary look-up stemming** still applies simple rules but looks the original or stemmed word up in a dictionary.",
+            "The **Kstem** algorithm in the INQUERY system is a morphological analyzer that tries to avoid collapsing words with different meanings.",
+            "Kstem returns real words instead of truncated forms, so it generally requires the word to be in the dictionary before reduction.",
+            "Kstem uses six major data files: the **dictionary**, the **supplement**, the **exceptions list**, **direct conflation**, **country-nationality conflation** and **proper nouns**.",
+            "Examples are *British → Britain* and the exception that *suites → suite* but *suited → suit*.",
+          ],
+        },
+        {
+          heading: "Successor stemming",
+          bullets: [
+            "**Successor stemming** uses the length of prefixes that optimally stem expansions of additional suffixes.",
+            "The **successor variety** of a word segment is the number of distinct letters that can follow it, measured from a symbol tree.",
+            "A symbol tree for *bag, barn, bring, box, bottle* shows that the successor variety of *b* is 3 and of *ba* is 2.",
+            "The four segmentation methods are **cutoff**, **peak and plateau**, **complete word** and **entropy**.",
+            "After segmentation, the first segment is selected as the stem if it occurs in 12 or fewer words; otherwise the second segment is used.",
+          ],
+        },
+        {
+          heading: "Dictionary look-up versus successor stemming",
+          bullets: [
+            "**Dictionary look-up stemming** uses a lexicon of known words and can return a real word rather than a truncated fragment.",
+            "**Successor stemming** is data-driven and uses the distribution of letters after each prefix to split a word into segments.",
+            "Dictionary stemming preserves meaning better, while successor stemming adapts to a new vocabulary without a dictionary.",
+            "Dictionary methods are limited by dictionary coverage, and successor methods are limited by the training set and threshold choices.",
+          ],
+        },
+        {
+          heading: "Advantages and limitations",
+          bullets: [
+            "Stemming is efficient and depends strongly on the nature of the vocabulary.",
+            "Studies show that stemming is about as effective as **manual conflation** and generally has a positive effect on recall.",
+            "It can over-stem unrelated words, under-stem related forms and introduce anomalies that reduce precision.",
+            "Proper names and acronyms should not be stemmed, and stemming can remove information needed by natural language processing systems.",
+          ],
+        },
+      ],
+      formula:
+        "Porter measure: C(VC)ᵐV → m = number of VC sequences\nExamples: m = 0 (free, why), m = 1 (frees, whose), m = 2 (prologue, compute)\nWord variants: connect, connected, connecting, connection, connections → connect",
+      table: {
+        head: ["Stemmer", "Method", "Example", "Trade-off"],
+        rows: [
+          ["**Table lookup**", "large mapping table", "RetrievalWare", "accurate but storage-heavy"],
+          ["**Porter**", "condition-action suffix rules", "stresses → stress", "simple, but can over-stem"],
+          ["**Dictionary (K-stem)**", "rules + dictionary + exception files", "British → Britain", "better meaning preservation, needs a dictionary"],
+          ["**Successor**", "symbol tree and successor variety", "boxer → box", "data-driven, but needs a training vocabulary"],
+        ],
+      },
+      walkthrough: "porter",
+      note:
+        "The walkthrough on this page shows Steps 1a–5 and the duplicatable case. In the exam, write the m definition, the four conditions and at least six rule examples.",
+    },
+    {
+      id: "u2-inverted-file",
+      question:
+        "Explain the inverted file structure in detail. Describe its three basic files, the search process, B-tree use and its advantages and limitations.",
+      marks: 10,
+      freq: 3,
+      papers:
+        "Asked in the IRS question bank and the NR20 model paper as 'explain inverted file structure'; it is also the most common data structure in IRS notes.",
+      sections: [
+        {
+          heading: "The two major data structures in any IRS",
+          bullets: [
+            "The first major structure is the **document manager**, which stores and manages received items in their normalized form.",
+            "The second major structure contains the **processing tokens and associated data** that support search.",
+            "The document manager returns the original item after a hit, while the search structure locates the hit.",
+            "An inverted file is the most common search structure, but PAT trees, signature files and N-gram structures are alternatives.",
+          ],
+        },
+        {
+          heading: "The three basic files",
+          bullets: [
+            "An **inverted file structure** is the most common data structure in both database management and information retrieval systems.",
+            "It is composed of a **document file**, a **dictionary** and one or more **inversion lists**.",
+            "The **document file** stores the normalized items in arrival order and provides the full item for retrieval.",
+            "The **dictionary** stores the sorted vocabulary together with the document frequency and a pointer to the posting list.",
+            "The **inversion lists** store the posting lists, that is, the identifiers of the items that contain each term.",
+          ],
+        },
+        {
+          heading: "How a search works",
+          bullets: [
+            "The query terms are looked up in the **dictionary**, which gives the address of their posting lists.",
+            "The posting lists are merged or intersected according to the Boolean operators in the query.",
+            "For the query *Computer AND Memory*, the posting list of *Computer* is [1, 3, 4] and the posting list of *Memory* is [1, 2, 4], so the intersection is [1, 4].",
+            "The resulting item identifiers form the **hit file**, and the document manager retrieves the selected items.",
+            "This design avoids scanning every document for every query, which is why inversion lists give optimum performance on large databases.",
+          ],
+        },
+        {
+          heading: "B-tree alternative",
+          bullets: [
+            "A **B-tree** can replace the dictionary for large dynamic vocabularies.",
+            "A B-tree of order m has a root with 2 to 2m keys, internal nodes with m to 2m keys, and all leaves at the same level.",
+            "Keys are kept in sorted order, and the inversion lists may be stored at the leaf level or referenced by higher-level pointers.",
+            "The B-tree keeps lookup and update costs logarithmic while keeping the index balanced.",
+          ],
+        },
+        {
+          heading: "Features and advantages",
+          bullets: [
+            "The inverted file increases **precision** because the dictionary gives exact term matching and the posting lists can be ranked.",
+            "It supports **zoning** by storing the zone or field of each term occurrence.",
+            "It supports **ranking** by storing term frequencies and weights with the posting entries.",
+            "It is well suited to storing **concepts and their relationships** because the dictionary can point to concept records.",
+            "It supports natural language processing and is efficient for large databases because only the relevant posting lists are read.",
+          ],
+        },
+        {
+          heading: "Limitations",
+          bullets: [
+            "The index can be large, and its size grows with the number of distinct terms and postings.",
+            "Updating an inversion list is expensive because a new item must be inserted into every list for its terms.",
+            "It is less suitable for substring or pattern queries because the dictionary stores whole words, not all text positions.",
+            "Storage and update overhead are the main reasons alternatives such as signature files and PAT trees are used.",
+          ],
+        },
+      ],
+      table: {
+        head: ["File", "Stores", "Example", "Purpose"],
+        rows: [
+          ["**Document file**", "normalized items and their text", "DOC1: Chips, Computer, Memory", "returns the full item"],
+          ["**Dictionary**", "term, document frequency, pointer", "Computer · DF 3 · P2", "finds the term quickly"],
+          ["**Inversion list**", "posting list of item IDs", "P2: Computer → [1, 3, 4]", "supports Boolean set operations"],
+        ],
+      },
+      diagrams: ["inverted"],
+      note:
+        "Draw the three columns and one arrow from each dictionary entry to its posting list. Then write the Computer AND Memory intersection example.",
+    },
+    {
+      id: "u2-ngram",
+      question:
+        "Explain the N-gram data structure with examples. State the maximum number of n-grams, its advantages and its disadvantages.",
+      marks: 10,
+      freq: 2,
+      papers:
+        "Asked in the IRS question bank as 'write short notes on the N-gram data structure' and as a Part-B subquestion on data structures.",
+      sections: [
+        {
+          heading: "Definition",
+          bullets: [
+            "An **n-gram** is a fixed-length consecutive series of **n characters** taken from a processing token or from continuous text.",
+            "A **bigram** has 2 characters, a **trigram** has 3 characters, and a **pentagram** has 5 characters.",
+            "N-grams can be viewed as a special technique for **conflation** and as a unique data structure in information systems.",
+            "Unlike stemming, n-grams do not care about the semantic meaning of the word; they operate on character fragments.",
+          ],
+        },
+        {
+          heading: "Construction and examples",
+          bullets: [
+            "For the phrase *sea colony*, the bigrams are **se, ea, co, ol, lo, on, ny** when inter-word symbols are ignored.",
+            "The trigrams without inter-word symbols are **sea, col, olo, lon, ony**.",
+            "With the inter-word symbol **#**, the trigrams become **#se, sea, ea#, #co, col, olo, lon, ony, ny#**.",
+            "The inter-word symbol represents a blank, period, semicolon or colon and makes word boundaries explicit.",
+            "The maximum number of n-grams for a token of length L is given by the formula **(L − n + 1)**, and the notes express the general bound as **MAX Segₙ = (λ)ⁿ**.",
+          ],
+        },
+        {
+          heading: "Advantages",
+          bullets: [
+            "N-grams were first used in **World War II by cryptographers** and are still used for spelling error detection and correction.",
+            "The frequency of an n-gram pattern can identify the **language of an item**.",
+            "Because the data structure has fixed processing-token bounds, optimized performance techniques can be applied to index mapping and query processing.",
+            "N-grams handle misspellings and morphological variants without a dictionary, which makes them robust for noisy text.",
+          ],
+        },
+        {
+          heading: "Disadvantages",
+          bullets: [
+            "There is **no semantic meaning** in a particular n-gram because it is only a fragment of a processing token.",
+            "N-grams are therefore a **poor representation of concepts and their relationships**.",
+            "Longer n-grams produce poor results and are expensive, while shorter n-grams produce many false matches.",
+            "The index is larger than a word index because every character position generates a fragment.",
+          ],
+        },
+        {
+          heading: "Applications",
+          bullets: [
+            "N-grams are used in **spelling correction**, **language identification**, **OCR error correction** and **approximate string matching**.",
+            "They are useful for **multilingual** collections because they do not depend on a word dictionary.",
+            "They are also used as a feature representation in text classification and plagiarism detection.",
+          ],
+        },
+      ],
+      formula:
+        "Number of n-grams in a token of length L: L − n + 1\nExample: sea colony → bigrams se, ea, co, ol, lo, on, ny\nTrigrams with boundary: #se, sea, ea#, #co, col, olo, lon, ony, ny#",
+      table: {
+        head: ["n", "Name", "Example for sea colony", "Main use"],
+        rows: [
+          ["2", "bigram", "se, ea, co, ol, lo, on, ny", "spelling and language detection"],
+          ["3", "trigram", "sea, col, olo, lon, ony", "approximate matching"],
+          ["5", "pentagram", "#sea#, #colo, colon, olony, lony#", "more specific fragment matching"],
+        ],
+      },
+      note:
+        "Write the definition, the bigram and trigram example and the formula, then balance two advantages against two disadvantages. The semantic weakness is the key exam point.",
+    },
+    {
+      id: "u2-pat",
+      question:
+        "Explain the PAT data structure and how to create a PAT tree with example data. State its properties, search use and advantages.",
+      marks: 10,
+      freq: 3,
+      papers:
+        "Asked directly in JNTUH Feb 2023 as 'how to create a PAT tree? Explain with example data' and repeated in the question bank data-structure section.",
+      sections: [
+        {
+          heading: "What PAT means",
+          bullets: [
+            "**PAT** stands for **Practical Algorithm To Retrieve Information Coded in Alphanumerics**.",
+            "A **PAT tree** is an unbalanced **binary digital tree** that allows very efficient searching of continuous text.",
+            "The input stream is transformed into a searchable data structure consisting of **substrings called sistrings**.",
+            "A **sistring** is a semi-infinite string that starts at a position in the text and continues to the end of the input, with null padding if necessary.",
+            "For a text of **n** characters there are **n leaf nodes** and at most **n − 1** higher-level nodes.",
+          ],
+        },
+        {
+          heading: "Creating the sistrings",
+          bullets: [
+            "Every position in the input string is an **anchor point** for a sistring.",
+            "For the input **100110001101**, sistring 1 is **100110001101**, sistring 2 is **001100011010** and sistring 12 is **100000000000**.",
+            "All substrings are unique, so each sistring can be identified by its **starting location and length**.",
+            "Sistrings that run past the end of the text are padded with null characters so that they remain comparable.",
+          ],
+        },
+        {
+          heading: "Building the Patricia tree",
+          bullets: [
+            "Start with the first sistring as a **root leaf**.",
+            "Insert the next sistring by comparing it bit by bit with the existing leaf until the first **differing bit** is found.",
+            "Create an internal node at that **bit position**, with **0 branching left** and **1 branching right**.",
+            "Each internal node stores the bit position used for its test, not a whole key.",
+            "The finished tree has all key values at the **leaf nodes**, and the internal nodes only guide the search.",
+          ],
+        },
+        {
+          heading: "Searching a PAT tree",
+          bullets: [
+            "Search for a pattern by tracing its bits from the root and following the branches.",
+            "The leaves reached by the pattern identify the starting positions of matching sistrings.",
+            "PAT trees support **prefix search**, **range search** and **substring search** because the text is logically sorted by bits.",
+            "A **PAT array** stores the sorted sistring positions and can be searched with binary search instead of following tree pointers.",
+          ],
+        },
+        {
+          heading: "Advantages and limitations",
+          bullets: [
+            "PAT trees avoid word-boundary errors because they index every text position rather than whole words.",
+            "They are more accurate than an inverted file for string and substring search.",
+            "They are not balanced, so their shape depends on the input and can become deep.",
+            "They consume more space than a word index because one leaf is stored per character.",
+          ],
+        },
+      ],
+      formula:
+        "Sistring at position i = text[i … n] + null padding\nNumber of leaves = n\nMaximum internal nodes = n − 1\nBranch rule: bit 0 → left, bit 1 → right",
+      table: {
+        head: ["Sistring", "Bits for 100110001101", "First differing bit"],
+        rows: [
+          ["s1", "100110001101", "—"],
+          ["s2", "001100011010", "bit 1"],
+          ["s3", "011000110100", "bit 2"],
+          ["s4", "110001101000", "bit 2"],
+          ["s5", "100011010000", "bit 4"],
+          ["s12", "100000000000", "bit 5"],
+        ],
+      },
+      walkthrough: "pat",
+      note:
+        "The examiner wants the word sistring, the 0-left/1-right rule, the bit-position labels and the leaf-only keys. Draw at least the first three insertions.",
+    },
+    {
+      id: "u2-signature",
+      question:
+        "Explain the signature file structure with superimposed coding. Using the PYQ text, compute h(made), the block signature and explain a false drop.",
+      marks: 10,
+      freq: 3,
+      papers:
+        "Asked in the IRS question bank and the NR20 model paper with the exact text 'This is text A text has many words…'; the theory also appears in the data-structure question.",
+      sections: [
+        {
+          heading: "Goal of a signature file",
+          bullets: [
+            "The goal of a **signature file structure** is to provide a fast test that eliminates the majority of items that are not related to a query.",
+            "The text of each item is represented in a **highly compressed form** that facilitates the fast test.",
+            "The file is compressed and unordered, so it requires significantly less space than an inverted file structure.",
+            "New items are concatenated to the end of the structure, and deleted items are left in place and marked deleted.",
+            "Signature file search is a **linear scan** of the compressed signatures, so response time is linear with respect to file size.",
+          ],
+        },
+        {
+          heading: "Superimposed coding",
+          bullets: [
+            "The surrogate signature file is created through **superimposed coding** based on the words in the item.",
+            "Each word is mapped to a **word signature**, which is a fixed-length code with a fixed number of bits set to 1.",
+            "The bit positions set to 1 are determined by a **hash function** of the word.",
+            "The word signatures are **ORed together** to create the signature of an item or block.",
+            "To avoid signatures becoming too dense with 1s, a maximum number of words is specified and the item is partitioned into **blocks** of that size.",
+          ],
+        },
+        {
+          heading: "The exact PYQ data",
+          bullets: [
+            "The question gives **Text: “This is text A text has many words, words are made from letters”**.",
+            "The hash values are **h(text) = 000101**, **h(many) = 110000**, **h(words) = 100100**, **h(made) = 001100** and **h(letters) = 100001**.",
+            "The value asked in the paper is **h(made) = 001100**.",
+            "ORing the five word signatures gives **000101 OR 110000 OR 100100 OR 001100 OR 100001 = 111101**, which is the block signature.",
+          ],
+        },
+        {
+          heading: "Searching with a query template",
+          bullets: [
+            "The words in a query are mapped to their signatures and ORed to form a **query template**.",
+            "Search is accomplished by **template matching** on the bit positions specified by the query words.",
+            "If every 1 bit of the query template is present in the block signature, the block is a **candidate** for a full-text check.",
+            "For example, the query *text made* has template **000101 OR 001100 = 001101**, which is a subset of the block signature **111101**.",
+          ],
+        },
+        {
+          heading: "False drops",
+          bullets: [
+            "A **false drop** occurs when a query template passes the bit test even though the item does not contain the query words.",
+            "The OR operation loses the identity of the word that set each bit, so unrelated words can cover the same bit positions.",
+            "The textbook example is the word *hard* with signature 1000 0111 0010 0000, which incorrectly matches the block signature 1001 0111 1110 0110.",
+            "The fix is to verify every candidate against the original text, or to use longer codes and fewer 1 bits per word to reduce collisions.",
+          ],
+        },
+        {
+          heading: "Design trade-offs and applications",
+          bullets: [
+            "A **longer code length** reduces hash collisions, while **fewer bits per code** reduces false drops but increases storage for the same terms.",
+            "The textbook design uses a **block size of five words**, a **16-bit code** and **five 1-bits per word**.",
+            "Search of the signature matrix is O(N), and performance can be improved by **horizontal partitioning**, **two-level signatures** or **B-tree clustering**.",
+            "Signature files are used for **medium-size databases**, databases with low-frequency terms, **WORM devices**, parallel machines and distributed environments.",
+          ],
+        },
+      ],
+      formula:
+        "Block signature = OR of all word signatures\nQuery template = OR of all query-word signatures\nCandidate test: (template AND block signature) = template\nPYQ: h(text)=000101, h(many)=110000, h(words)=100100, h(made)=001100, h(letters)=100001\nBlock = 000101 OR 110000 OR 100100 OR 001100 OR 100001 = 111101",
+      table: {
+        head: ["Word", "Signature", "Meaning"],
+        rows: [
+          ["text", "000101", "sets bits 4 and 6"],
+          ["many", "110000", "sets bits 1 and 2"],
+          ["words", "100100", "sets bits 1 and 4"],
+          ["made", "001100", "sets bits 3 and 4"],
+          ["letters", "100001", "sets bits 1 and 6"],
+          ["**Block**", "**111101**", "union of all five patterns"],
+        ],
+      },
+      walkthrough: "signature",
+      note:
+        "The walkthrough shows the exact PYQ values, the OR table, two passing queries and a false-drop check. Write h(made) first so the examiner sees the direct answer.",
+    },
+    {
+      id: "u2-hypertext-xml",
+      question:
+        "Describe the hypertext and XML data structures. Explain nodes, links, HTML tags, XML components and the Hidden Markov Model.",
+      marks: 10,
+      freq: 3,
+      papers:
+        "Asked in JNTUH Feb 2022 as 'describe hypertext and XML data structures' and repeated in the IRS question bank as hypertext and XML features.",
+      sections: [
+        {
+          heading: "Hypertext structure",
+          bullets: [
+            "The **hypertext data structure** is used extensively in the internet environment and requires electronic media storage for the item.",
+            "Hypertext allows one item to reference another item through an **embedded pointer**.",
+            "Each separate item is called a **node**, and the reference pointer is called a **link**.",
+            "Each node is displayed by a viewer defined for the file type associated with that node.",
+            "The referenced item may be of the same or a different data type, such as a text node that references a photograph.",
+          ],
+        },
+        {
+          heading: "HTML and tags",
+          bullets: [
+            "**HTML** defines the internal structure for information exchange across the World Wide Web.",
+            "A document is composed of the text of the item together with **HTML tags** that describe how to display the document.",
+            "Tags are formatting or structural keywords contained between less-than and greater-than symbols, such as `<title>` and `<strong>`.",
+            "The hypertext link tag is `<a href=\"…\">…</a>`, where **a** is the anchor and **href** is the hypertext reference.",
+            "The **href** contains a file name for a local item or a **Uniform Resource Locator (URL)** and file name for a remote item.",
+          ],
+        },
+        {
+          heading: "XML structure",
+          bullets: [
+            "**XML** provides a detailed description of subsets of text, similar to zoning, and it is defined by a **Document Type Definition (DTD)**.",
+            "The **Document Object Model (DOM)** exposes the XML document as a tree of elements and attributes.",
+            "**XSL** is used to transform or present XML content in another form.",
+            "XML separates content from presentation, so the same content can be displayed on different devices.",
+            "An XML document is well formed when every element is properly nested and closed, and valid when it conforms to its DTD.",
+          ],
+        },
+        {
+          heading: "Hypertext versus XML",
+          bullets: [
+            "Hypertext is a **graph of nodes and links**, while XML is a **hierarchical element tree**.",
+            "Hypertext supports navigation and link analysis, while XML supports structured exchange, validation and querying.",
+            "Both provide detailed descriptions of text subsets that are similar to zoning.",
+            "HTML is a fixed-tag hypertext language, while XML lets the author define tags for a domain.",
+          ],
+        },
+        {
+          heading: "Hidden Markov Model",
+          bullets: [
+            "The **Hidden Markov Model (HMM)** models a statistical process whose output is equivalent to the set of queries that would make a document relevant.",
+            "The output is produced by passing an unknown key through state transitions in a noisy channel, where the query is the output and the relevant documents are the unknown keys.",
+            "The **channel** represents the mismatch between the author's way of expressing ideas and the user's ability to specify a query.",
+            "The approach begins with **Bayes' rule**: P(A/B) = P(B/A) P(A) / P(B).",
+            "The biggest problem is estimating the transition probability matrix and the output for every document; a large training database with the **Expectation-Maximization** algorithm can solve it.",
+          ],
+        },
+      ],
+      formula:
+        "Bayes' rule: P(A/B) = P(B/A) P(A) / P(B)\nHTML link: <a href=\"URL\">anchor text</a>\nXML: DTD defines the grammar, DOM represents the tree, XSL transforms presentation",
+      table: {
+        head: ["Structure", "Model", "Strength", "Limitation"],
+        rows: [
+          ["**Hypertext**", "graph of nodes and links", "navigation and link analysis", "link rot and lost orientation"],
+          ["**HTML**", "fixed tags over hypertext", "universal web display", "presentation mixed with content"],
+          ["**XML**", "hierarchical element tree", "structured exchange and validation", "verbose and needs a schema"],
+          ["**HMM**", "statistical noisy-channel model", "probabilistic relevance model", "hard to estimate transition probabilities"],
+        ],
+      },
+      diagrams: ["hypertext"],
+      note:
+        "Use the diagram: left side hypertext graph, right side XML tree. Then write the node/link definition and the DTD/DOM/XSL definitions for the XML part.",
     },
   ],
 };

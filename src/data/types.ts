@@ -44,17 +44,9 @@ export type TwoMark = {
 };
 
 export type PaperName =
-  | "KR21 Dec 2025 (S)"
-  | "RKR21 Dec 2025"
-  | "RKR21 May 2026 (S)"
-  | "KR20 Jun 2026 (S)"
-  | "RKR21 Dec 2025 (IT)"
-  | "KR20 May 2024 (IT)"
-  | "KR20 Jun 2024 (IT)"
-  | "KR21 Aug 2024 (IT)"
-  | "KR21 Jan 2025"
-  | "KR21 Jun 2025"
-  | "KR20 May 2024"
-  | "KR20 Dec 2023";
+  | "IRS Question Bank (NR21)"
+  | "NR20 Model Paper (Feb 2023)"
+  | "JNTUH Feb 2022 (R18)"
+  | "JNTUH Feb 2023 (R18)";
 
-export const PAPER_COUNT = 12;
+export const PAPER_COUNT = 4;
