@@ -1115,7 +1115,7 @@ export default function HomePage() {
                   <div className="kicker">Static reference</div>
                   <h2>Core exam diagrams</h2>
                   <p className="section-sub">
-                    The same six architecture SVGs used throughout the units, ready to redraw
+                    The same {diagrams.length} architecture SVGs used throughout the units, ready to redraw
                     in the exam.
                   </p>
                 </div>

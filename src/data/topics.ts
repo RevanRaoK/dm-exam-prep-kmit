@@ -470,6 +470,7 @@ export const unitTopics: Record<string, Topic[]> = {
         "Software search struggles with **many terms at once** and **I/O speed**.",
       ],
       questions: ["u5-text-streaming"],
+      diagrams: ["hardware"],
     },
     {
       id: "brute-force",
@@ -523,7 +524,6 @@ export const unitTopics: Record<string, Topic[]> = {
         "The **Fast Data Finder** is a pipeline of programmable comparator cells.",
       ],
       questions: ["u5-hardware"],
-      diagrams: ["hardware"],
     },
     {
       id: "fsa",

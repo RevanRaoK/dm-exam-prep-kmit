@@ -30,7 +30,7 @@ export default function RelevanceFeedbackVector() {
   return (
     <svg
       className="svgviz"
-      viewBox="0 0 780 470"
+      viewBox="0 0 880 470"
       role="img"
       aria-label="Relevance feedback vector shift from the original query towards relevant documents and away from non-relevant documents"
     >
@@ -88,17 +88,17 @@ export default function RelevanceFeedbackVector() {
         Q0 (2.0, 2.0)
       </text>
       <circle cx={px(updated.x)} cy={py(updated.y)} r={7} fill="var(--v-amber)" />
-      <text x={px(updated.x) + 9} y={py(updated.y) - 7} className="mono xs b" style={{ fill: "var(--v-amber)" }}>
+      <text x={px(updated.x) + 16} y={py(updated.y) - 18} className="mono xs b" style={{ fill: "var(--v-amber)" }}>
         Q1 (3.3, 3.7)
       </text>
-      <text x={px(relevant.x) + 10} y={py(relevant.y) - 5} className="mono xs b" style={{ fill: "var(--ok)" }}>
+      <text x={px(relevant.x) - 10} y={py(relevant.y) - 5} textAnchor="end" className="mono xs b" style={{ fill: "var(--ok)" }}>
         centroid of relevant items
       </text>
       <text x={px(nonRelevant.x) + 10} y={py(nonRelevant.y) + 14} className="mono xs b" style={{ fill: "var(--bad)" }}>
         centroid of non-relevant items
       </text>
 
-      <rect x={20} y={398} width={740} height={58} rx={9} fill="var(--c-bg)" stroke="var(--c-mid)" />
+      <rect x={20} y={398} width={840} height={58} rx={9} fill="var(--c-bg)" stroke="var(--c-mid)" />
       <text x={34} y={418} className="mono xs b ink">
         RULE: Q(new) = Q(old) + α · centroid(relevant) − β · centroid(non-relevant)
       </text>
@@ -109,7 +109,7 @@ export default function RelevanceFeedbackVector() {
         The updated query ranks the relevant cluster higher while reducing the score of the non-relevant cluster.
       </text>
 
-      <g transform="translate(500, 66)">
+      <g transform="translate(610, 66)">
         <rect x={0} y={0} width={250} height={70} rx={9} fill="var(--surface)" stroke="var(--line)" />
         <circle cx={16} cy={18} r={5} fill="var(--ok)" />
         <text x={28} y={22} className="xs">

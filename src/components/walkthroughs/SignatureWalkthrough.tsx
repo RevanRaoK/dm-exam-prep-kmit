@@ -58,12 +58,12 @@ function BitBoard({
 }) {
   return (
     <div>
-      <svg className="svgviz" viewBox="0 0 360 200" role="img" aria-label="Six-bit signature rows">
+      <svg className="svgviz" viewBox="0 0 360 340" style={{ maxWidth: 560, margin: "0 auto" }} role="img" aria-label="Six-bit signature rows">
         <text x={8} y={12} className="mono xs mu">
           BIT POSITION 1 · 2 · 3 · 4 · 5 · 6
         </text>
         {rows.map((row, index) => (
-          <g key={row.label} transform={`translate(8, ${16 + index * 40})`}>
+          <g key={row.label} transform={`translate(8, ${14 + index * 52})`}>
             <Bits label={row.label} bits={row.bits} tone={row.tone} />
           </g>
         ))}

@@ -1,4 +1,7 @@
+import { useId } from "react";
+
 export default function HardwareFastDataFinder() {
+  const arrowId = `hw-arrow-${useId().replace(/[^a-zA-Z0-9_-]/g, "")}`;
   return (
     <svg
       className="svgviz"
@@ -7,11 +10,8 @@ export default function HardwareFastDataFinder() {
       aria-label="Text streaming architecture and Fast Data Finder hardware pipeline of comparator cells"
     >
       <defs>
-        <marker id="hw-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <marker id={arrowId} viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
           <path d="M0 0 L10 5 L0 10 z" fill="var(--muted)" />
-        </marker>
-        <marker id="hw-arrow-hot" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-          <path d="M0 0 L10 5 L0 10 z" fill="var(--hot)" />
         </marker>
       </defs>
 
@@ -71,10 +71,10 @@ export default function HardwareFastDataFinder() {
         results available as soon as a match is found
       </text>
 
-      <line x1={148} y1={127} x2={188} y2={127} stroke="var(--muted)" strokeWidth={1.6} markerEnd="url(#hw-arrow)" />
-      <line x1={320} y1={127} x2={360} y2={127} stroke="var(--muted)" strokeWidth={1.6} markerEnd="url(#hw-arrow)" />
-      <line x1={414} y1={158} x2={414} y2={190} stroke="var(--muted)" strokeWidth={1.6} markerEnd="url(#hw-arrow)" />
-      <line x1={254} y1={190} x2={254} y2={158} stroke="var(--muted)" strokeWidth={1.2} strokeDasharray="4 3" markerEnd="url(#hw-arrow)" />
+      <line x1={148} y1={127} x2={188} y2={127} stroke="var(--muted)" strokeWidth={1.6} markerEnd={`url(#${arrowId})`} />
+      <line x1={320} y1={127} x2={360} y2={127} stroke="var(--muted)" strokeWidth={1.6} markerEnd={`url(#${arrowId})`} />
+      <line x1={414} y1={158} x2={414} y2={190} stroke="var(--muted)" strokeWidth={1.6} markerEnd={`url(#${arrowId})`} />
+      <line x1={254} y1={190} x2={254} y2={158} stroke="var(--muted)" strokeWidth={1.2} strokeDasharray="4 3" markerEnd={`url(#${arrowId})`} />
 
       <text x={36} y={190} className="xs mu">
         The detector

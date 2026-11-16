@@ -1,4 +1,5 @@
 import type { ComponentType } from "react";
+import { useId } from "react";
 import IrsProcesses from "./IrsProcesses";
 import InvertedFileStructure from "./InvertedFileStructure";
 import NormalizationPipeline from "./NormalizationPipeline";
@@ -59,6 +60,7 @@ export const diagrams: DiagramInfo[] = [
     caption:
       "Agglomerative single-link clustering merges A–B at height 2, (A,B)–C at 3, D–E at 4 and the two groups at 6. Cutting the dendrogram at 3.5 gives two classes, {A,B,C} and {D,E}.",
     unit: "unit3",
+    wide: true,
     component: SingleLinkDendrogram,
   },
   {
@@ -83,10 +85,14 @@ export const diagrams: DiagramInfo[] = [
 
 export function DiagramById({ id }: { id: string }) {
   const info = diagrams.find((diagram) => diagram.id === id);
+  const instanceId = useId().replace(/[^a-zA-Z0-9_-]/g, "");
   if (!info) return null;
   const Component = info.component;
   return (
-    <figure className={`diagram-card ${info.wide ? "wide" : ""}`} id={`diagram-${info.id}`}>
+    <figure
+      className={`diagram-card ${info.wide ? "wide" : ""}`}
+      id={`diagram-${info.id}-${instanceId}`}
+    >
       <div className="diagram-title">Reference diagram · theme-matched SVG</div>
       <h3>{info.title}</h3>
       <Component />

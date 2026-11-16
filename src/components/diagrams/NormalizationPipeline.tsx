@@ -12,7 +12,7 @@ export default function NormalizationPipeline() {
   return (
     <svg
       className="svgviz"
-      viewBox="0 0 980 560"
+      viewBox="0 0 980 600"
       role="img"
       aria-label="Item normalization pipeline from raw item to searchable data structure"
     >
@@ -125,17 +125,17 @@ export default function NormalizationPipeline() {
         zone: abstract · position: 1, 3
       </text>
 
-      <rect x={18} y={454} width={944} height={86} rx={11} fill="var(--surface-2)" stroke="var(--line)" />
-      <text x={34} y={476} className="mono xs b ink">
+      <rect x={18} y={480} width={944} height={86} rx={11} fill="var(--surface-2)" stroke="var(--line)" />
+      <text x={34} y={502} className="mono xs b ink">
         WHY EACH STEP EXISTS
       </text>
-      <text x={34} y={496} className="xs">
+      <text x={34} y={522} className="xs">
         Standardization makes heterogeneous sources comparable, zoning raises precision, tokenization defines the searchable unit, and the stop algorithm saves index space.
       </text>
-      <text x={34} y={514} className="xs">
+      <text x={34} y={540} className="xs">
         Characterizing preserves names and numbers, stemming improves recall by conflation, and the final data structure controls what the search process can find.
       </text>
-      <text x={34} y={532} className="xs mu">
+      <text x={34} y={558} className="xs mu">
         Trade-off to quote: stemming raises recall but can reduce precision and diversity when different concepts collapse to the same stem.
       </text>
     </svg>

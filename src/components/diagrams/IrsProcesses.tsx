@@ -77,7 +77,7 @@ export default function IrsProcesses() {
   return (
     <svg
       className="svgviz"
-      viewBox="0 0 980 500"
+      viewBox="0 0 980 600"
       role="img"
       aria-label="The four major functional processes of an information storage and retrieval system"
     >
@@ -174,18 +174,18 @@ export default function IrsProcesses() {
 
       <Box
         x={858}
-        y={44}
+        y={292}
         w={104}
-        h={76}
+        h={60}
         title="User query"
         sub="short and focused"
         color="var(--v-blue)"
       />
 
       <Box
-        x={858}
-        y={132}
-        w={104}
+        x={18}
+        y={292}
+        w={140}
         h={60}
         title="Profile"
         sub="broad standing interest"
@@ -193,9 +193,9 @@ export default function IrsProcesses() {
       />
 
       <Box
-        x={858}
-        y={206}
-        w={104}
+        x={18}
+        y={374}
+        w={140}
         h={60}
         title="Mail file"
         sub="new matching items"
@@ -237,9 +237,9 @@ export default function IrsProcesses() {
 
       <Box
         x={858}
-        y={292}
+        y={374}
         w={104}
-        h={82}
+        h={60}
         title="Hit file"
         sub="ranked references to items"
         color="var(--v-blue)"
@@ -251,34 +251,34 @@ export default function IrsProcesses() {
       <line x1={616} y1={82} x2={668} y2={82} stroke="var(--muted)" strokeWidth={1.5} markerEnd="url(#proc-arrow)" />
       <line x1={616} y1={190} x2={668} y2={164} stroke="var(--muted)" strokeWidth={1.5} markerEnd="url(#proc-arrow)" />
       <line x1={616} y1={216} x2={668} y2={232} stroke="var(--muted)" strokeWidth={1.5} markerEnd="url(#proc-arrow)" />
-      <line x1={818} y1={82} x2={858} y2={82} stroke="var(--muted)" strokeWidth={1.5} markerEnd="url(#proc-arrow)" />
-      <line x1={818} y1={162} x2={858} y2={162} stroke="var(--muted)" strokeWidth={1.5} markerEnd="url(#proc-arrow)" />
-      <line x1={858} y1={192} x2={818} y2={222} stroke="var(--muted)" strokeWidth={1.5} markerEnd="url(#proc-arrow)" />
-      <line x1={910} y1={120} x2={910} y2={206} stroke="var(--muted)" strokeWidth={1.5} markerEnd="url(#proc-arrow)" />
+      <path d="M668 82 L640 82 L640 284 L560 284 L560 292" fill="none" stroke="var(--muted)" strokeWidth={1.5} markerEnd="url(#proc-arrow)" />
       <path d="M285 188 L285 292" fill="none" stroke="var(--muted)" strokeWidth={1.5} markerEnd="url(#proc-arrow)" />
       <text x={295} y={250} className="xs mu">
         new item vs every profile
       </text>
-      <line x1={380} y1={333} x2={430} y2={333} stroke="var(--muted)" strokeWidth={1.5} markerEnd="url(#proc-arrow)" />
-      <line x1={616} y1={333} x2={668} y2={333} stroke="var(--muted)" strokeWidth={1.5} markerEnd="url(#proc-arrow)" />
-      <line x1={818} y1={333} x2={858} y2={333} stroke="var(--muted)" strokeWidth={1.5} markerEnd="url(#proc-arrow)" />
-      <path d="M742 272 L742 292" fill="none" stroke="var(--muted)" strokeWidth={1.5} markerEnd="url(#proc-arrow)" />
-      <path d="M742 266 L742 266" fill="none" />
-      <path d="M742 132 L742 120" fill="none" />
-      <path d="M742 120 L742 120" fill="none" />
+      <line x1={158} y1={322} x2={190} y2={322} stroke="var(--muted)" strokeWidth={1.5} markerEnd="url(#proc-arrow)" />
+      <path d="M190 350 L160 350 L160 374" fill="none" stroke="var(--muted)" strokeWidth={1.5} markerEnd="url(#proc-arrow)" />
+      <line x1={858} y1={322} x2={818} y2={322} stroke="var(--muted)" strokeWidth={1.5} markerEnd="url(#proc-arrow)" />
+      <path d="M910 292 L910 278 L540 278 L540 292" fill="none" stroke="var(--muted)" strokeWidth={1.5} markerEnd="url(#proc-arrow)" />
+      <text x={860} y={276} className="xs mu">
+        query
+      </text>
+      <path d="M742 266 L742 292" fill="none" stroke="var(--muted)" strokeWidth={1.5} markerEnd="url(#proc-arrow)" />
+      <path d="M616 333 L640 333 L640 390 L858 390" fill="none" stroke="var(--muted)" strokeWidth={1.5} markerEnd="url(#proc-arrow)" />
+      <path d="M818 333 L840 333 L840 390 L858 390" fill="none" stroke="var(--muted)" strokeWidth={1.5} markerEnd="url(#proc-arrow)" />
 
-      <text x={20} y={408} className="xs mu">
+      <text x={20} y={500} className="xs mu">
         Item normalization feeds both the archival document database and automatic file build.
       </text>
-      <text x={20} y={424} className="xs mu">
+      <text x={20} y={516} className="xs mu">
         SDI compares new items with every profile; document and index searches compare queries with stored items.
       </text>
-      <text x={20} y={440} className="xs mu">
+      <text x={20} y={532} className="xs mu">
         Index search may retrieve the index record alone or follow it to the referenced document through a combined file search.
       </text>
 
-      <rect x={18} y={460} width={944} height={28} rx={7} fill="var(--c-bg)" stroke="var(--c-mid)" />
-      <text x={30} y={478} className="xs b ink">
+      <rect x={18} y={552} width={944} height={28} rx={7} fill="var(--c-bg)" stroke="var(--c-mid)" />
+      <text x={30} y={570} className="xs b ink">
         Exam line: four processes = item normalization · selective dissemination · document database search · index database search with automatic file build.
       </text>
     </svg>

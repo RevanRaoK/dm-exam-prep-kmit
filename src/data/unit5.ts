@@ -369,7 +369,6 @@ export const unit5: Unit = {
           ["**Fast Data Finder**", "pipeline of comparator cells", "programmable cells in series"],
         ],
       },
-      diagrams: ["hardware"],
       note:
         "List the advantages first, because they are easier marks: no index, immediate new items, deterministic speed and immediate hits. Then describe GESCAN and FDF.",
     },

@@ -41,7 +41,7 @@ function StateMachine({ activeState }: { activeState?: number }) {
     { y: 64, x: [70, 180, 290, 400, 510, 620], state: 0 },
   ];
   return (
-    <svg className="svgviz" viewBox="0 0 760 220" role="img" aria-label="Finite state automaton for the pattern abcac">
+    <svg className="svgviz" viewBox="0 0 760 280" role="img" aria-label="Finite state automaton for the pattern abcac">
       <text x={16} y={24} className="mono xs mu">
         FSA FOR PATTERN abcac · STATES 0 TO 5 · STATE 5 IS ACCEPTING
       </text>
@@ -102,29 +102,7 @@ function StateMachine({ activeState }: { activeState?: number }) {
       <text x={26} y={34} className="mono xs mu">
         start
       </text>
-      {[
-        { from: 2, to: 0, label: "d" },
-        { from: 4, to: 0, label: "d" },
-      ].map((edge) => {
-        const x1 = 70 + edge.from * 112;
-        const x2 = 70 + edge.to * 112;
-        return (
-          <g key={`${edge.from}-${edge.to}-fail`}>
-            <path
-              d={`M${x1} 128 Q${(x1 + x2) / 2} 190 ${x2} 128`}
-              fill="none"
-              stroke="var(--muted)"
-              strokeWidth={1.2}
-              strokeDasharray="4 4"
-              markerEnd="url(#fsa-arrow)"
-            />
-            <text x={(x1 + x2) / 2} y={184} textAnchor="middle" className="mono xs mu">
-              {edge.label} → q0
-            </text>
-          </g>
-        );
-      })}
-      <text x={16} y={210} className="xs mu">
+      <text x={16} y={264} className="xs mu">
         Unlabelled or failure transitions return to the longest prefix that is still a suffix of the text read so far.
       </text>
     </svg>
