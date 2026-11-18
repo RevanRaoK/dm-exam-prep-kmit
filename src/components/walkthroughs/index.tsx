@@ -1,10 +1,10 @@
 import type { ComponentType } from "react";
-import PorterWalkthrough from "./PorterWalkthrough";
-import SignatureWalkthrough from "./SignatureWalkthrough";
-import PatTreeWalkthrough from "./PatTreeWalkthrough";
-import TermClusterWalkthrough from "./TermClusterWalkthrough";
-import BoyerMooreWalkthrough from "./BoyerMooreWalkthrough";
-import FsaWalkthrough from "./FsaWalkthrough";
+import PipelineWalkthrough from "./PipelineWalkthrough";
+import PreprocessWalkthrough from "./PreprocessWalkthrough";
+import ScatterWalkthrough from "./ScatterWalkthrough";
+import ParallelCoordinatesWalkthrough from "./ParallelCoordinatesWalkthrough";
+import FisheyeWalkthrough from "./FisheyeWalkthrough";
+import TreemapWalkthrough from "./TreemapWalkthrough";
 
 export type WalkthroughInfo = {
   id: string;
@@ -15,40 +15,40 @@ export type WalkthroughInfo = {
 
 export const walkthroughs: WalkthroughInfo[] = [
   {
-    id: "porter",
-    label: "Porter Stemming",
-    blurb: "Steps 1a–5 · measure m · duplicatable worked case",
-    component: PorterWalkthrough,
+    id: "pipeline",
+    label: "Visualization Pipeline",
+    blurb: "Data → modelling → selection → mapping → scene → render, with interaction",
+    component: PipelineWalkthrough,
   },
   {
-    id: "signature",
-    label: "Signature Hashing",
-    blurb: "Exact PYQ text · h(made) = 001100 · block OR · false drop",
-    component: SignatureWalkthrough,
+    id: "preprocess",
+    label: "Data Preprocessing",
+    blurb: "Missing values · normalization · nominal mapping · aggregation",
+    component: PreprocessWalkthrough,
   },
   {
-    id: "pat",
-    label: "PAT Tree",
-    blurb: "Sistrings of 100110001101 · bit-by-bit Patricia tree",
-    component: PatTreeWalkthrough,
+    id: "scatter",
+    label: "Scatterplot Mapping",
+    blurb: "x and y, then colour and size as extra dimensions · overplotting",
+    component: ScatterWalkthrough,
   },
   {
-    id: "termcluster",
-    label: "Term-Term Clustering",
-    blurb: "JNTUH Feb-2023 Q7 · threshold 10 · clique, star, single link",
-    component: TermClusterWalkthrough,
+    id: "pcp",
+    label: "Parallel Coordinates",
+    blurb: "Inselberg 1985 · one polyline per record · axis reordering",
+    component: ParallelCoordinatesWalkthrough,
   },
   {
-    id: "boyer",
-    label: "Boyer–Moore",
-    blurb: "Pattern abcac in ababdcabcdacabcac · bad character + good suffix",
-    component: BoyerMooreWalkthrough,
+    id: "fisheye",
+    label: "Fisheye & Perspective Wall",
+    blurb: "Focus + context · log radius transform · object-space wall",
+    component: FisheyeWalkthrough,
   },
   {
-    id: "fsa",
-    label: "FSA / Hardware Search",
-    blurb: "Five-tuple FSA · state trace · term detector hardware",
-    component: FsaWalkthrough,
+    id: "treemap",
+    label: "Treemap Layout",
+    blurb: "Space-filling hierarchy · rectangle subdivision · sunburst & node-link",
+    component: TreemapWalkthrough,
   },
 ];
 

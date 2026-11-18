@@ -3,620 +3,519 @@ import type { Unit } from "./types";
 export const unit3: Unit = {
   id: "unit3",
   roman: "III",
-  title: "Unit III · Automatic Indexing & Clustering",
+  title: "Unit III · Geospatial Data Visualization",
   subtitle:
-    "Classes of automatic indexing, statistical indexing and weighting, natural language and concept indexing, clustering, thesaurus generation, item clustering, hierarchy of clusters and hypertext linkages.",
-  color: "var(--v-blue)",
+    "Spatial phenomena and map types, 1-D/2-D/3-D spatial data, dynamic data and flow visualization, combining techniques, map projections, point data and PixelMaps, line data and edge bundling, area data and cartograms, cartographic generalisation, labelling and GIS.",
+  color: "var(--v-teal)",
   questions: [
     {
-      id: "u3-indexing-classes",
+      id: "u3-geo-def",
+      question: "Define geospatial data visualization and give examples.",
+      marks: 2,
+      freq: 4,
+      papers:
+        "A repeated Part-A definition in the Jan-2025, Dec-2025/Jan-2026 and RKR21 May-2026 papers.",
+      answer: [
+        "**Geospatial data visualization** is the use of visual representations to make spatial contexts and problems visible, mapping data that has a location on Earth onto a map.",
+        "Examples are credit-card payments, telephone calls, health statistics, environmental records, crime data, census demographics, roads and weather.",
+        "A map reduces the world to **points, lines and areas**, and then uses size, colour, shape and texture to show extra attributes.",
+      ],
+    },
+    {
+      id: "u3-geo-types",
       question:
-        "Explain the different classes of automatic indexing in detail with their data flow.",
-      marks: 10,
+        "Explain the four kinds of spatial phenomena and the map types used for geospatial data.",
+      marks: 5,
+      freq: 4,
+      papers:
+        "Asked as a 5-mark question in several papers and as the basis of the geospatial long questions.",
+      answer: [
+        "A **point** phenomenon is 0-D: one longitude and latitude pair plus descriptors, with no spatial extent. Examples are a city, an oil well, an ATM or a telephone call.",
+        "A **line** phenomenon is 1-D: length but no width, stored as an unclosed series of coordinates. Examples are a road, a railway, a river or a country border.",
+        "An **area** phenomenon is 2-D: length and width enclosed by a series of coordinates. Examples are a lake, a park, a county or a state.",
+        "A **surface** phenomenon is 2.5-D: a height value at every longitude–latitude pair. Examples are elevation, temperature and pressure.",
+        "Map types follow the data kind and measurement scale: **symbol maps** for nominal points, **dot maps** for ordinal points, **land-use maps** for nominal areas, **choropleth maps** for ordinal areas, **line diagrams** for lines, **isoline maps** for surfaces and **surface maps** for volumes.",
+        "Other spatial views are **cartograms** for area data and **flow or network maps** for line data.",
+      ],
+      table: {
+        head: ["Kind", "Dimension", "Definition", "Examples"],
+        rows: [
+          ["Point", "0-D", "one coordinate pair plus descriptors", "city, oil well, ATM"],
+          ["Line", "1-D", "length but no width", "road, border, railway"],
+          ["Area", "2-D", "length and width, closed outline", "lake, park, state"],
+          ["Surface", "2.5-D", "a height for each coordinate pair", "elevation, temperature"],
+        ],
+      },
+      diagrams: ["geo-types"],
+    },
+    {
+      id: "u3-spatial-dim",
+      question:
+        "Define spatial data visualization and explain one-dimensional and two-dimensional spatial data with respect to visualization techniques.",
+      marks: 5,
       freq: 3,
       papers:
-        "Asked in the IRS question bank and the NR20 model paper as 'different classes of automatic indexing'; also Part A in JNTUH Feb 2023 as the basis for concept indexing.",
+        "Asked in Jan-2025 (one-dimensional and two-dimensional spatial data) and repeated in the May-2026 papers.",
+      answer: [
+        "**Spatial data visualization** assumes that the data has an implicit or explicit spatial or spatio-temporal attribute, so data attributes can be mapped to the spatial attributes of the screen.",
+        "**One-dimensional spatial data** often comes from sampling along a path, such as a drill-hole sample recording mineral content with distance from the top.",
+        "For 1-D data, map the spatial position to one screen axis and the value to the other axis (a **line graph**) or to **colour** along a colour bar.",
+        "**Two-dimensional data** is displayed mainly by mapping the two spatial attributes to screen x and y. The possible views are an **image, rubber sheet, cityscape, scatterplot, map or contour map**.",
+        "An **image** maps one value per location to colour and interpolates intermediate pixels; a **rubber sheet** maps values to height and triangulates the surface.",
+        "A **cityscape** draws 3D boxes on a plane; a **scatterplot** draws a mark per location; a **map** adds linear and area features; a **contour map** joins points of equal value.",
+        "Two-dimensional data can also be probed with **frequency histograms, row and column aggregations and linear probes**, then displayed with 1-D techniques.",
+      ],
+    },
+    {
+      id: "u3-3d-dynamic",
+      question:
+        "Explain the methods used for visualizing three-dimensional data.",
+      marks: 6,
+      freq: 4,
+      papers:
+        "Asked in Jun-2025 as a 6-mark question and revised in the updated Unit-3 notes.",
+      answer: [
+        "Three-dimensional spatial data may be **discrete samples of a continuous phenomenon** or a structure described by vertices, edges and polygons.",
+        "**Explicit surfaces** are defined by a vertex/edge/patch list or by parametric equations plus an interconnection grid; step size controls the smoothness.",
+        "**Volume data** uses voxels and is visualized by **slicing** (cut plane), **isosurfaces** (surface at a chosen value) or **direct volume rendering**.",
+        "Direct volume rendering either projects voxels forward onto the projection plane or casts rays backwards through the volume and accumulates the values.",
+        "**Implicit surfaces** are the zero contour of a function; **metaballs** combine density fields and are useful for blending clouds of data into smooth surfaces.",
+        "For **dynamic data**, the extra time dimension is handled by animating the view, cycling through time slices, or using flow techniques such as arrow glyphs, streamlines and LIC.",
+      ],
+    },
+    {
+      id: "u3-dynamic",
+      question:
+        "Explain dynamic data and flow visualization techniques, including the definitions used for flow fields.",
+      marks: 10,
+      freq: 4,
+      papers:
+        "New in the updated Unit-3 notes and a strong candidate for the 'three-dimensional and dynamic data' question in the Jun-2025 and Dec-2025 papers.",
       sections: [
         {
-          heading: "Automatic indexing and its data flow",
+          heading: "Dynamic data and flow",
           bullets: [
-            "**Automatic indexing** is the process of analysing an item to extract the information that will be permanently kept in an index.",
-            "It is associated with the generation of the **searchable data structure** for the item.",
-            "The indexing process starts with **standardize input**, **logical subsetting (zoning)** and **identify processing tokens**.",
-            "It then applies **stop lists**, **characterizes tokens**, **applies stemming** and **creates the searchable data structure**.",
-            "The searchable structure updates the document file and later supports the creation of the **hit list**.",
+            "**Dynamic data** changes with time; **flow visualization** is the study of methods for displaying the dynamic behaviour of liquids and gases.",
+            "The field goes back to Leonardo da Vinci's sketches of sand and wood shavings in flowing liquids.",
+            "**Computational fluid dynamics (CFD)** produces a 2-D or 3-D grid of velocity vectors, uniformly or non-uniformly spaced.",
+            "The analysis goal is to identify **turbulence, vortices, saddle points and other structure** in the vector field.",
           ],
         },
         {
-          heading: "Class 1 · statistical indexing",
+          heading: "Field variations",
           bullets: [
-            "**Statistical indexing** uses the frequency of occurrence of processing tokens to calculate a number that indicates the relevance of an item.",
-            "It covers the broadest range of indexing techniques and is the most prevalent class in commercial systems.",
-            "It stores statistics such as **document frequency** and **term frequency** and uses them to rank the output of a Boolean search.",
-            "The main sub-approaches are **vector weighting**, **probabilistic weighting**, the **Bayesian model** and the **neural network model**.",
+            "A **static field** has one unchanging velocity field.",
+            "A **time-varying field** may have fixed positions with changing vectors, or both changing positions and changing vectors.",
+            "The latter type, such as rotating turbine blades or pitching airfoils, is called **unsteady**.",
           ],
         },
         {
-          heading: "Class 2 · natural language indexing",
+          heading: "Definitions",
           bullets: [
-            "**Natural language indexing** uses semantic information in addition to statistical information to enhance the index.",
-            "It performs more complex parsing to identify **phrases**, **syntactic roles** and **discourse semantics**.",
-            "The semantic information is extracted by processing the language rather than treating each word as an independent entity.",
-            "The simplest output is a set of **phrases** that become indexes to the item, and the strongest output is a **thematic representation**.",
+            "**Pathline**: the trajectory of a particle released into the flow; it assumes multiple time instances.",
+            "**Streakline**: the simultaneous positions of a set of particles continuously released from one or more locations.",
+            "**Timeline**: the positions at one instant of a batch of particles released simultaneously.",
+            "**Streamline**: a line through the velocity field that is tangent to the field at every point.",
+            "**Steady flow**: a field that does not change with time; for steady flow, streaklines, pathlines and streamlines coincide.",
+            "**Particle advection**: computing the motion of particles through the field. **Vorticity** is the curl of the velocity field, giving angular velocity magnitude and direction.",
           ],
         },
         {
-          heading: "Class 3 · concept indexing",
+          heading: "Visualization techniques",
           bullets: [
-            "**Concept indexing** uses the words within an item to correlate to the **concepts** discussed in the item.",
-            "It generalizes specific words to the concept values used to index the item.",
-            "When concept classes are generated automatically, a class may have no natural name and only a statistical significance.",
-            "Concept indexing improves **recall** and can use **neural networks** to determine concept classes.",
-          ],
-        },
-        {
-          heading: "Class 4 · hypertext linkage indexing",
-          bullets: [
-            "**Hypertext linkage indexing** creates hypertext linkages that provide **virtual threads of concepts** between items.",
-            "It indexes relationships between items instead of directly defining every concept within one item.",
-            "Traditional items are two-dimensional constructs, and hypertext linkages add a third retrieval dimension.",
-            "The internet uses manually generated indexes, automatically generated indexes with web crawlers, and hypertext linkage indexes.",
+            "Display the velocity field directly as **displacement vectors with arrow glyphs**, or as magnitude scalars using image, surface or volume techniques.",
+            "The number and placement of flow components is crucial: too many cause **occlusion**, too few miss features; interactive density control helps.",
+            "**Streamlines** are computed from seed locations through a static field, keeping a continuous tangent to the flow.",
+            "**Streamribbons and streamtubes** are planar or solid versions of streamlines; magnitude or vorticity can map to colour, size or twist.",
+            "**Streaklines** show a continuous stream of particles, with colour coding to distinguish related points in high-velocity regions.",
+            "**Line integral convolution (LIC)** by Cabral and Leedom (1993) uses a random texture field and a vector field to create a dense flow display; each output pixel is a weighted average along a streamline through the corresponding random-field pixel.",
           ],
         },
       ],
       table: {
-        head: ["Class", "Main information used", "Output", "Main benefit"],
+        head: ["Term", "Meaning"],
         rows: [
-          ["**Statistical**", "term and document frequency", "weights and ranks", "simple and fast"],
-          ["**Natural language**", "syntax, semantics and phrases", "phrases and thematic concepts", "higher precision"],
-          ["**Concept**", "concept classes and neural networks", "concept values", "higher recall"],
-          ["**Hypertext linkage**", "links between items", "virtual concept threads", "new retrieval dimension"],
+          ["Pathline", "trajectory of one particle over time"],
+          ["Streakline", "simultaneous positions of continuously released particles"],
+          ["Timeline", "positions of a batch released together"],
+          ["Streamline", "curve tangent to the velocity field"],
+          ["Vorticity", "curl of the velocity field"],
+          ["LIC", "texture-based dense flow display"],
         ],
       },
-      note:
-        "The four-class list is short. Write the data-flow diagram first, then one paragraph per class, and finish with the benefit each class gives.",
+      diagrams: ["flow-viz"],
     },
     {
-      id: "u3-statistical-indexing",
+      id: "u3-combine",
       question:
-        "Explain statistical indexing in detail. Discuss term frequency, document frequency, inverse document frequency, vector weighting, probabilistic and Bayesian weighting and their problems.",
+        "Explain the combination of visualization techniques with suitable examples.",
       marks: 10,
       freq: 3,
       papers:
-        "Asked in the IRS question bank and as Part A in JNTUH Feb 2023 ('what is logarithmic term frequency?'); the weighting theory is repeated across all sources.",
+        "New in the updated Unit-3 notes; combines with the 3-D data question in the Jun-2025 and May-2026 papers.",
       sections: [
         {
-          heading: "Basis of statistical indexing",
+          heading: "Why combine techniques",
           bullets: [
-            "**Statistical indexing** uses the frequency of occurrence of events to calculate a number that indicates the relevance of an item.",
-            "The events are usually occurrences of **processing tokens** within documents and within the database.",
-            "The words and phrases are the domain of searchable values, and their frequencies become the raw evidence for ranking.",
-            "A simple statistical system stores one statistic, such as how often each word occurs in an item, and uses it after a standard **Boolean search**.",
+            "Each technique has strengths and weaknesses, so a combination can produce results that are the **sum of the strengths** if occlusion is minimised.",
+            "Many problems need the simultaneous analysis of multiple data sets, such as weather forecasting with temperature, wind, humidity and surface data.",
           ],
         },
         {
-          heading: "The frequency family",
+          heading: "Slice plus isosurface",
           bullets: [
-            "**Word frequency (WF)** is the number of times a term occurs in an item.",
-            "**Total frequency (TF)** is the total number of term occurrences in the whole database or collection.",
-            "**Document frequency (DF)** is the number of documents that contain the term.",
-            "**Inverse document frequency (IDF)** rewards rare terms because a term that appears in every document has little discriminating power.",
-            "The standard weight combines the two ideas as **TF-IDF = TF × log(N / DF)**.",
-            "**Logarithmic term frequency** dampens the effect of very large raw counts, typically as **1 + log(tf)** or **log(1 + tf)**, so the tenth occurrence adds less than the first.",
+            "The **isosurface** conveys surface structure, which slicing cannot show even with animation.",
+            "The **slice** gives detailed 2-D information, including regions of uniformity, significant change and nested ranges of a value.",
+            "Design requirements are rapid isosurface-value change, control of slice position and orientation, camera control, a carefully chosen colour map and the ability to hide either component or vary opacity.",
           ],
         },
         {
-          heading: "Vector weighting",
+          heading: "Isosurface plus glyphs",
           bullets: [
-            "One of the earliest statistical approaches was the **SMART system** at Cornell University, which implemented vector weighting.",
-            "Every item is represented as a **vector** whose positions correspond to processing tokens.",
-            "The binary approach stores **0 or 1**, where 1 means the token exists in the item.",
-            "The weighted approach stores a positive real number that represents the importance of the term in the item.",
-            "Search is performed by calculating the distance or similarity between the query vector and each document vector.",
+            "The isosurface shows 3-D surface detail but does not show other data aspects.",
+            "**Glyphs** such as arrows display the magnitude and direction of change, either as a gradient in static data or a flow in dynamic data.",
+            "Glyphs are placed near the isosurface, a known region of interest, or at separately controlled positions.",
+            "Controls include glyph density, glyph size, glyph colour and base positions computed from regions of interest.",
           ],
         },
         {
-          heading: "Probabilistic weighting",
+          heading: "Rubber sheet plus contour lines and colour",
           bullets: [
-            "The **probabilistic approach** applies probability theory directly to information retrieval.",
-            "It stores the information used to calculate the probability that an item is relevant to a query.",
-            "The approach is summarized by the **Probability Ranking Principle (PRP)**, which ranks items by decreasing probability of relevance.",
-            "A common representation is the log-odds form: **log O(R | Q, D, tₖ) = C₀ + C₁V₁ + … + CₙVₙ**.",
-            "The logarithm of the odds of relevance for a document and query is the sum of the log odds for all terms present.",
-          ],
-        },
-        {
-          heading: "Bayesian and neural models",
-          bullets: [
-            "The **Bayesian model** uses conditional probabilities and provides a complete conceptual model for information systems.",
-            "It stresses the information used to generate a **relative confidence level** of an item's relevance rather than an absolute probability.",
-            "A Bayesian network uses nodes for random variables and arcs for probabilistic dependencies; a two-level network has query concepts **c** and item concepts **f**.",
-            "The **neural network model** is a dynamic learning structure used to determine concept classes and improve recall.",
-            "Concept class hierarchies and domain-specific systems are the best examples of the neural approach.",
-          ],
-        },
-        {
-          heading: "Need and importance of weighting",
-          bullets: [
-            "**Weighting** is needed because not every term in an item is equally important for describing its content.",
-            "It turns a Boolean presence test into a **ranked relevance score**, so the most useful items can be shown first.",
-            "Weights let the system combine term frequency, document frequency and collection size in a single relevance value.",
-            "Without weighting, a long document that repeats common words can outrank a short focused document.",
-            "The importance of weighting is therefore both **effectiveness** and **efficiency** of the search.",
-          ],
-        },
-        {
-          heading: "Problems with weighting schemes",
-          bullets: [
-            "Frequent terms can dominate the vector unless they are normalized or weighted by IDF.",
-            "Term weights depend on collection statistics, so a change in the database can change the ranking of the same query.",
-            "The vector model assumes term independence, which is not true for phrases and related terms.",
-            "Weighting can create a false sense of precision when the underlying index has poor terms or noisy text.",
+            "A **rubber sheet** maps a 2-D field to height, creating a virtual landscape that reveals peaks and valleys.",
+            "Mapping **colour** to elevation makes widely separated regions of similar height easier to identify.",
+            "Superimposing **contour lines** makes the gradient much more apparent.",
+            "This is a **redundant mapping** of the same data to several attributes, and each addition improves understanding.",
+            "The design lesson is to let users show and hide components so they can build their mental model incrementally.",
           ],
         },
       ],
-      formula:
-        "WF = occurrences of a term in an item\nDF = number of documents containing the term\nIDF = log(N / DF)\nTF-IDF = TF × log(N / DF)\nLogarithmic TF = 1 + log(tf)\nLog odds = C₀ + C₁V₁ + … + CₙVₙ",
-      table: {
-        head: ["Weight", "Formula or meaning", "Effect"],
-        rows: [
-          ["**WF**", "raw count in one item", "favours long or repeated mentions"],
-          ["**DF**", "documents containing the term", "measures commonness"],
-          ["**IDF**", "log(N / DF)", "rewards rare discriminating terms"],
-          ["**TF-IDF**", "TF × log(N / DF)", "balances frequency and rarity"],
-          ["**Log TF**", "1 + log(tf)", "dampens very large counts"],
-        ],
-      },
-      note:
-        "The 2023 Part A asks only for logarithmic term frequency, but the 10-mark answer needs WF, DF, IDF, vector, probabilistic and Bayesian subheadings.",
+      diagrams: ["combine-viz"],
     },
     {
-      id: "u3-nlp-concept",
+      id: "u3-volume",
       question:
-        "Explain natural language processing and concept indexing in detail. Discuss cohesion, phrase generation, the Convectis system and latent semantic indexing.",
+        "Explain slicing techniques in visualizing volume data.",
+      marks: 2,
+      freq: 3,
+      papers:
+        "Asked in Dec-2025/Jan-2026 as a Part-A short question.",
+      answer: [
+        "**Volume data** is a 3D grid of voxels; **slicing** cuts the volume with a plane and displays the extracted 2D slice using a 2D spatial visualization method.",
+        "The cut plane may be **axis-aligned** (x, y or z) or **arbitrarily oriented**, and the user can move it through the volume.",
+        "Slicing is fast and simple, but it shows only one cross-section at a time, so it is often combined with isosurfaces or direct volume rendering.",
+      ],
+    },
+    {
+      id: "u3-projection",
+      question:
+        "Explain map projections and the visual variables used for spatial data.",
+      marks: 5,
+      freq: 3,
+      papers:
+        "Asked as a Part-B projection question in Jan-2025 and as a supporting topic in the geospatial questions.",
+      answer: [
+        "A **map projection** transforms positions on the spherical Earth into positions on a flat map; every projection distorts something, so the designer protects the property that matters most.",
+        "By preserved property: **conformal** keeps local angles and shapes, **equal-area** keeps area, **equidistant** keeps distance from chosen points or lines, and **gnomonic** makes great circles straight.",
+        "**Azimuthal** projections keep direction from the central point, and **retroazimuthal** projections keep direction from any point to one fixed place.",
+        "By the surface used: **cylindrical** for the whole world, **planar/azimuthal** for directions from the centre, and **conic** for mid-latitude regions such as Europe or the USA.",
+        "The visual variables for maps are **size, shape, brightness, colour, orientation, spacing (texture), perspective height and arrangement**.",
+        "The choice of projection and visual variables must fit the task: finding a place, seeing a pattern or comparing several maps.",
+      ],
+      table: {
+        head: ["Projection", "Keeps correct", "Gives up"],
+        rows: [
+          ["Conformal", "local angles and shapes", "area"],
+          ["Equal-area", "area", "shape or angles"],
+          ["Equidistant", "distance from chosen points/lines", "other distances"],
+          ["Gnomonic", "great circles as straight lines", "use beyond navigation"],
+          ["Azimuthal", "direction from the centre", "other directions"],
+          ["Retroazimuthal", "direction to one fixed place", "other directions"],
+        ],
+      },
+      diagrams: ["projections"],
+    },
+    {
+      id: "u3-point",
+      question:
+        "Discuss the various techniques for visualization of point data related to geospatial data.",
       marks: 10,
+      freq: 5,
+      papers:
+        "Asked in Jan-2025, RKR21 May-2026 and KR20 May/Jun-2026 as a 5- or 10-mark question.",
+      sections: [
+        {
+          heading: "What point data is",
+          bullets: [
+            "**Point data** is discrete, but it may describe a continuous phenomenon, such as temperature measured at specific weather stations.",
+            "The designer must choose whether to show the data as **discrete or continuous** and as **smooth or abrupt**.",
+            "Examples are credit-card payments, telephone calls, health statistics, crime data and census demographics.",
+          ],
+        },
+        {
+          heading: "Dot maps",
+          bullets: [
+            "A **dot map** places a symbol or pixel at the location where each event occurred; circles are the most common symbol.",
+            "A quantitative value can be mapped to the **size** or **colour** of the symbol.",
+            "The main problem is **overplotting**: spatial data is highly non-uniform, so dense areas become a blob while sparse areas are nearly empty.",
+            "If size encodes a value, calculated size is not perceived size: the **Ebbinghaus illusion** shows that perception depends on the local neighbourhood, so no global perceptual scaling formula exists.",
+          ],
+        },
+        {
+          heading: "PixelMaps",
+          bullets: [
+            "A **PixelMap** shows point data without aggregation and prevents overlap by repositioning points.",
+            "The data is recursively partitioned into four subsets matching four display sub-regions, using a **quadtree-like** structure.",
+            "The first points stay at their true positions; overlapping points move to nearby unoccupied pixels while the region boundaries are adjusted.",
+            "Every point stays visible even in dense areas, but in very dense areas the final position depends on the **order** of the points in the data set.",
+            "The U.S. telephone-call-volume example shows expected daily patterns plus unexpected night-time hot spots over Kansas City and Omaha, which were call centres.",
+          ],
+        },
+        {
+          heading: "Other point techniques",
+          bullets: [
+            "Multiple maps can show several parameters; if all maps use the same visual conventions, local correlations and dependencies become visible.",
+            "**Symbol maps** show nominal point data, while dot maps usually show ordinal point data.",
+            "Interaction can add zooming, linked views, querying and classification changes, which plain paper maps cannot provide.",
+          ],
+        },
+      ],
+      table: {
+        head: ["Technique", "Strength", "Weakness"],
+        rows: [
+          ["Dot map", "simple, exact location, familiar map", "overplotting in dense areas"],
+          ["PixelMap", "all points visible, no aggregation", "placement depends on point order"],
+          ["Symbol map", "nominal categories are clear", "size ambiguity"],
+          ["Multiple linked maps", "compares several parameters", "screen space and eye switching"],
+        ],
+      },
+    },
+    {
+      id: "u3-line",
+      question:
+        "Discuss the different techniques used for the visualization of line data in geospatial contexts, highlighting their significance and applications.",
+      marks: 10,
+      freq: 5,
+      papers:
+        "Asked in RKR21 May-2026 and repeated as a 5-mark line-based comparison in Dec-2025/Jan-2026 and Jan-2025.",
+      sections: [
+        {
+          heading: "Line data and its encoding",
+          bullets: [
+            "Line data represents linear features with **length but no width**, drawn as line segments joining latitude–longitude pairs.",
+            "Values can be shown by the **width, pattern, colour or a label** of the line; endpoints and intersections can vary in size, shape and colour.",
+            "Lines need not be straight: **polylines** or smooth curves reduce clutter.",
+          ],
+        },
+        {
+          heading: "Network maps",
+          bullets: [
+            "**Network maps** show how components are connected so users can understand the structure and behaviour of a network.",
+            "**Eick and Wills** used aggregation, hierarchical information, node positioning and linked displays; colour and shape show node properties and colour and width show link information.",
+            "**NCSA** used 3D graphics to animate Internet traffic through the network backbone.",
+            "**SeeNet** (Becker, Eick and Wilks) adds a link matrix that gives equal visual importance to all connections.",
+            "**SWIFT-3D** by AT&T combines statistical graphics, pixel overviews, interactive 3D network maps and drag-and-drop querying.",
+          ],
+        },
+        {
+          heading: "Flow maps",
+          bullets: [
+            "A **flow map** uses curved lines to reduce the overlap of straight edges.",
+            "The **Stanford flow map** uses graph layout that reduces edge crossings while keeping relative node positions; hierarchical clustering of nodes and flows decides how flows are merged and rerouted.",
+            "Examples are tourist flows in Berlin, migration from California, and the much clearer Stanford output compared with earlier computer-generated flow maps.",
+          ],
+        },
+        {
+          heading: "Edge bundling",
+          bullets: [
+            "**Edge bundling** (Danny Holten) requires a hierarchy on the nodes and connects edges with **B-splines**.",
+            "Edges that pass through the **root** bend the most; edges inside the same sub-hierarchy bend only slightly.",
+            "Bundling greatly reduces visual clutter and works on maps, tree diagrams, circular trees and treemaps.",
+            "The notes show IP traffic from external nodes to internal treemap nodes; the bundled version is far clearer than the straight-line version.",
+          ],
+        },
+      ],
+      note:
+        "The exam line: width/pattern/colour/label for values; network maps for connectivity; flow maps and edge bundling use curves; bundling bends root-crossing edges most.",
+    },
+    {
+      id: "u3-area",
+      question:
+        "Explain with respect to geospatial data: (a) choropleth maps and (b) cartograms.",
+      marks: 10,
+      freq: 4,
+      papers:
+        "Asked directly in the Dec-2025/Jan-2026 papers and as part of the area-data comparison in several other papers.",
+      sections: [
+        {
+          heading: "Thematic maps",
+          bullets: [
+            "Area data belongs to whole regions and is shown with **thematic maps**.",
+            "A **choropleth map** shades each fixed region by its value and assumes the value is evenly spread inside the region.",
+            "A **dasymetric map** is used when the value is not even; it creates areas from the attribute itself rather than from fixed regions.",
+            "An **isarithmic map** uses contours of a continuous phenomenon such as temperature or elevation.",
+            "If the contours come from measurements at specific points they are **isometric**; if they come from regional averages at centroids they are **isopleth**.",
+          ],
+        },
+        {
+          heading: "The choropleth problem",
+          bullets: [
+            "Interesting values are often concentrated in **dense areas with small polygons**, which are hard to see.",
+            "Less interesting values are spread over **sparse areas with large polygons**, which dominate the picture.",
+            "So a choropleth tends to highlight large areas that may be less important, for example the thinly populated states in a U.S. census map.",
+            "The two key design decisions are the **normalisation** of the data and the **colour or greyscale mapping**.",
+          ],
+        },
+        {
+          heading: "Cartograms",
+          bullets: [
+            "A **cartogram** distorts geography by resizing regions according to a statistical value, avoiding the choropleth bias.",
+            "Applications are population demographics, election results and epidemiology.",
+            "Cartograms cannot satisfy both shape and area perfectly, so generating one is an **optimisation problem**.",
+          ],
+        },
+        {
+          heading: "The four cartogram types",
+          bullets: [
+            "**Noncontinuous**: area and shape are exact, but topology is not preserved because scaled polygons are drawn inside the original regions.",
+            "**Noncontiguous**: area is perfect and shape is mostly kept, but topology is highly relaxed, so the result is harder to see as a map.",
+            "**Circular**: each region becomes a circle, so shape is ignored completely and area and topology are relaxed.",
+            "**Continuous**: topology is preserved perfectly, while area and shape are relaxed; it is hard to generate but looks most like the original map.",
+          ],
+        },
+      ],
+      table: {
+        head: ["Type", "Area", "Shape", "Topology"],
+        rows: [
+          ["Noncontinuous", "exact", "exact", "not preserved"],
+          ["Noncontiguous", "perfect", "mostly kept", "highly relaxed"],
+          ["Circular", "relaxed", "ignored", "relaxed"],
+          ["Continuous", "relaxed", "relaxed", "perfect"],
+        ],
+      },
+      diagrams: ["geo-types"],
+      note:
+        "A complete answer defines the map, gives the choropleth bias, then lists all four cartogram types with the area/shape/topology trade-off.",
+    },
+    {
+      id: "u3-geo-compare",
+      question:
+        "Compare visualization methods for point data and area data in the case of geospatial data.",
+      marks: 10,
+      freq: 4,
+      papers:
+        "Asked as a 10-mark comparison in the KR20 May/Jun-2026 and RKR21 May-2026 papers.",
+      sections: [
+        {
+          heading: "The data",
+          bullets: [
+            "**Point data** is 0-D: each record is one location plus descriptors, such as a city, a call or a crime.",
+            "**Area data** is 2-D: each record is a whole region plus a value, such as a state, district or lake.",
+          ],
+        },
+        {
+          heading: "Methods for point data",
+          bullets: [
+            "**Dot maps** place a symbol at each location, with size or colour for a value.",
+            "**Symbol maps** distinguish nominal categories.",
+            "**PixelMaps** move overlapping points to nearby free pixels to keep every point visible.",
+            "Point maps are strong for exact locations, clusters and local density; they suffer from overplotting.",
+          ],
+        },
+        {
+          heading: "Methods for area data",
+          bullets: [
+            "**Choropleth maps** shade fixed regions by value but assume an even distribution inside each region.",
+            "**Dasymetric maps** create regions from the attribute when the assumption fails.",
+            "**Isarithmic maps** use contours for continuous surfaces; **cartograms** resize regions by value.",
+            "Area maps are strong for regional aggregates but can hide within-region variation and can let large sparse regions dominate.",
+          ],
+        },
+        {
+          heading: "The comparison",
+          bullets: [
+            "Point methods preserve **exact location and individual events**; area methods aggregate to regions and lose the individual event.",
+            "Point methods struggle with **overplotting**; area methods struggle with the **modifiable area unit problem** and the large-region bias.",
+            "A dot map can become a choropleth by counting dots inside areas, and a choropleth can become a cartogram by resizing areas; the three are a progression from detail to aggregate.",
+            "The choice depends on the question: where did it happen (point), how many per region (choropleth), or which region matters most (cartogram).",
+          ],
+        },
+      ],
+      table: {
+        head: ["Aspect", "Point data", "Area data"],
+        rows: [
+          ["Dimension", "0-D", "2-D"],
+          ["Typical display", "dot map, symbol map, PixelMap", "choropleth, dasymetric, cartogram"],
+          ["Preserves", "individual locations", "regional aggregates"],
+          ["Main problem", "overplotting", "aggregation bias and area dependence"],
+        ],
+      },
+    },
+    {
+      id: "u3-geo-issues",
+      question:
+        "What are the different issues in geospatial data visualization? Explain them.",
+      marks: 10,
+      freq: 4,
+      papers:
+        "Asked in RKR21 May-2026 and as a supporting Part-B question in other DVT papers.",
+      sections: [
+        {
+          heading: "Aggregation and the area unit",
+          bullets: [
+            "Results depend heavily on the **areas chosen for aggregation**, as the London cholera maps show.",
+            "The same data can produce very different patterns when the boundaries change, which is the modifiable-area-unit problem.",
+          ],
+        },
+        {
+          heading: "Symbol and size perception",
+          bullets: [
+            "Calculated symbol size is not perceived size; the **Ebbinghaus illusion** makes the same circle look larger or smaller depending on its neighbours.",
+            "Because perception is local, there is **no global formula for perceptual scaling**.",
+          ],
+        },
+        {
+          heading: "Map projection",
+          bullets: [
+            "Every projection distorts shape, area, distance or direction, so the choice of projection changes the message.",
+            "The projection must match the task and the region: conic for mid-latitudes, planar for direction from a centre, cylindrical for the whole world.",
+          ],
+        },
+        {
+          heading: "Data quality and scale",
+          bullets: [
+            "Spatial data is highly non-uniform, with dense clusters and empty regions, so overplotting and sparse regions appear together.",
+            "Missing values, geocoding errors, inconsistent boundaries and mixed time periods all distort the map.",
+          ],
+        },
+        {
+          heading: "Generalisation, labelling and interaction",
+          bullets: [
+            "**Map generalisation** must remove detail without losing objects of interest.",
+            "**Map labelling** is a hard optimisation problem because labels must not overlap.",
+            "Interactive **GIS** adds zoom, query, layers, linked maps and classification changes, which paper maps cannot provide.",
+          ],
+        },
+      ],
+      note:
+        "Five issue families: aggregation, perception, projection, data quality/scale and cartographic production. Add one concrete example to each.",
+    },
+    {
+      id: "u3-generalization",
+      question:
+        "Explain map generalisation, map labelling and GIS in geospatial visualization.",
+      marks: 5,
       freq: 2,
       papers:
-        "Asked in the IRS question bank as 'explain natural language processing' and 'explain concept indexing'; also Part A on the basis of concept indexing.",
-      sections: [
-        {
-          heading: "Goal of natural language processing",
-          bullets: [
-            "**Natural language processing (NLP)** aims to use **semantic information** in addition to statistical information to enhance the indexing of an item.",
-            "Semantic analysis captures the meaning of text while taking into account context, logical structure and grammatical roles.",
-            "NLP improves the **precision** of searches by reducing the number of false hits a user must review.",
-            "The semantic information is extracted by processing the language rather than treating each word as an independent entity.",
-          ],
-        },
-        {
-          heading: "Phrase generation and cohesion",
-          bullets: [
-            "The simplest NLP output is a set of **phrases** that become indexes to an item.",
-            "Statistical approaches use **proximity** as the basis for determining the strength of word relationships in a phrase.",
-            "One of the earliest statistical methods was the **cohesion factor** between terms.",
-            "The formula is **Cohesion = Size-factor × (PAIR-FREQₖ,ₕ / (TOTFₖ × TOTFₕ))**, where PAIR-FREQ is the co-occurrence count and TOTF is the total frequency of a term.",
-            "Term phrases allow additional specification and focusing of a concept, which improves precision and reduces the user's overhead of reading non-relevant items.",
-          ],
-        },
-        {
-          heading: "Thematic representations",
-          bullets: [
-            "NLP can combine concepts into higher-level concepts called **thematic representations**.",
-            "A thematic representation captures what a passage is about rather than only which words it contains.",
-            "This helps retrieval when the query and the document use different words for the same theme.",
-            "The trade-off is greater processing cost and dependence on the quality of the parser and lexicon.",
-          ],
-        },
-        {
-          heading: "Concept indexing",
-          bullets: [
-            "**Concept indexing** uses the words within an item to correlate to the concepts discussed in the item.",
-            "It is a generalization of the specific words to the values used to index the item.",
-            "When concept classes are generated automatically, a class may not have a name and may be known only by its statistical significance.",
-            "Concept indexing improves **recall** and can be combined with **neural networks** to determine concept classes.",
-            "An example is the **Convectis** system, which uses a neural network algorithm and terms in a similar context to other terms.",
-          ],
-        },
-        {
-          heading: "Latent semantic indexing",
-          bullets: [
-            "**Latent semantic indexing (LSI)** determines a canonical set of concepts from a test set of terms and uses them to index all items.",
-            "It uses the strength of word relationships, such as synonymy, and generates **context vectors**.",
-            "Two neural networks are used: one generates stem context vectors and the other performs the query.",
-            "The interpretation of the resulting values is the same as term weights.",
-            "LSI reduces the dimension of the term space and can retrieve items that share concepts even when they do not share exact words.",
-          ],
-        },
-        {
-          heading: "Strengths and limits",
-          bullets: [
-            "NLP and concept indexing improve semantic matching and recall, especially for synonym-rich collections.",
-            "They are computationally expensive and require dictionaries, parsers and training data.",
-            "Concept classes can be hard to name and hard to explain to the user, which reduces transparency.",
-            "The mapping from a term to a concept is complex because one term can represent several concepts to different degrees.",
-          ],
-        },
+        "Asked as a short-note or supporting Part-B question in the geospatial papers.",
+      answer: [
+        "**Map generalisation** selects and abstracts map information so that a small-scale map can be derived from a more detailed large-scale map.",
+        "**Points** are removed or combined if they are not relevant or not separately visible; **lines** lose small bends or are collapsed to centrelines; **polygons** lose bends but keep their essential shape and may merge adjacent areas.",
+        "The goal is that objects of interest remain **visible and recognisable**, even at the cost of detail.",
+        "**Map labelling** places text or symbols near points, lines and polygons; most algorithms use rules followed by optimisation such as local search, greedy search, simulated annealing or a genetic algorithm.",
+        "**Label-EZ** by MapText and **Maplex** by ESRI are named labelling tools.",
+        "A **GIS** supports interactive queries, comparison and editing of spatial data in layers, and presentation of results; geospatial visualization is a part of GIS.",
+        "Web APIs such as Google Maps have made fast interactive map tools available to a wide audience.",
       ],
-      formula:
-        "Cohesion = Size-factor × (PAIR-FREQₖ,ₕ / (TOTFₖ × TOTFₕ))\nLSI: terms × documents matrix → reduced concept space\nConcept map: specific term → concept class → index value",
-      table: {
-        head: ["Approach", "Unit of indexing", "Strength", "Cost"],
-        rows: [
-          ["**Statistical**", "word or phrase frequency", "fast and broad", "term independence"],
-          ["**NLP**", "syntax, semantics and phrases", "higher precision", "parser and lexicon"],
-          ["**Concept**", "concept class or context vector", "higher recall", "training and ambiguity"],
-          ["**LSI**", "reduced latent dimensions", "handles synonymy", "matrix computation"],
-        ],
-      },
-      note:
-        "Link the topic to the previous question: statistical indexing uses frequency, NLP adds semantics and concept indexing adds generalization. The cohesion formula is the formula to quote.",
-    },
-    {
-      id: "u3-clustering",
-      question:
-        "Define clustering and explain the clustering process, its types, guidelines and the difference between term clustering, document clustering and item clustering.",
-      marks: 10,
-      freq: 3,
-      papers:
-        "Asked in the IRS question bank and the NR20 model paper as 'define clustering and explain the process and its types'; Part A asks for the steps of clustering.",
-      sections: [
-        {
-          heading: "Definition and purpose",
-          bullets: [
-            "**Clustering** partitions the documents of a collection into **classes** so that items associated with each other are assigned to the same **cluster**.",
-            "It improves both the **efficiency** and the **effectiveness** of retrieval.",
-            "A cluster provides a grouping of similar objects under a more general title, and clustering also allows **links between clusters** to be specified.",
-            "An information database can be viewed as independent items indexed by terms, and clustering adds a grouping on top of that structure.",
-          ],
-        },
-        {
-          heading: "Two types of clustering",
-          bullets: [
-            "**Term clustering** groups terms to create a **statistical thesaurus**, which is then used for **query expansion**.",
-            "Term clustering increases **recall** by expanding a search with related terms.",
-            "**Document clustering** groups documents by the terms they contain and supports **result-set expansion**.",
-            "Document clustering lets a search retrieve items similar to an item of interest even when the original query would not have retrieved them.",
-            "**Item clustering** groups any item type, including a phrase, word, sentence, diagram or picture.",
-          ],
-        },
-        {
-          heading: "The four steps of clustering",
-          bullets: [
-            "**Define the domain** for clustering; for a thesaurus the domain may be medical or education, and the terms must be relevant to it.",
-            "**Determine the attributes** of the objects to be clustered; for a thesaurus these are the specific words, and for documents it may be a specific zone.",
-            "**Determine the relationships** between attributes, because co-occurrence of attributes suggests that two objects belong in the same class.",
-            "**Apply an algorithm** that decides which class each object goes into.",
-          ],
-        },
-        {
-          heading: "Guidelines for good classes",
-          bullets: [
-            "Every class needs a **well-defined semantic definition**, although the name given to the class can still be misleading.",
-            "The sizes of the classes should be within the **same order of magnitude**.",
-            "Within a class, **one object should not dominate** the class.",
-            "It must be decided at creation time whether an object can belong to **multiple classes** or only one.",
-          ],
-        },
-        {
-          heading: "Manual versus automatic clustering",
-          bullets: [
-            "**Manual clustering** requires large space, time and computational overhead because a human analyst makes the decisions.",
-            "**Automatic clustering** is very efficient and gives one **primary category** and several **secondary categories**.",
-            "Manual thesaurus generation uses **KWOC**, **KWIC** and **KWAC** listings to help the analyst.",
-            "Automatic term clustering is based on the idea that the more frequently two terms co-occur in the same items, the more likely they are about the same concept.",
-          ],
-        },
-        {
-          heading: "Why clustering helps retrieval",
-          bullets: [
-            "It reduces the search space because the system can search cluster representatives first.",
-            "It supports **query expansion** through related terms and **result-set expansion** through similar documents.",
-            "It provides a **visual representation** of the information space through a hierarchy or dendrogram.",
-            "The user can move to child clusters for more specific items or to parent clusters for more general items.",
-          ],
-        },
-      ],
-      table: {
-        head: ["Type", "Objects clustered", "Main use", "Expansion"],
-        rows: [
-          ["**Term clustering**", "words or phrases", "statistical thesaurus", "query expansion"],
-          ["**Document clustering**", "whole documents", "similar-item retrieval", "result-set expansion"],
-          ["**Item clustering**", "phrases, sentences, diagrams, pictures", "general grouping", "similar-item browsing"],
-        ],
-      },
-      note:
-        "Remember the two-type answer: term clustering builds a thesaurus for query expansion, and document clustering supports result-set expansion. Add the four steps and four guidelines.",
-    },
-    {
-      id: "u3-thesaurus",
-      question:
-        "Explain thesaurus generation in detail. Describe KWOC, KWIC and KWAC, automatic term clustering and the word relationships used in a thesaurus.",
-      marks: 10,
-      freq: 3,
-      papers:
-        "Asked in the IRS question bank as 'thesaurus generation' and as Part A on KWOC, KWIC and KWAC; the manual/automatic comparison is repeated.",
-      sections: [
-        {
-          heading: "What a thesaurus is",
-          bullets: [
-            "A **thesaurus** comes from the Latin word for *treasure* and is similar to a dictionary because it stores words.",
-            "It also stores the **relationships** between words, so it can support query expansion and concept navigation.",
-            "The collection of terms can be generated manually or automatically.",
-            "Automatically generated thesauri contain classes that reflect the actual use of words in the collection.",
-          ],
-        },
-        {
-          heading: "Word relationships",
-          bullets: [
-            "The **word coordination approach** decides whether phrases as well as individual terms are clustered.",
-            "**Equivalence** links words with the same meaning, such as *car* and *automobile*.",
-            "**Hierarchical** links a broader term to a narrower term, such as *vehicle → car*.",
-            "**Non-hierarchical** links related terms where neither is above or inside the other, such as *doctor–hospital*.",
-            "**Parts-wholes** covers aggregation and composition, such as *wheel–car*.",
-            "**Collocation** is a statistical measure that relates words co-occurring in the same sentence, phrase or paragraph, such as *heavy–rain*.",
-            "**Paradigmatic** relates words with the same semantic base, such as *formula–equation*.",
-          ],
-        },
-        {
-          heading: "Manual clustering with KWOC",
-          bullets: [
-            "**KWOC (Keyword Out of Context)** shows each term with its **frequency** and the **IDs of the items** that contain it.",
-            "For the notes example, *chips* has frequency 3 and item IDs DOC1, DOC3 and DOC4.",
-            "*Computer* has frequency 3 and IDs DOC1, DOC3 and DOC4, *design* has frequency 2 and IDs DOC2 and DOC3, and *memory* has frequency 3 and IDs DOC1, DOC2 and DOC4.",
-            "The corrected memory list is DOC1, DOC2 and DOC4, because DOC3 contains computer, chips and design but not memory.",
-          ],
-        },
-        {
-          heading: "KWIC and KWAC",
-          bullets: [
-            "**KWIC (Keyword In Context)** displays the term inside its phrase context, and the sentence is rotated so the keyword comes first.",
-            "The character **/** marks the end of the phrase in KWIC, for example *chips/ computer design contains memory*.",
-            "**KWAC (Keyword And Context)** lists the keyword first and then the whole phrase it came from.",
-            "KWIC and KWAC help determine the meaning of **homographs**, because they show which sense of the word is being used.",
-          ],
-        },
-        {
-          heading: "Automatic term clustering",
-          bullets: [
-            "The basis for automatic generation is a set of items that represents the **vocabulary** to be included in the thesaurus.",
-            "The **processing tokens** in those items are the attributes used to create the clusters.",
-            "All methods share the concept that the more frequently two terms co-occur in the same items, the more likely they are about the same concept.",
-            "The methods differ in the **completeness** with which they correlate terms.",
-            "The resulting classes reflect the use of words in the database but do not have natural names.",
-          ],
-        },
-        {
-          heading: "Manual versus automatic",
-          bullets: [
-            "Manual clustering uses a human analyst, who gives the classes meaningful names and judges the strength of relationships.",
-            "Automatic clustering is efficient but produces statistically similar groups without natural names.",
-            "The **complete term relation method**, clustering using existing clusters and one-pass assignment are the main automatic techniques.",
-            "The complete term relation method compares all term pairs and therefore has a higher computational cost.",
-          ],
-        },
-      ],
-      table: {
-        head: ["Listing", "Shows", "Example", "Best use"],
-        rows: [
-          ["**KWOC**", "term + frequency + item IDs", "chips · 3 · DOC1, DOC3, DOC4", "counting and locating terms"],
-          ["**KWIC**", "term inside a rotated phrase", "chips/ computer design contains memory", "homograph disambiguation"],
-          ["**KWAC**", "term + whole context phrase", "chips │ computer design contains memory chips", "seeing the full usage"],
-        ],
-      },
-      note:
-        "The examiner often asks only for KWOC, KWIC and KWAC. Add one example each, then write two lines on automatic clustering and the co-occurrence principle.",
-    },
-    {
-      id: "u3-term-matrix",
-      question:
-        "Explain item clustering and the term-term matrix. For the JNTUH Feb-2023 Q7 matrix with threshold 10, determine the Term Relationship matrix and the clique, star and single-link clusters.",
-      marks: 10,
-      freq: 3,
-      papers:
-        "Asked directly in JNTUH Feb 2023 Q7 and repeated in the IRS question bank as item clustering and the similarity matrix.",
-      sections: [
-        {
-          heading: "Item clustering and similarity",
-          bullets: [
-            "**Item clustering** groups items such as phrases, words, sentences, diagrams or pictures.",
-            "Similarity between two items is based on the terms they have in common, and the function is calculated between **rows of the item matrix**.",
-            "The similarity formula is **SIM(Itemᵢ, Itemⱼ) = Σₖ (termᵢ,ₖ)(termⱼ,ₖ)**.",
-            "The results form an **item-item relationship matrix**, which is converted to a binary matrix using a threshold.",
-            "The default threshold in the notes is **10**: values of 10 or more become 1, and values below 10 become 0.",
-          ],
-        },
-        {
-          heading: "The exact 6 × 6 matrix",
-          bullets: [
-            "The JNTUH Feb-2023 matrix has six terms **T1 to T6**, and the diagonal is empty because a term is not correlated with itself.",
-            "The upper-triangle values are **T1–T2 15, T1–T3 6, T1–T4 8, T1–T5 12, T1–T6 14, T2–T3 12, T2–T4 10, T2–T5 6, T2–T6 8, T3–T4 16, T3–T5 4, T3–T6 10, T4–T5 9, T4–T6 4 and T5–T6 13**.",
-            "The matrix is symmetric, so the lower triangle repeats the upper triangle.",
-          ],
-        },
-        {
-          heading: "Term Relationship matrix at threshold 10",
-          bullets: [
-            "Replace every value **≥ 10** with 1 and every value **< 10** with 0.",
-            "The 1 pairs are **T1–T2, T1–T5, T1–T6, T2–T3, T2–T4, T3–T4, T3–T6 and T5–T6**.",
-            "The 0 pairs are **T1–T3, T1–T4, T2–T5, T2–T6, T3–T5, T4–T5 and T4–T6**.",
-            "The diagonal remains blank because a term is not compared with itself.",
-          ],
-        },
-        {
-          heading: "Clique technique",
-          bullets: [
-            "A **clique** is a maximal complete subgraph in which every pair of terms is directly connected.",
-            "The first maximal clique is **{T1, T5, T6}**, because T1–T5, T1–T6 and T5–T6 all pass the threshold.",
-            "The second maximal clique is **{T2, T3, T4}**, because T2–T3, T2–T4 and T3–T4 all pass the threshold.",
-            "T1 and T2 are not in the same clique because T1–T3 and T1–T4 are below threshold.",
-          ],
-        },
-        {
-          heading: "Star technique",
-          bullets: [
-            "Start with the lowest-numbered term **T1** and place it in a class with every term directly similar to it.",
-            "The first star is **{T1, T2, T5, T6}**.",
-            "The next seed is the smallest term not already in a class, which is **T3**.",
-            "The second star is **{T3, T2, T4}**, so **T2 appears in both classes** and star clusters may overlap.",
-          ],
-        },
-        {
-          heading: "Single-link technique",
-          bullets: [
-            "**Single link** merges two clusters when any one pair of their members is similar.",
-            "The chain **T4–T2–T1–T6–T3** connects the two triangles, so the final result is **one cluster {T1, T2, T3, T4, T5, T6}**.",
-            "A term cannot appear in two single-link clusters because single link produces a partition of the terms.",
-            "**Proof:** if a term X were in two clusters, the two clusters would share X and therefore be one connected component, which contradicts the assumption that they are separate.",
-            "This is the proof requested by the JNTUH Feb 2022 question on single-link clustering.",
-          ],
-        },
-      ],
-      formula:
-        "SIM(Itemᵢ, Itemⱼ) = Σₖ (termᵢ,ₖ)(termⱼ,ₖ)\nThreshold rule: value ≥ 10 → 1; value < 10 → 0\nCliques: {T1,T5,T6} and {T2,T3,T4}\nStar: {T1,T2,T5,T6} and {T2,T3,T4}\nSingle link: {T1,T2,T3,T4,T5,T6}",
-      table: {
-        head: ["Technique", "Classes for the JNTUH matrix", "Overlap", "Key risk"],
-        rows: [
-          ["**Clique**", "{T1,T5,T6} · {T2,T3,T4}", "yes", "too many small classes"],
-          ["**Star**", "{T1,T2,T5,T6} · {T2,T3,T4}", "yes", "hub term pulls weak neighbours"],
-          ["**Single link**", "{T1,T2,T3,T4,T5,T6}", "no", "chaining merges distinct concepts"],
-        ],
-      },
-      walkthrough: "termcluster",
-      note:
-        "The walkthrough solves the exact Feb-2023 matrix step by step. In the exam, always write the Term Relationship matrix before naming any cluster.",
-    },
-    {
-      id: "u3-hierarchy",
-      question:
-        "Explain the hierarchy of clusters. Describe hierarchical agglomerative and divisive clustering, the objectives of a hierarchy and the use of a dendrogram.",
-      marks: 10,
-      freq: 2,
-      papers:
-        "Asked in the IRS question bank as 'cluster hierarchy' and as a Part-B subquestion on automatic term clustering and cluster hierarchy.",
-      sections: [
-        {
-          heading: "Definition",
-          bullets: [
-            "A **hierarchy of clusters** is a set of clusters arranged as a tree with a **root**, a second level below it and lower levels below that.",
-            "The visual representation of the hierarchy is called a **dendrogram**.",
-            "It can be built bottom-up or top-down, which gives the two families of hierarchical clustering.",
-          ],
-        },
-        {
-          heading: "Hierarchical agglomerative clustering (HAC)",
-          bullets: [
-            "**HAC** starts with **un-clustered items** and uses **pair-wise similarity** to merge them step by step.",
-            "The closest pair is merged first, and the new cluster is then compared with the remaining items.",
-            "The process continues until all items belong to one root cluster.",
-            "The merge height in the dendrogram records the similarity at which each merge occurred.",
-          ],
-        },
-        {
-          heading: "Hierarchical divisive clustering",
-          bullets: [
-            "**Divisive clustering** starts with **one large cluster** and keeps breaking it into smaller clusters.",
-            "At each step the cluster with the greatest internal dissimilarity is split.",
-            "The process continues until each item is in its own leaf or until a stopping criterion is reached.",
-            "Divisive methods are top-down and can be more expensive because they must consider many possible splits.",
-          ],
-        },
-        {
-          heading: "Objectives of a hierarchy",
-          bullets: [
-            "It **reduces the overhead of search** because the system can search centroids and trim irrelevant branches.",
-            "It provides a **visual representation** of the information space with cues for cluster size and link strength.",
-            "It **expands retrieval** so that a user who finds an item of interest can request the other items in its cluster.",
-            "The user can increase **specificity** by moving to child clusters or increase **generality** by moving to parent clusters.",
-          ],
-        },
-        {
-          heading: "Reading a dendrogram",
-          bullets: [
-            "The leaves are the individual items, and the height at which two branches join is the **merge similarity or distance**.",
-            "Cutting the dendrogram at a chosen height gives the clusters at that level of the hierarchy.",
-            "A low cut gives many small clusters, while a high cut gives a few large clusters.",
-            "The dendrogram makes the **nested structure** of the data visible, which a flat clustering cannot show.",
-          ],
-        },
-        {
-          heading: "Trade-offs",
-          bullets: [
-            "Hierarchical methods do not need the number of clusters in advance, unlike k-means.",
-            "They are often O(n²) or worse, so they are expensive for very large collections.",
-            "A wrong merge or split early in the process cannot be undone later.",
-            "The choice of linkage measure strongly changes the shape of the dendrogram.",
-          ],
-        },
-      ],
-      formula:
-        "Single link: distance(A,B) = min distance between any a ∈ A, b ∈ B\nComplete link: distance(A,B) = max distance between any a ∈ A, b ∈ B\nAverage link: mean of all pairwise distances\nCut the dendrogram at a height to obtain the clusters",
-      table: {
-        head: ["Method", "Direction", "Starts with", "Ends with"],
-        rows: [
-          ["**HAC**", "bottom-up", "individual items", "one root cluster"],
-          ["**Divisive**", "top-down", "one large cluster", "individual items or small clusters"],
-        ],
-      },
-      diagrams: ["dendrogram"],
-      note:
-        "Draw a small dendrogram with five leaves and mark a cut line. Then write the four objectives of a hierarchy, because that list is easy to remember and easy to mark.",
-    },
-    {
-      id: "u3-hypertext-linkages",
-      question:
-        "Explain hypertext linkage indexing and the three classes of mechanisms used to find information on the Internet.",
-      marks: 10,
-      freq: 2,
-      papers:
-        "Asked in the IRS question bank as 'write a short note on hypertext linkages' and as a Part-B subquestion in the automatic-indexing question.",
-      sections: [
-        {
-          heading: "Hypertext as a retrieval dimension",
-          bullets: [
-            "**Hypertext linkage indexing** creates hypertext links that provide **virtual threads of concepts** between items.",
-            "Traditional items are viewed as **two-dimensional constructs**, where the text of the item is one dimension and the index terms are the other.",
-            "Hypertext linkages add an additional retrieval dimension because a link expresses a relationship between items.",
-            "The linkage is a special class of indexing because it defines the relationship instead of directly defining the concept within each item.",
-          ],
-        },
-        {
-          heading: "How links are created",
-          bullets: [
-            "Links can be generated **manually** by the author or by an editor.",
-            "Links can be generated **automatically** by analysing term co-occurrence, citation patterns or document similarity.",
-            "Each separate item is a **node**, and each reference pointer is a **link**.",
-            "A node is displayed by a viewer chosen for the file type of that node.",
-          ],
-        },
-        {
-          heading: "Three classes of internet finding mechanisms",
-          bullets: [
-            "**Manually generated indexes** are built by human editors who classify and describe sites.",
-            "**Automatically generated indexes and web crawlers** use a spider-bot that systematically browses the web for indexing.",
-            "**Hypertext linkage indexes** follow links between items and use the link structure itself as a source of relevance evidence.",
-            "A **web crawler** is an internet bot operated by search engines for web indexing and is a form of intelligent agent.",
-          ],
-        },
-        {
-          heading: "Benefits and risks",
-          bullets: [
-            "Linkage indexing can connect items that use different vocabulary but discuss the same concept.",
-            "It supports browsing and link analysis, which can reveal hubs and authorities in a collection.",
-            "Links can become outdated, misleading or commercial, so link quality must be evaluated.",
-            "Link spam and link farms can distort ranking if the search engine trusts links blindly.",
-          ],
-        },
-      ],
-      table: {
-        head: ["Mechanism", "Who builds it", "Main evidence", "Example"],
-        rows: [
-          ["**Manual index**", "human editor", "classification and description", "early web directories"],
-          ["**Automatic index**", "web crawler", "page text and metadata", "search engine index"],
-          ["**Hypertext linkage**", "author or algorithm", "links between items", "link analysis and navigation"],
-        ],
-      },
-      note:
-        "The key sentence is that hypertext linkages add a third retrieval dimension through virtual concept threads between items.",
     },
   ],
 };

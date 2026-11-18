@@ -1,12 +1,17 @@
 import type { ComponentType } from "react";
 import { useId } from "react";
-import IrsProcesses from "./IrsProcesses";
-import InvertedFileStructure from "./InvertedFileStructure";
-import NormalizationPipeline from "./NormalizationPipeline";
-import HypertextXmlTree from "./HypertextXmlTree";
-import SingleLinkDendrogram from "./SingleLinkDendrogram";
-import RelevanceFeedbackVector from "./RelevanceFeedbackVector";
-import HardwareFastDataFinder from "./HardwareFastDataFinder";
+import VisualizationPipeline from "./VisualizationPipeline";
+import DataTypeTaxonomy from "./DataTypeTaxonomy";
+import VisualVariablesDiagram from "./VisualVariablesDiagram";
+import PerceptionStages from "./PerceptionStages";
+import GeoPhenomena from "./GeoPhenomena";
+import FlowVisualizationDiagram from "./FlowVisualizationDiagram";
+import CombiningTechniquesDiagram from "./CombiningTechniquesDiagram";
+import MapProjections from "./MapProjections";
+import ScatterplotMatrixDiagram from "./ScatterplotMatrixDiagram";
+import MultivariateTaxonomy from "./MultivariateTaxonomy";
+import InteractionFramework from "./InteractionFramework";
+import TextVisualizationDiagram from "./TextVisualizationDiagram";
 
 export type DiagramInfo = {
   id: string;
@@ -19,67 +24,112 @@ export type DiagramInfo = {
 
 export const diagrams: DiagramInfo[] = [
   {
-    id: "processes",
-    title: "IRS 4 Major Functional Processes",
+    id: "pipeline",
+    title: "The Data Visualization Pipeline",
     caption:
-      "Item normalization, selective dissemination of information, archival document database search, and index database search with automatic file build. The same normalized item feeds the document store and the index store.",
+      "Data modelling, data selection, data-to-visual mapping, scene parameter setting and rendering. User interaction is possible at every stage, and each link is a many-to-many mapping.",
     unit: "unit1",
     wide: true,
-    component: IrsProcesses,
+    component: VisualizationPipeline,
   },
   {
-    id: "normalization",
-    title: "Item Normalization Pipeline",
+    id: "data-taxonomy",
+    title: "Data Types & Measurement Scales",
     caption:
-      "The eight-step normalization pipeline: standardize input, zone the item, identify processing tokens, apply the stop algorithm, characterize tokens, stem, and create the searchable data structure.",
+      "Ordinal data splits into binary, discrete and continuous; nominal data splits into categorical, ranked and arbitrary. The scale attributes are ordering, distance and absolute zero.",
     unit: "unit1",
     wide: true,
-    component: NormalizationPipeline,
+    component: DataTypeTaxonomy,
   },
   {
-    id: "inverted",
-    title: "Inverted File Structure",
+    id: "visual-variables",
+    title: "The Eight Visual Variables",
     caption:
-      "The document file stores normalized items, the dictionary stores the sorted vocabulary with document frequency and a pointer, and the inversion lists store the posting lists. A Boolean query intersects the posting lists to form the hit file.",
+      "Position, mark/shape, size, brightness, colour, orientation, texture and motion. Position is the most accurate variable; colour is the most misused one.",
     unit: "unit2",
     wide: true,
-    component: InvertedFileStructure,
+    component: VisualVariablesDiagram,
   },
   {
-    id: "hypertext",
-    title: "Hypertext & XML Tree",
+    id: "perception-stages",
+    title: "The Three-Stage Model of Perception",
     caption:
-      "Hypertext is a graph of nodes joined by embedded links, while XML is a hierarchical element tree defined by a DTD. Both provide zoning-like structure, but only hypertext creates a navigable link space.",
+      "Stage 1 extracts low-level features in parallel, Stage 2 groups them into patterns, and Stage 3 answers visual queries with a few objects held in working memory.",
     unit: "unit2",
     wide: true,
-    component: HypertextXmlTree,
+    component: PerceptionStages,
   },
   {
-    id: "dendrogram",
-    title: "Single-Link Cluster Hierarchy Dendrogram",
+    id: "geo-types",
+    title: "Point, Line, Area & Surface Phenomena",
     caption:
-      "Agglomerative single-link clustering merges A–B at height 2, (A,B)–C at 3, D–E at 4 and the two groups at 6. Cutting the dendrogram at 3.5 gives two classes, {A,B,C} and {D,E}.",
+      "The dimension grows from point (0-D) to line (1-D), area (2-D) and surface (2.5-D). The data kind plus the nominal/ordinal measurement decides the map type.",
     unit: "unit3",
     wide: true,
-    component: SingleLinkDendrogram,
+    component: GeoPhenomena,
   },
   {
-    id: "feedback",
-    title: "Relevance Feedback Vector Shift",
+    id: "flow-viz",
+    title: "Dynamic Data & Flow Visualization",
     caption:
-      "The new query vector is the old query plus a weighted relevant centroid minus a weighted non-relevant centroid, so ranking moves toward terms in relevant items and away from terms in non-relevant items.",
+      "Arrow glyphs show vectors directly; streamlines follow the tangent field; streaklines show continuously released particles; line integral convolution smears a texture along the flow to make a dense display.",
+    unit: "unit3",
+    wide: true,
+    component: FlowVisualizationDiagram,
+  },
+  {
+    id: "combine-viz",
+    title: "Combining Visualization Techniques",
+    caption:
+      "Slice plus isosurface, isosurface plus glyphs, and rubber sheet plus contours and colour. Each component adds a strength, and users can hide either component to build their mental model incrementally.",
+    unit: "unit3",
+    wide: true,
+    component: CombiningTechniquesDiagram,
+  },
+  {
+    id: "projections",
+    title: "Map Projections: Cylinder, Plane & Cone",
+    caption:
+      "A projection flattens the globe and always distorts something. Cylindrical suits the whole world, planar suits direction from the centre, and conic suits mid-latitudes.",
+    unit: "unit3",
+    wide: true,
+    component: MapProjections,
+  },
+  {
+    id: "scatter-matrix",
+    title: "Scatterplot Matrix for Four Dimensions",
+    caption:
+      "A scatterplot matrix has N² cells. Every pair appears twice, rotated by 90°, and the diagonal cells carry the dimension names or histograms.",
     unit: "unit4",
     wide: true,
-    component: RelevanceFeedbackVector,
+    component: ScatterplotMatrixDiagram,
   },
   {
-    id: "hardware",
-    title: "Streaming / Hardware Fast Data Finder Architecture",
+    id: "mv-taxonomy",
+    title: "Multivariate Technique Taxonomy",
     caption:
-      "Text streams from storage through a term detector to a query resolver and user interface. The Fast Data Finder implements the detector as a pipeline of programmable comparator cells, one cell per pattern character.",
+      "Point, line, region, glyph and pixel techniques, plus trees, graphs and text. The data structure and task decide the family, not visual fashion.",
+    unit: "unit4",
+    wide: true,
+    component: MultivariateTaxonomy,
+  },
+  {
+    id: "text-viz",
+    title: "Text & Document Visualization at a Glance",
+    caption:
+      "Vector-space weighting, word clouds, word trees, TileBars, ThemeRiver and SOM. Each technique shows a different property of text: frequency, context, position, distribution or similarity.",
+    unit: "unit4",
+    wide: true,
+    component: TextVisualizationDiagram,
+  },
+  {
+    id: "interaction-framework",
+    title: "Interaction Operators, Spaces & Parameters",
+    caption:
+      "Seven operators act on six operand spaces, and every interaction is described by focus, extents, transformation and blender. Animating transformations and interaction control complete the eight techniques.",
     unit: "unit5",
     wide: true,
-    component: HardwareFastDataFinder,
+    component: InteractionFramework,
   },
 ];
 

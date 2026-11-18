@@ -49,14 +49,14 @@ type TabKey =
 type FreqFilter = "all" | "repeat" | "hot";
 type SortKey = "freq" | "marks";
 
-const STORAGE_KEY = "irs-merged-revised-v1";
+const STORAGE_KEY = "dvt-merged-revised-v1";
 
 const twoMarkUnitTitles: Record<string, string> = {
-  "Unit I": "Unit I · Introduction & capabilities",
-  "Unit II": "Unit II · Cataloging, indexing & data structures",
-  "Unit III": "Unit III · Automatic indexing & clustering",
-  "Unit IV": "Unit IV · Search techniques & visualization",
-  "Unit V": "Unit V · Text search, hardware & multimedia",
+  "Unit I": "Unit I · Introduction & data foundation",
+  "Unit II": "Unit II · Foundations for visualization",
+  "Unit III": "Unit III · Geospatial data visualization",
+  "Unit IV": "Unit IV · Multivariate, text & document visualization",
+  "Unit V": "Unit V · Interaction, design & research issues",
 };
 
 function readIds(): string[] {
@@ -127,7 +127,7 @@ function findTopicForQuestion(questionId: string) {
 export default function HomePage() {
   const [tab, setTab] = useState<TabKey>("all");
   const [activeTopic, setActiveTopic] = useState<string | null>(null);
-  const [walkthroughId, setWalkthroughId] = useState("porter");
+  const [walkthroughId, setWalkthroughId] = useState("pipeline");
   const [search, setSearch] = useState("");
   const [freqFilter, setFreqFilter] = useState<FreqFilter>("all");
   const [sort, setSort] = useState<SortKey>("freq");
@@ -237,7 +237,7 @@ export default function HomePage() {
           papers:
             item.freq > 1
               ? `Part-A short question repeated in ${item.freq} of the ${PAPER_COUNT} merged sources.`
-              : "Part-A short question from one of the merged IRS question sources.",
+              : "Part-A short question from one of the merged DVT question sources.",
           answer: item.answer,
           formula: item.formula,
         } as Question,
@@ -371,7 +371,7 @@ export default function HomePage() {
       count: unit.questions.length,
     })),
     { key: "twomarks", label: "2-Mark Rapid Recall", count: totalTwoMarks },
-    { key: "walkthroughs", label: "Interactive Algorithm Walkthroughs", count: walkthroughs.length },
+    { key: "walkthroughs", label: "Interactive Visualizer Walkthroughs", count: walkthroughs.length },
   ];
 
   let showingText = "";
@@ -385,10 +385,10 @@ export default function HomePage() {
     <div className="shell">
       <main>
         <div className="mobile-top">
-          <span className="mcode">IRS</span>
+          <span className="mcode">DVT</span>
           <div className="mname">
-            <b>Information Retrieval Systems · Exam Prep</b>
-            <span>Question bank + JNTUH R18 · Units I–V</span>
+            <b>Data Visualization Techniques · Exam Prep</b>
+            <span>Question bank + PYQs 2025–26 · Units I–V</span>
           </div>
           <span className="mprog">
             {totalRevised}/{totalItems}
@@ -399,15 +399,15 @@ export default function HomePage() {
           <header className="hero">
             <div className="hero-kicker">
               <GraduationCap size={14} aria-hidden="true" />
-              IRS · QUESTION BANK + JNTUH R18
+              DVT · QUESTION BANK + PYQs 2025–26
             </div>
             <h1>
-              Every IRS question, <em>indexed and answered.</em>
+              Every DVT idea, <em>drawn and exam-ready.</em>
             </h1>
             <p className="sub">
-              The complete IRS question bank, the NR20 model paper and both JNTUH R18
-              papers deduplicated into frequency-ranked 10-mark answers, every unique
-              Part-A short question, and six interactive algorithm walkthroughs.
+              Six merged DVT question papers, the Ward–Grinstein–Keim notes and the
+              prescribed textbook distilled into frequency-ranked exam answers, every
+              unique Part-A short question, and six interactive visualizer walkthroughs.
             </p>
             <div className="chips">
               <span className="chip hot">
@@ -503,9 +503,9 @@ export default function HomePage() {
                 <div className="pagehead-kicker">Part A · 2 marks · all merged sources</div>
                 <h1>2-Mark Rapid Recall</h1>
                 <p>
-                  Every unique Part-A short question across the IRS question bank, NR20
-                  model paper and both JNTUH R18 papers, answered with two or three
-                  complete sentences and the exact formula where needed.
+                  Every unique Part-A short question across the six merged DVT papers,
+                  answered with two or three complete sentences and the exact formula
+                  wherever the notes give one.
                 </p>
                 <div className="chips">
                   <span className="chip">
@@ -521,12 +521,12 @@ export default function HomePage() {
               </>
             ) : (
               <>
-                <div className="pagehead-kicker">Slide-style algorithm players</div>
-                <h1>Interactive Algorithm Walkthroughs</h1>
+                <div className="pagehead-kicker">Slide-style visualizer players</div>
+                <h1>Interactive Visualizer Walkthroughs</h1>
                 <p>
-                  Click through each algorithm exactly as you would write it in the exam. Every
-                  step has a theme-matched SVG or highlighted state table plus two or three
-                  single-sentence explanation points.
+                  Click through each technique exactly as you would draw it in the exam.
+                  Every step has a theme-matched SVG or highlighted table plus two or
+                  three single-sentence explanation points.
                 </p>
                 <div className="chips">
                   <span className="chip accent">
@@ -639,9 +639,9 @@ export default function HomePage() {
                   <div className="kicker">Course map</div>
                   <h2>Five units, split into focused topic slugs</h2>
                   <p className="section-sub">
-                    Open a unit first, then choose the exact topic slug. Every unit has eight
-                    or nine slugs, and each slug contains the full exam-ready answers, the
-                    must-write points and any linked interactive walkthrough.
+                    Open a unit first, then choose the exact topic slug. Every unit has
+                    eight to ten slugs, and each slug contains the full exam-ready answers,
+                    the must-write points and any linked interactive walkthrough.
                   </p>
                 </div>
                 <span className="chip accent">
@@ -747,8 +747,8 @@ export default function HomePage() {
                   <div className="kicker">Visual reference</div>
                   <h2>Core exam diagrams</h2>
                   <p className="section-sub">
-                    Every architecture and concept diagram uses the same theme variables as
-                    the dashboard, so the figures blend into the page.
+                    Every pipeline, taxonomy and technique diagram uses the same theme
+                    variables as the dashboard, so the figures blend into the page.
                   </p>
                 </div>
               </div>
@@ -782,8 +782,8 @@ export default function HomePage() {
                 <Search size={26} style={{ color: "var(--line-strong)", margin: "0 auto" }} />
                 <h3>Nothing matched that search</h3>
                 <p>
-                  Try a shorter keyword such as Porter, signature, PAT tree, clustering,
-                  relevance feedback or Boyer–Moore.
+                  Try a shorter keyword such as preprocessing, choropleth, visual variable,
+                  parallel coordinates, fisheye, treemap or Zipf.
                 </p>
               </div>
             ) : (
@@ -1056,7 +1056,7 @@ export default function HomePage() {
               <div className="empty">
                 <Search size={26} style={{ color: "var(--line-strong)", margin: "0 auto" }} />
                 <h3>No short question matched</h3>
-                <p>Try a keyword such as precision, stem, inverted, thesaurus or FSA.</p>
+                <p>Try a keyword such as visualization, variable, projection, glyph or interaction.</p>
               </div>
             ) : (
               twoMarkGroups.map((group) => (
@@ -1091,7 +1091,7 @@ export default function HomePage() {
         {/* ---------------------------------------------------------- */}
         {tab === "walkthroughs" ? (
           <>
-            <div className="walk-selector" role="tablist" aria-label="Algorithm walkthroughs">
+            <div className="walk-selector" role="tablist" aria-label="DVT visualizer walkthroughs">
               {walkthroughs.map((item) => (
                 <button
                   key={item.id}
@@ -1115,8 +1115,8 @@ export default function HomePage() {
                   <div className="kicker">Static reference</div>
                   <h2>Core exam diagrams</h2>
                   <p className="section-sub">
-                    The same {diagrams.length} architecture SVGs used throughout the units, ready to redraw
-                    in the exam.
+                    The same {diagrams.length} concept SVGs used throughout the units,
+                    ready to redraw in the exam.
                   </p>
                 </div>
               </div>
@@ -1131,8 +1131,8 @@ export default function HomePage() {
 
         <footer>
           <span>
-            Built from the IRS question bank (NR21), the NR20 model paper, both JNTUH R18
-            papers and the Kowalski textbook notes · Information Retrieval Systems, B.Tech.
+            Built from six merged DVT question papers, the Ward–Grinstein–Keim notes and
+            the Interactive Data Visualization textbook · Data Visualization Techniques, B.Tech.
           </span>
           <span>
             Revision state is stored in localStorage only · No account, no server, no tracking.

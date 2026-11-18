@@ -15,15 +15,15 @@ import { PAPER_COUNT } from "@/data/types";
 import RichText from "./RichText";
 import { DiagramById } from "./diagrams";
 
-const STORAGE_KEY = "irs-merged-revised-v1";
+const STORAGE_KEY = "dvt-merged-revised-v1";
 
 const walkthroughLabels: Record<string, string> = {
-  porter: "Porter Stemming",
-  signature: "Signature Hashing",
-  pat: "PAT Tree",
-  termcluster: "Term-Term Clustering",
-  boyer: "Boyer–Moore",
-  fsa: "FSA / Hardware Search",
+  pipeline: "Visualization Pipeline",
+  preprocess: "Data Preprocessing",
+  scatter: "Scatterplot Mapping",
+  pcp: "Parallel Coordinates",
+  fisheye: "Fisheye Lens",
+  treemap: "Treemap Layout",
 };
 
 function readRevisedIds(): string[] {
@@ -90,7 +90,7 @@ export default function QuestionCard({
 
   const detail =
     q.papers ??
-    "This question appears once across the IRS question bank and the JNTUH R18 papers.";
+    "This question appears once across the six merged DVT question sources.";
 
   return (
     <article className={`qcard ${open ? "open" : ""}`} id={q.id}>
@@ -104,7 +104,7 @@ export default function QuestionCard({
         <div>
           <div className="qmeta">
             <span
-              className={`tag marks ${q.marks === 10 ? "" : q.marks === 5 ? "m5" : "fresh"}`}
+              className={`tag marks ${q.marks === 10 ? "" : q.marks >= 5 ? "m5" : "fresh"}`}
             >
               [{q.marks}M]
             </span>

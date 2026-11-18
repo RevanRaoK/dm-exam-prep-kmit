@@ -3,9 +3,9 @@ import "./globals.css";
 import "./mobile.css";
 
 export const metadata: Metadata = {
-  title: "IRS Exam Prep · Question Bank + JNTUH R18",
+  title: "DVT Exam Prep · Question Bank + PYQs 2025–26",
   description:
-    "Information Retrieval Systems (IRS) exam preparation: merged question bank and JNTUH R18 PYQs distilled into ranked, exam-ready answers, rapid recall cards and interactive algorithm walkthroughs.",
+    "Data Visualization Techniques (DVT) exam preparation: six merged PYQ papers and the Ward–Grinstein–Keim notes distilled into ranked, exam-ready answers, rapid recall cards and interactive visualizer walkthroughs.",
 };
 
 export const viewport: Viewport = {

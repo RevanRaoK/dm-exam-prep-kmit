@@ -1,4 +1,4 @@
-export type Marks = 2 | 5 | 10;
+export type Marks = 2 | 3 | 4 | 5 | 6 | 10;
 
 export type QuestionTable = {
   head: string[];
@@ -44,9 +44,11 @@ export type TwoMark = {
 };
 
 export type PaperName =
-  | "IRS Question Bank (NR21)"
-  | "NR20 Model Paper (Feb 2023)"
-  | "JNTUH Feb 2022 (R18)"
-  | "JNTUH Feb 2023 (R18)";
+  | "KR21 Jan-2025"
+  | "KR21 Jun-2025"
+  | "KR21 Dec-2025 / Jan-2026"
+  | "RKR21 May-2026"
+  | "KR20 May/Jun-2026"
+  | "KMIT May-2026 (set 2)";
 
-export const PAPER_COUNT = 4;
+export const PAPER_COUNT = 6;

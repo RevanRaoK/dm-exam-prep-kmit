@@ -3,614 +3,782 @@ import type { Unit } from "./types";
 export const unit5: Unit = {
   id: "unit5",
   roman: "V",
-  title: "Unit V · Text Search, Hardware & Multimedia",
+  title: "Unit V · Interaction, Design & Research Issues",
   subtitle:
-    "Text streaming architecture, brute force, Boyer–Moore and KMP, finite state automata, hardware text search, information system evaluation and TREC, and multimedia retrieval for audio, images, video and graphs.",
-  color: "var(--v-violet)",
+    "Interaction operators, operands and spaces, the unified framework, the eight interaction techniques, design steps, misleading visualizations, evaluation, and research issues in data, cognition, hardware and applications.",
+  color: "var(--v-pink)",
   questions: [
     {
-      id: "u5-text-streaming",
+      id: "u5-operators",
       question:
-        "Explain text search techniques and draw the text streaming search system architecture. State its components and advantages.",
+        "Explain interaction concepts and compare the different interaction operators in data visualization.",
       marks: 10,
-      freq: 2,
+      freq: 5,
       papers:
-        "Asked in the IRS question bank as 'draw and explain the streaming architecture' and as a software text search question.",
+        "Asked in Jan-2025, Jun-2025, Dec-2025/Jan-2026 and RKR21 May-2026.",
       sections: [
         {
-          heading: "Basic concept",
+          heading: "What interaction is",
           bullets: [
-            "A **text scanning system** lets one or more users enter queries and compares the text of the items **sequentially** against the query terms.",
-            "When all of the text has been accessed, the query is complete.",
-            "The process looks for at least one or all occurrences of a **pattern of text** in a text stream.",
-            "It is assumed that the **same alphabet** is used in the search terms and in the streamed text.",
-            "A major advantage is that as soon as an item is identified as satisfying a query, the result can be presented to the user for retrieval.",
+            "In data and information visualization, **interaction** is a mechanism for modifying **what** the user sees and **how** they see it.",
+            "A still image can show only one view; interaction lets the user ask further questions without starting over.",
+            "The notes name **seven operator classes** plus a **hybrid** class that combines several.",
           ],
         },
         {
-          heading: "Component 1 · database",
+          heading: "The seven operators",
           bullets: [
-            "The **database** contains the full text of the items to be searched.",
-            "The text is streamed from secondary storage rather than randomly accessed through an index.",
-            "The database may also contain audio, image and video data for multimedia search.",
+            "**Navigation** (also called exploration): search for a subset of data, change orientation and level of detail. In 3D this means camera location, viewing direction, frustum size and shape, and an LOD indicator.",
+            "**Selection**: isolate a subset for another operation such as highlight, delete, mask or move to the centre; a new selection may replace or supplement the old one.",
+            "**Filtering**: reduce the data by setting constraints on records, dimensions or both. The best-known form is the **dynamic query slider** (Shneiderman et al.).",
+            "**Reconfiguring**: change how the data is arranged, such as sorting rows or columns, swapping axes, or using PCA/MDS to derive positions.",
+            "**Encoding**: change graphical attributes such as point size or line colour, or change the type of visualization entirely.",
+            "**Connecting**: link views or objects so related items appear together; **linked selection** is the most common example.",
+            "**Abstraction/elaboration**: change the level of detail, showing more detail in a subset and less elsewhere; distortion operators are the popular case.",
           ],
         },
         {
-          heading: "Component 2 · term detector",
+          heading: "The hybrid operator",
           bullets: [
-            "The **term detector** is the special hardware or software that contains all of the search terms and, in some systems, the logic between the terms.",
-            "It outputs the detected terms to the query resolver.",
-            "In hardware systems the detector can be a set of parallel comparators, a cellular structure or a universal finite state automaton.",
+            "A **hybrid** combines several classes in one technique.",
+            "Example: give a focus area more screen space for detail while keeping the rest at a smaller scale for context.",
           ],
         },
         {
-          heading: "Component 3 · query resolver",
+          heading: "How to compare them",
           bullets: [
-            "The **query resolver** accepts search statements from users and extracts the logic and search terms to pass to the detector.",
-            "It also accepts results from the detector and determines which queries are satisfied by the item.",
-            "It may compute the **relevance weight** associated with a hit.",
-            "It passes information to the user interface so the search status can be updated.",
-          ],
-        },
-        {
-          heading: "Component 4 · user interface",
-          bullets: [
-            "The **user interface** continually updates the search status and, on request, retrieves any item that satisfies the user's search statement.",
-            "It can display hits as they are found rather than waiting for the complete search to finish.",
-            "This immediate feedback is a key advantage over index-based searching.",
-          ],
-        },
-        {
-          heading: "Software versus hardware",
-          bullets: [
-            "In **software streaming**, the items to be searched are read into memory and then the algorithm is applied.",
-            "The three major software algorithms are **brute force**, **Boyer–Moore** and **Knuth–Morris–Pratt**.",
-            "Software search struggles with many terms at once and is limited by I/O speed, which is why hardware text search exists.",
-            "Hardware text search moves the resource-intensive matching away from the main processor.",
+            "Navigation and filtering change **what data is visible**, while reconfiguring and encoding change **how it is shown**.",
+            "Selection and connecting operate **across views and records**, while abstraction/elaboration changes **detail level**.",
+            "The best interface usually combines several operators, because one operator cannot support every task.",
           ],
         },
       ],
       table: {
-        head: ["Component", "Input", "Function", "Output"],
+        head: ["Operator", "User controls", "Example"],
         rows: [
-          ["**Database**", "stored text", "holds the full text of items", "stream of characters"],
-          ["**Term detector**", "query terms + text", "detects the query patterns", "detected term signals"],
-          ["**Query resolver**", "signals + search statements", "applies Boolean logic and weights", "satisfied queries and hits"],
-          ["**User interface**", "resolver output", "updates status and retrieves items", "displayed results"],
+          ["Navigation", "pan, rotate, zoom, level of detail", "grand tour of orientations"],
+          ["Selection", "which objects or regions are active", "click or paint to select"],
+          ["Filtering", "which records or dimensions remain", "dynamic query sliders"],
+          ["Reconfiguring", "arrangement and mapping", "sort a table, swap axes"],
+          ["Encoding", "graphical attributes", "change point size or colour"],
+          ["Connecting", "links between views", "linked brushing across plots"],
+          ["Abstraction/elaboration", "level of detail", "fisheye, perspective wall"],
         ],
       },
-      diagrams: ["hardware"],
-      note:
-        "Draw the four boxes and the arrows from database to detector to resolver to user interface. State the immediate-hit advantage as the closing point.",
     },
     {
-      id: "u5-brute-force",
+      id: "u5-spaces",
       question:
-        "Explain the brute force string matching algorithm. Give the expected number of comparisons, the worst case and its complexity.",
+        "Explain interaction operands and spaces, and what each operator means in each space.",
       marks: 10,
-      freq: 2,
+      freq: 5,
       papers:
-        "Asked in the IRS question bank as 'what is the brute force approach?' and as part of the software text search algorithms question.",
+        "Asked in Dec-2025/Jan-2026, RKR21 May-2026 and May-2026 as a 5- or 10-mark question.",
       sections: [
         {
-          heading: "The idea",
+          heading: "Operand and space",
           bullets: [
-            "**Brute force** is the simplest string matching algorithm.",
-            "It tries to match the search string against the input text from left to right.",
-            "As soon as a **mismatch** is detected, it shifts the pattern one position to the right and restarts the comparison.",
-            "The pattern P is compared with the text T for every possible shift of P relative to T until a match is found or all placements have been tried.",
+            "An **interaction operand** is the section of space on which an operator is applied.",
+            "The same click can mean different things depending on whether it touches a **pixel**, a **data value**, a **tree node** or a **3D object**.",
+            "The six spaces name the kind of thing being operated on.",
           ],
         },
         {
-          heading: "Expected comparisons",
+          heading: "Screen space",
           bullets: [
-            "The expected number of comparisons for a text of **n** characters and a pattern of **m** characters is a function of the alphabet size.",
-            "The formula is **Nc = c/(c − 1) × (1 − 1/cᵐ) × (n − m + 1) + O(1)**.",
-            "Here **Nc** is the expected number of comparisons, **c** is the size of the alphabet, **n** is the text length and **m** is the pattern length.",
-            "For a large alphabet, the factor 1 − 1/cᵐ approaches 1, so the expected number of comparisons is close to n − m + 1.",
+            "The operand is a **pixel**. Navigation is pan, zoom and rotate; no new data is used.",
+            "Selection marks pixels as selected; filtering crops or masks a region.",
+            "Distortion transforms pixel positions while preserving order and continuity; examples are the fisheye lens and the rubber sheet.",
           ],
         },
         {
-          heading: "Worst case",
+          heading: "Data value space",
           bullets: [
-            "The worst case in the notes is **T = aaa…ah** and **P = aaah**.",
-            "At every shift the first three characters match and the last character fails, so almost all n × m comparisons are used.",
-            "Brute force therefore runs in **O(nm)** time in the worst case.",
-            "The algorithm needs no preprocessing and no extra memory, which is its main advantage.",
+            "The operand is the set of **multivariate data values**.",
+            "Navigation shifts or shrinks the range of values shown; selection is like a database query with ranges for dimensions.",
+            "Filtering clips spatial areas or removes records and dimensions; sampling reduces clutter.",
           ],
         },
         {
-          heading: "When to use it",
+          heading: "Data structure space and visualization structure space",
           bullets: [
-            "It is suitable for short patterns, small texts or a single search.",
-            "It is the baseline against which faster algorithms are compared.",
-            "It is easy to implement correctly and has no preprocessing table to maintain.",
-            "It is inefficient for large databases because it repeats comparisons that could be skipped.",
+            "**Data structure space** is the organisation of the data: lists, tables, grids, hierarchies and graphs. Navigation moves along the structure, including drill-down and roll-up; filtering selects time ranges, node distances or hierarchy levels.",
+            "**Visualization structure space** is the organisation of the picture itself: grids, axes and dashboards. Navigation moves through pages or zooms into one plot of a scatterplot matrix.",
+            "This is the pair that students most often mix up: data structure = data; visualization structure = picture.",
+          ],
+        },
+        {
+          heading: "Attribute space",
+          bullets: [
+            "The operand is a **graphical attribute** such as colour, size or shape.",
+            "Navigation pans or zooms the range of attribute values; selection chooses entries of a colour map.",
+            "Remapping changes which range or attribute is controlled by the data; attribute-based distortion changes one or more attributes of the objects.",
+          ],
+        },
+        {
+          heading: "Object space",
+          bullets: [
+            "The operand is a **3D surface or geometric object** onto which data is mapped.",
+            "Navigation moves around the object and provides global and close-up views.",
+            "Selection clicks the object or picks it from a list; remapping changes the object, for example mapping geographic data to a plane instead of a sphere.",
+          ],
+        },
+      ],
+      table: {
+        head: ["Space", "Operand", "Example"],
+        rows: [
+          ["Screen", "pixels", "zoom, fisheye lens"],
+          ["Data value", "multivariate values", "range query, sampling"],
+          ["Data structure", "organisation of data", "drill down a tree"],
+          ["Attribute", "graphical attributes", "change a colour map"],
+          ["Object", "3D surfaces", "rotate a globe"],
+          ["Visualization structure", "layout of the display", "zoom one scatterplot cell"],
+        ],
+      },
+    },
+    {
+      id: "u5-unified",
+      question:
+        "Explain the unified framework for interaction concepts and the parameters required.",
+      marks: 10,
+      freq: 4,
+      papers:
+        "Asked in Dec-2025/Jan-2026 and Jan-2025 as a 5-mark parameter question.",
+      sections: [
+        {
+          heading: "The four parameters",
+          bullets: [
+            "Every operator applied to a space needs four parameters: **focus, extents, transformation and blender**.",
+          ],
+        },
+        {
+          heading: "Focus",
+          bullets: [
+            "The **focus** is the place in the space at the centre of the user's interest.",
+            "There may be several foci at once, but multiple foci in navigation usually need multiple display windows.",
+          ],
+        },
+        {
+          heading: "Extents",
+          bullets: [
+            "The **extents** are the range in the space that bounds the interaction.",
+            "In screen space they are pixels; in structure space they may be rows of a table or links in a graph.",
+          ],
+        },
+        {
+          heading: "Transformation",
+          bullets: [
+            "The **transformation** is the function applied inside the extents, usually depending on the distance from the focus, plus its **degree** or scale factor.",
+            "For text, a **flat peak** keeps the magnified words equally readable.",
+          ],
+        },
+        {
+          heading: "Blender",
+          bullets: [
+            "The **blender** decides what happens where two interactions overlap.",
+            "For selection, the blender is a logical operation such as and/or; for distortion, **Keahey and Robertson** list weighted average, maximal value and composition.",
+          ],
+        },
+        {
+          heading: "Examples",
+          bullets: [
+            "**Fisheye lens**: focus = lens centre, extents = lens radius, transformation = magnification falling with distance, blender = weighted average or maximum.",
+            "**Selecting points**: focus = click position, extents = selection rectangle, transformation = mark selected, blender = logical operations on overlapping selections.",
+            "**Time-series filter**: focus = chosen date, extents = number of days either side, transformation = keep inside/hide outside, blender = combine two windows.",
+          ],
+        },
+      ],
+      table: {
+        head: ["Parameter", "Question it answers"],
+        rows: [
+          ["Focus", "Where is the user interested?"],
+          ["Extents", "How far does the interaction reach?"],
+          ["Transformation", "What happens inside the extents, and how strong is it?"],
+          ["Blender", "What happens where two interactions overlap?"],
+        ],
+      },
+    },
+    {
+      id: "u5-techniques",
+      question:
+        "Explain the various interaction techniques in visualization with examples.",
+      marks: 10,
+      freq: 4,
+      papers:
+        "Asked as a full question in Jun-2025 and in the May-2026 papers, and as short notes in other papers.",
+      sections: [
+        {
+          heading: "The eight techniques",
+          bullets: [
+            "The six spaces plus two helpers make eight techniques: **screen space, object space, data space, attribute space, data structure space, visualization structure space, animating transformations and interaction control**.",
+          ],
+        },
+        {
+          heading: "1–2 · Screen and object space",
+          bullets: [
+            "**Screen space** works on pixels: pan, zoom, rotate and distortion; the fisheye lens is the standard example.",
+            "**Object space** works on 3D surfaces: move around or remap the object; the perspective wall is the standard example.",
+          ],
+        },
+        {
+          heading: "3–4 · Data and attribute space",
+          bullets: [
+            "**Data space** changes the values, with transformations such as scale, log, sinusoid, absolute value and negation; the viewer must be told about any transformation.",
+            "**Attribute space** changes colour, size and opacity, for example contrast enhancement, colour histogram equalisation and attribute-based glyph scaling.",
+          ],
+        },
+        {
+          heading: "5–6 · Data and visualization structure space",
+          bullets: [
+            "**Data structure space** changes how data is organised, such as dimension ordering, drill-down and roll-up.",
+            "**Visualization structure space** changes the display layout, such as axis spacing in parallel coordinates, cell size in a scatterplot matrix, or the arrangement of a dashboard.",
+          ],
+        },
+        {
+          heading: "7 · Animating transformations",
+          bullets: [
+            "Use a **smooth transition** between the initial and final view so the user keeps context.",
+            "**Linear interpolation** is simplest, but **ease-in, ease-out** (slow start, cruise, slow stop) looks more natural.",
+            "A sine-based ease curve is position = 0.5 × (1 − cos(πt)).",
+          ],
+        },
+        {
+          heading: "8 · Interaction control",
+          bullets: [
+            "The controls are **focus selection, extent selection, interaction type selection, interaction level selection and blender type selection**.",
+            "Focus and extents are often set by direct manipulation; type is chosen with menus or icons; level with a slider or dial; blender with a menu.",
+            "Give the user control over the animation rate, because rapid changes cause confusion and loss of orientation.",
+          ],
+        },
+      ],
+      table: {
+        head: ["#", "Technique", "Operand", "Example"],
+        rows: [
+          ["1", "Screen space", "pixels", "fisheye"],
+          ["2", "Object space", "3D surfaces", "perspective wall"],
+          ["3", "Data space", "data values", "log scale"],
+          ["4", "Attribute space", "graphical attributes", "contrast / colour equalisation"],
+          ["5", "Data structure space", "data organisation", "drill-down"],
+          ["6", "Visualization structure space", "display layout", "zoom one matrix cell"],
+          ["7", "Animating transformations", "view change", "ease-in, ease-out"],
+          ["8", "Interaction control", "controls", "level slider"],
+        ],
+      },
+      walkthrough: "fisheye",
+    },
+    {
+      id: "u5-screen",
+      question:
+        "Explain screen space and object space interaction techniques with the fisheye lens and the perspective wall.",
+      marks: 10,
+      freq: 4,
+      papers:
+        "Asked as a 4-mark Part-B question in several papers and as part of the full interaction techniques question.",
+      sections: [
+        {
+          heading: "Screen-space distortion",
+          bullets: [
+            "Screen-space distortion gives **focus + context**: the focus is enlarged while the rest stays visible, squeezed but readable.",
+            "For a **fisheye lens**, choose a centre (cx, cy), a lens radius **rl** and a deflection amount **d**.",
+            "Convert every pixel to **polar coordinates** around the centre; the lens changes only the **radius**.",
+          ],
+        },
+        {
+          heading: "The fisheye algorithm",
+          bullets: [
+            "Clear the output image.",
+            "For each input pixel, compute its polar radius r_old and angle.",
+            "If r_old is inside the lens radius, compute the new radius, fetch the colour at the corresponding source position and write it to the output.",
+            "Otherwise copy the original pixel unchanged.",
+            "Gaps in the output must be filled by **interpolation**; overlaps are harmless and may be averaged.",
+          ],
+        },
+        {
+          heading: "Object-space perspective wall",
+          bullets: [
+            "The **perspective wall** helps navigate large documents and visualizations.",
+            "One panel faces the viewer flat; the other panels are turned so they **fade into the distance** by perspective foreshortening.",
+            "The front panel is a horizontal scaling; side panels add distance-dependent scaling and a shear.",
+            "Users move by sequential page movements, or jump with **index tabs** sticking out of the pages.",
+            "More than one page can be in focus, trading detail for a larger undistorted window.",
+          ],
+        },
+        {
+          heading: "Comparison",
+          bullets: [
+            "The fisheye works on **2D pixels** and is cheap and continuous.",
+            "The perspective wall works on **3D panels** and uses the geometry of the display to provide context.",
+            "Both keep the focus readable and the context visible, which is the central idea of focus + context techniques.",
           ],
         },
       ],
       formula:
-        "Expected comparisons: Nc = c/(c−1) × (1 − 1/cᵐ) × (n − m + 1) + O(1)\nWorst case: O(nm)\nSpace: O(1)\nPreprocessing: none",
-      table: {
-        head: ["Symbol", "Meaning"],
-        rows: [
-          ["**Nc**", "expected number of comparisons"],
-          ["**c**", "size of the alphabet of the text"],
-          ["**n**", "number of characters in the text"],
-          ["**m**", "number of characters in the pattern"],
-        ],
-      },
-      note:
-        "Write the formula, then the worst-case example T = aaa…ah and P = aaah. Finish with O(nm) and the fact that no preprocessing is needed.",
+        "Fisheye: r_new = s × log(1 + d × r_old)\nCommon scale: s = rl / ln(1 + d × rl)\nExample: rl = 100, d = 0.05 → s ≈ 55.8",
+      walkthrough: "fisheye",
     },
     {
-      id: "u5-boyer-moore",
+      id: "u5-data-spaces",
       question:
-        "Demonstrate the Boyer–Moore algorithm for the scenario: string to be searched is abcac and input string is ababdcabcdacabcac. Explain each step.",
+        "Explain data space, attribute space, data structure space and visualization structure space interaction techniques.",
       marks: 10,
       freq: 3,
-      papers:
-        "Asked directly in JNTUH Feb 2023 Q9a and repeated in the IRS question bank and NR20 model paper as a text search numerical.",
+      papers: "Asked as a 5-mark or part of the full interaction question in the May-2026 and RKR21 papers.",
       sections: [
         {
-          heading: "The two heuristics",
+          heading: "Data space",
           bullets: [
-            "**Boyer–Moore** starts the comparison at the **end of the search pattern** and processes **right to left**, which allows large jumps.",
-            "The **looking-glass heuristic** compares P with a subsequence of T moving backwards.",
-            "The **character-jump heuristic** applies when a mismatch occurs at T[i] = c.",
-            "If P contains c, the pattern is shifted to align the **last occurrence of c in P** with T[i]; if c is absent, P[0] is aligned with T[i+1].",
-            "The pattern is shifted by the **maximum** of the bad-character and good-suffix shifts, with a minimum of one position.",
+            "Data-space interactions operate on the **values** themselves.",
+            "Typical transformations are **scale and translate**, **log or exponential**, **sinusoidal**, **absolute value** and **negation**.",
+            "The viewer must be **told** that a transformation was applied, by axis labels and a note such as 'log scale'.",
+            "After transformation, values must be rescaled to a valid range or objects may fall off the display, colours may wrap around and sizes may become negative.",
           ],
         },
         {
-          heading: "Alignment 1 · position 1",
+          heading: "Attribute space",
           bullets: [
-            "Align **abcac** with text positions 1–5 and compare the last pair: **P5 = c** against **T5 = d**.",
-            "The characters mismatch, and **d is not in the pattern**.",
-            "The bad-character rule shifts the pattern by **5**, so it moves completely past the text d.",
-            "The good-suffix rule also gives 5 because no suffix matched, so alignment 2 starts at position 6.",
+            "Attribute-space interactions change **colour, size, shape and opacity** without changing the data.",
+            "Typical examples are contrast enhancement, brightness control, colour histogram equalisation and glyph scaling.",
+            "Enlarging a glyph is an attribute operation; the underlying number is unchanged.",
+            "Attribute scaling avoids the blocky look of zooming pixels.",
           ],
         },
         {
-          heading: "Alignment 2 · position 6",
+          heading: "Data structure space",
           bullets: [
-            "The pattern covers text positions 6–10, and the last comparison is **P5 = c** against **T10 = d**.",
-            "The mismatch is again on **d**, which is absent from abcac.",
-            "The bad-character shift is **5**, so the pattern jumps to position 11.",
-            "No pattern suffix matched before the mismatch, so the good-suffix rule does not improve the shift.",
+            "Data-structure interactions change how data is **organised**: ordering, grids, grouping, hierarchies and networks.",
+            "Navigation moves along the structure, including drill-down and roll-up; filtering selects time ranges, graph distances or hierarchy levels.",
+            "Dimension ordering is a good example: drag axes in parallel coordinates or rows and columns in a scatterplot matrix.",
+            "In a scatterplot matrix, moving one variable moves a whole row and column to keep the diagonal symmetry.",
           ],
         },
         {
-          heading: "Alignment 3 · position 11",
+          heading: "Visualization structure space",
           bullets: [
-            "The pattern covers text positions 11–15, and **P5 = c** matches **T15 = c**.",
-            "The next comparison is **P4 = a** against **T14 = b**, which mismatches after a matched suffix of length 1.",
-            "Bad-character shift for **b**: the last b in P is at position 2, so shift = 4 − 2 = **2**.",
-            "Good-suffix shift: the matched suffix c occurs at pattern position 3, so shift = 4 − 3 = **2**; both heuristics agree on 2.",
-          ],
-        },
-        {
-          heading: "Alignment 4 · hit at position 13",
-          bullets: [
-            "After shifting by 2, the pattern covers text positions 13–17: **a b c a c**.",
-            "Comparing right to left gives c = c, a = a, c = c, b = b and a = a, so every character matches.",
-            "The pattern **abcac** is found starting at **position 13** of the text.",
-            "The full match is the accepting result, and the algorithm can continue to search for other occurrences.",
-          ],
-        },
-        {
-          heading: "Comparison and exam table",
-          bullets: [
-            "The four alignments start at positions **1, 6, 11 and 13**, with shifts of **5, 5, 2 and a hit**.",
-            "The algorithm used **9 character comparisons** for this scenario, which is far fewer than a brute-force restart after every mismatch.",
-            "Boyer–Moore is fastest in practice when the alphabet is large and the pattern letters are rare in the text.",
-            "Its preprocessing builds the last-occurrence table and the good-suffix table before scanning begins.",
+            "Visualization-structure interactions change the **display**, independent of the data values.",
+            "Examples are axis spacing in parallel coordinates, cell size in a scatterplot matrix or TableLens, and the arrangement of many views.",
+            "A fisheye can be applied to the structure, and clustering or optimisation can organise hundreds of views.",
+            "Consistent icons, labels and positions help users learn the available operations.",
           ],
         },
       ],
-      formula:
-        "Bad-character shift = max(1, j − last_occurrence(text char))\nGood-suffix shift = next occurrence of the matched suffix or a prefix match\nChosen shift = max(bad-character shift, good-suffix shift)\nScenario: abcac in ababdcabcdacabcac → shifts 5, 5, 2, hit at position 13",
       table: {
-        head: ["Alignment", "Window", "Mismatch", "Bad-char shift", "Good-suffix shift", "Chosen shift"],
+        head: ["Space", "What changes", "Example"],
         rows: [
-          ["1", "1–5", "P5 c vs T5 d", "5", "5", "**5**"],
-          ["2", "6–10", "P5 c vs T10 d", "5", "5", "**5**"],
-          ["3", "11–15", "P4 a vs T14 b", "2", "2", "**2**"],
-          ["4", "13–17", "none", "—", "—", "**HIT at 13**"],
+          ["Data space", "values", "log scaling, negation"],
+          ["Attribute space", "colour, size, opacity", "contrast enhancement"],
+          ["Data structure space", "organisation of data", "reorder dimensions, drill down"],
+          ["Visualization structure space", "layout of the display", "resize matrix cells"],
         ],
       },
-      walkthrough: "boyer",
-      note:
-        "The walkthrough shows the exact alignment grids. In the exam, draw each alignment, mark the compared pair and write both heuristic shifts before choosing the larger one.",
     },
     {
-      id: "u5-kmp",
+      id: "u5-animation",
       question:
-        "Explain the Knuth–Morris–Pratt algorithm with its pre-processing jump table and an example. How does it improve on brute force?",
-      marks: 10,
-      freq: 2,
+        "Define animating transformations and interaction control in visualization systems, with an example.",
+      marks: 5,
+      freq: 4,
       papers:
-        "Asked in the IRS question bank as a software text search algorithm and in the NR20 model paper as a KMP numerical.",
+        "Asked in Jun-2025 and RKR21 May-2026 as a Part-B question.",
+      answer: [
+        "**Animating transformations** means gliding smoothly from the old view to the new view, so the user keeps visual context while attention is drawn to the change.",
+        "**Linear interpolation** moves at constant speed; **ease-in, ease-out** accelerates from zero, cruises and decelerates to zero, which feels natural and is easier to follow.",
+        "A sine-based ease curve is position = 0.5 × (1 − cos(πt)); at t = 0.25 the eased position is 0.15, while the linear position is 0.25.",
+        "The interpolated values of interaction parameters should be animated as they change, and the user should control the animation rate.",
+        "**Interaction control** is the set of controls the user uses to drive all this: **focus selection, extent selection, interaction type selection, interaction level selection and blender type selection**.",
+        "Focus and extents are usually direct manipulation; type selection uses menus or icons; level selection uses a slider or dial; blender selection uses a menu of options.",
+      ],
+      table: {
+        head: ["Control", "Framework parameter"],
+        rows: [
+          ["Focus selection", "focus"],
+          ["Extent selection", "extents"],
+          ["Interaction type selection", "which operator and space"],
+          ["Interaction level selection", "the degree of the transformation"],
+          ["Blender type selection", "blender"],
+        ],
+      },
+    },
+    {
+      id: "u5-design-steps",
+      question:
+        "List and explain the steps involved in designing effective visualizations.",
+      marks: 10,
+      freq: 5,
+      papers:
+        "Asked in Jan-2025, Jun-2025, Dec-2025/Jan-2026 and May-2026.",
       sections: [
         {
-          heading: "The idea",
+          heading: "What success means",
           bullets: [
-            "**Knuth–Morris–Pratt (KMP)** made a major improvement over earlier algorithms because it works well even in the worst case.",
-            "The basic concept is that when a mismatch is detected, the **previously matched characters** define how many characters can be skipped before comparing again.",
-            "The search pattern is **pre-processed** into a jump table that gives the number of characters to jump for each position.",
-            "The text pointer **never moves backwards**, so the scan is linear in the text length.",
+            "A successful visualization conveys the desired information **efficiently and accurately** to the target audience for the intended task: **exploration, confirmation or presentation**.",
+            "It fails when it confuses, distorts or hides data, when the user cannot change the view or colour map, or when it simply looks unattractive.",
+            "The notes give **six steps**: mappings, views, information density, keys/labels/legends, colour and aesthetics.",
           ],
         },
         {
-          heading: "The jump table",
+          heading: "(a) Intuitive mappings",
           bullets: [
-            "For each position **j** in the pattern, the table stores the length of the **longest proper prefix** of the pattern that is also a suffix of the matched part.",
-            "If a mismatch occurs after **j** matched characters, the pattern jumps by **j − table[j]** positions.",
-            "The table is also called the **failure function** or **prefix function**.",
-            "For the pattern **abcac**, the failure values are **0, 0, 0, 0, 1** for prefixes of length 1 to 5.",
+            "Choose mappings that fit the user's **domain mental model**, such as planets for distance from the sun against orbit time.",
+            "Mapping longitude and latitude to screen position is the most natural example.",
+            "Match data scales to visual scales: ordered data should not map to an unordered feature such as shape, and unordered data should not map to an ordered feature such as length.",
           ],
         },
         {
-          heading: "The textbook example",
+          heading: "(b) Selecting and modifying views",
           bullets: [
-            "The input stream is **a b d a d e f g** at positions 1 to 8, and the pattern begins with **a b d**.",
-            "When the mismatch occurs at position 4, the three matched characters **abd** mean the comparison can jump at least **three positions**.",
-            "It cannot skip four positions because the character at the mismatch could itself be the beginning of the search string.",
-            "The jump is computed from the prefix function rather than by re-reading the text.",
+            "One view is rarely enough; predict the views needed, label each clearly and make switching cheap.",
+            "Provide **scrolling and zooming**, **colour-map control**, **mapping control**, **scale control**, **clipping and filtering** and **level-of-detail control**.",
           ],
         },
         {
-          heading: "Steps to write",
+          heading: "(c) Information density",
           bullets: [
-            "**Pre-process** the pattern into the prefix or failure table.",
-            "Compare the pattern with the text from left to right.",
-            "On a match, advance both the text and pattern pointers.",
-            "On a mismatch after j matches, use the table to move the pattern without moving the text pointer back.",
-            "If the whole pattern matches, report the hit and use the table to continue for overlapping matches.",
+            "**Too little** is gratuitous graphics: a chart of two or three values padded with sums and differences; show numbers as text instead.",
+            "**Too much** causes confusion and hides important data; let users turn parts on and off, use multiple panes, filter uninteresting data and rescale skewed distributions.",
           ],
         },
         {
-          heading: "Comparison with brute force",
+          heading: "(d) Keys, labels and legends",
           bullets: [
-            "Brute force shifts one position and may recompare characters that already matched.",
-            "KMP never recompares a text character because the failure table preserves the useful prefix information.",
-            "The preprocessing cost is **O(m)**, and the search cost is **O(n)**, so the total is **O(n + m)**.",
-            "KMP is preferable when the text is large and the pattern has repetitive prefixes.",
+            "Give a caption that names the data fields and the mappings.",
+            "Label axes with units and show grid and tick marks when absolute values matter.",
+            "Provide keys for symbols and a labelled colour bar for colour.",
+            "With several windows, keep labels and grids consistent, and update them when a range changes.",
+          ],
+        },
+        {
+          heading: "(e) Colour",
+          bullets: [
+            "Keep the number of distinct levels low for absolute judgement.",
+            "Use **redundant mappings** such as colour plus size.",
+            "Change both hue and lightness in a numeric colour map, include a labelled key, and use semantically resonant colours where possible.",
+            "About **10% of males** have a colour deficiency, so colour must never be the only cue.",
+            "A useful discipline is to design in greyscale first and add colour at the end.",
+          ],
+        },
+        {
+          heading: "(f) Aesthetics",
+          bullets: [
+            "Make the design work first, then make it look right.",
+            "The three aesthetic guidelines are **focus, balance and simplicity**.",
+            "Remove features one by one; keep a feature only if removing it loses information.",
           ],
         },
       ],
-      formula:
-        "Failure table: π[j] = length of longest proper prefix of P[0..j] that is also a suffix\nShift after j matches = j − π[j]\nPreprocessing: O(m)\nSearch: O(n)\nTotal: O(n + m)",
-      table: {
-        head: ["j", "1", "2", "3", "4", "5"],
-        rows: [
-          ["Pattern prefix", "a", "ab", "abc", "abca", "abcac"],
-          ["π[j]", "0", "0", "0", "1", "0"],
-        ],
-      },
       note:
-        "Draw the pattern above the text, show the matched prefix and write j − π[j]. The key phrase is that KMP never moves backwards in the text.",
+        "The examiner expects the six headings (a) to (f). Under each, two or three lines are enough for 10 marks.",
     },
     {
-      id: "u5-hardware",
-      question:
-        "Explain hardware text search systems. Discuss their advantages, GESCAN, the Fast Data Finder and the evolution of hardware searchers.",
-      marks: 10,
+      id: "u5-aesthetics",
+      question: "Explain the importance of aesthetics in visualization.",
+      marks: 5,
       freq: 3,
-      papers:
-        "Asked in the IRS question bank and the NR20 model paper as 'hardware text search systems'; Part A asks for Fast Data Finder functions.",
-      sections: [
-        {
-          heading: "Why hardware text search exists",
-          bullets: [
-            "Software text search is applicable to many situations but is limited in handling **many search terms simultaneously** against the same text.",
-            "It is also limited by **I/O speed**, because the text must reach the processor before it can be compared.",
-            "One approach is a **specialized hardware machine** that performs the searches and passes the results to the main computer.",
-            "The main computer supports the user interface and the retrieval of hits.",
-          ],
-        },
-        {
-          heading: "Scalability and speed",
-          bullets: [
-            "Because the searcher is hardware-based, scalability is achieved by **increasing the number of hardware search devices**.",
-            "The only limit on speed is the time it takes to flow the text from secondary storage to the searchers.",
-            "With **one search machine per disk**, the maximum time to search a database of any size is the time to search one disk.",
-            "In some systems the disks were formatted to optimize the data flow off the drives.",
-          ],
-        },
-        {
-          heading: "Advantages",
-          bullets: [
-            "A major advantage is the **elimination of the index**, which is typically about **70%** of the size of the actual items.",
-            "New items can be searched as soon as they are received, without waiting for the index to be created.",
-            "The search speed is **deterministic**, so the user gets an exact search time even if the search is slower than an index search.",
-            "Hits can be made available **immediately** as they are discovered, rather than after the total search completes.",
-          ],
-        },
-        {
-          heading: "GESCAN text array processor",
-          bullets: [
-            "In some systems the **Boolean logic between terms is resolved inside the term detector hardware**, and GESCAN is the example.",
-            "The GESCAN system uses a **text array processor (TAP)** that simultaneously matches many terms and conditions against a text stream.",
-            "The TAP consists of a large cache memory and an array of **4 to 128 query processors**.",
-            "The text is loaded into the cache and searched by the query processors, and each processor handles a complete query.",
-            "A query processor performs term matching and Boolean resolution in parallel.",
-          ],
-        },
-        {
-          heading: "Fast Data Finder (FDF)",
-          bullets: [
-            "The **Fast Data Finder** is the most recent specialized hardware text search unit still in use in many organizations.",
-            "It was developed to search text and has been used for **English and foreign languages**.",
-            "Early FDFs consisted of an array of **programmable text-processing cells connected in series**, forming a pipeline hardware search processor.",
-            "In the TREC tests each chip contained **24 processor cells**, and a typical system contained **3600 cells**.",
-            "Each cell is a comparator for a single character, which limits the total number of characters in a query to the number of cells.",
-            "A cell contains a register cell and a comparator, and the cells are connected by an 8-bit data path and approximately a 20-bit control path.",
-          ],
-        },
-        {
-          heading: "FDF functions and earlier machines",
-          bullets: [
-            "The FDF supports **Boolean logic including negation**, **proximity on an arbitrary pattern**, **variable-length don't cares**, **term counting and thresholds**, **fuzzy matching**, **term weights** and **numeric ranges**.",
-            "The earliest hardware text string search unit was the **Rapid Search Machine** developed by General Electric.",
-            "The **Associative File Processor (AFP)** from Operating Systems Inc. could search against multiple queries at the same time.",
-            "The **HSTS** machine uses an algorithm similar to Aho–Corasick and runs three parallel state machines for contiguous phrases, embedded terms and exact words.",
-            "The **CASSM** and **RAP** systems placed search elements close to secondary storage to compare data in parallel.",
-          ],
-        },
+      papers: "Asked in Jun-2025 and RKR21 May-2026 as a 5-mark question.",
+      answer: [
+        "A visualization must first **function** (convey information accurately) and then **please** (look clean and attractive).",
+        "An unattractive visualization reduces the audience's willingness to look at it, so good content can be ignored.",
+        "**Focus** directs attention to the most important part and emphasises the key components.",
+        "**Balance** uses screen space well, keeps the important parts near the centre and avoids stressing one border.",
+        "**Simplicity** avoids crowding and decorative effects; do not use 3D Phong-shaded histograms when a plain bar chart works.",
+        "Remove features one by one and keep only those whose removal loses information.",
       ],
-      table: {
-        head: ["Machine", "Key idea", "Distinguishing feature"],
-        rows: [
-          ["**Rapid Search Machine**", "single query on magnetic tape", "one of the earliest hardware searchers"],
-          ["**AFP**", "multiple queries at once", "associative file processor"],
-          ["**HSTS**", "three parallel state machines", "contiguous, embedded and exact matching"],
-          ["**GESCAN**", "text array processor", "many terms and Boolean conditions"],
-          ["**Fast Data Finder**", "pipeline of comparator cells", "programmable cells in series"],
-        ],
-      },
-      note:
-        "List the advantages first, because they are easier marks: no index, immediate new items, deterministic speed and immediate hits. Then describe GESCAN and FDF.",
     },
     {
-      id: "u5-fsa",
+      id: "u5-design-problems",
       question:
-        "Explain finite state automata (FSA) used in text searching algorithms. Give the five elements, a transition table for pattern abcac and the hardware term-detector use.",
+        "Discuss the common problems in designing effective visualizations, including misleading visualizations, visual nonsense, chart junk and absolute versus relative judgement.",
       marks: 10,
-      freq: 3,
+      freq: 5,
       papers:
-        "Asked as Part A in JNTUH Feb 2023 ('five elements of finite state automata used in text searching') and covered in the hardware text search question.",
+        "Asked in Jan-2025, Dec-2025/Jan-2026, RKR21 May-2026 and KR20 May/Jun-2026.",
       sections: [
         {
-          heading: "Definition and five elements",
+          heading: "Four ways to mislead",
           bullets: [
-            "A **finite state automaton (FSA)** is a machine with a finite set of states and transitions driven by input symbols.",
-            "The five elements are **Q**, the finite set of states; **Σ**, the input alphabet; **δ**, the transition function; **q0**, the start state; and **F**, the set of accepting or final states.",
-            "The transition function maps a current state and an input character to a next state.",
-            "For text search, the FSA reads the text one character at a time and reports a hit whenever it enters an accepting state.",
+            "**Data scrubbing**: removing data that does not fit the story, usually by deleting outliers. Remove outliers only when they come from faulty collection, and tell the viewer.",
+            "**Unbalanced scaling**: making a trend look stronger or weaker than it is. Tufte's **lie factor** = size of the effect shown / size of the effect in the data; an honest picture has value 1.",
+            "**Range distortion**: moving the baseline away from the expected zero; relative judgement then makes small differences look huge. State the baseline clearly if it must move.",
+            "**Abusing dimensionality**: mapping numbers to area or volume, which people judge badly; errors rise from length to area to volume.",
           ],
         },
         {
-          heading: "Building the automaton for abcac",
+          heading: "Visual nonsense",
           bullets: [
-            "State **qk** means that the last k characters read match the first k characters of the pattern.",
-            "The states are **q0 to q5**, the start state is **q0**, and the accepting state is **q5**.",
-            "The forward path is q0 --a--> q1 --b--> q2 --c--> q3 --a--> q4 --c--> q5.",
-            "A wrong character follows a **failure transition** to the longest prefix of the pattern that is still a suffix of the text read so far.",
-            "For example, from q2 the character a returns to q1, because the a can start a new prefix.",
+            "Combining unrelated data sets can create structure that is not real, such as stock prices against sunspots; coincidence is mistaken for cause.",
+            "Check that time and place ranges match and that units are consistent; convert price per litre and price per kg to a common measure such as price per serving.",
           ],
         },
         {
-          heading: "Transition table",
+          heading: "Chart junk",
           bullets: [
-            "From **q0**, only a advances to q1; b, c and d stay at q0.",
-            "From **q1**, a stays at q1, b advances to q2, and c or d return to q0.",
-            "From **q2**, a returns to q1, c advances to q3, and b or d return to q0.",
-            "From **q3**, a advances to q4; every other character returns to q0.",
-            "From **q4**, c advances to the accepting state q5; a returns to q1, b to q2 and d to q0.",
-            "From **q5**, a returns to q1 and every other character returns to q0, so overlapping matches can still be found.",
+            "**Chart junk** is supplementary non-data graphics that are not needed to read the data correctly.",
+            "It makes the display complex and can occlude or de-emphasise the real data.",
+            "Because displays are dynamic, let users adjust or switch off the supporting graphics.",
           ],
         },
         {
-          heading: "State-by-state scan",
+          heading: "Raw versus derived data",
           bullets: [
-            "The text **ababdcabcdacabcac** drives the states 1, 2, 1, 2, 0, 0, 1, 2, 3, 0, 1, 0, 1, 2, 3, 4 and 5.",
-            "The d at position 5 resets the machine to q0 because no prefix ends with d.",
-            "The pattern prefix abc appears at positions 7–9 but the following d resets the machine.",
-            "The final characters at positions 13–17 drive the machine to q5, so abcac is found at position 13.",
+            "Showing only a smooth fitted curve or surface hides the real scatter; the viewer must trust the fit.",
+            "**Resampling** to make data denser makes the data set look bigger than it is.",
+            "Best practice is to show **both** the raw data and the model, with the option to hide either.",
           ],
         },
         {
-          heading: "Hardware implementation",
+          heading: "Absolute versus relative judgement",
           bullets: [
-            "A **universal finite state automaton** can be implemented as a term detector in hardware.",
-            "The HSTS machine runs three parallel state machines, one each for contiguous phrases, embedded terms and exact words.",
-            "The FSA approach supports multi-pattern search when one automaton is built for many patterns, as in **Aho–Corasick**.",
-            "The text pointer never moves backwards, so the scan is **O(n)** for n text characters after **O(m)** preprocessing.",
+            "Humans are poor at absolute judgements of position, length and colour.",
+            "Design for **relative** judgement using bounding boxes, grids and tick marks.",
+            "**Residuals** (value minus mean) turn the question into 'above or below the mean?', which is easier to answer.",
+            "Use only a few distinct values per attribute when absolute judgement cannot be avoided.",
           ],
         },
       ],
-      formula:
-        "FSA = (Q, Σ, δ, q0, F)\nQ = {q0, q1, q2, q3, q4, q5}\nΣ = {a, b, c, d}\nq0 = start state\nF = {q5}\nδ: state × character → next state",
       table: {
-        head: ["State", "a", "b", "c", "d"],
+        head: ["Problem", "Example", "Fix"],
         rows: [
-          ["q0", "q1", "q0", "q0", "q0"],
-          ["q1", "q1", "q2", "q0", "q0"],
-          ["q2", "q1", "q0", "q3", "q0"],
-          ["q3", "q4", "q0", "q0", "q0"],
-          ["q4", "q1", "q2", "q5", "q0"],
-          ["q5 (accept)", "q1", "q0", "q0", "q0"],
+          ["Data scrubbing", "delete an inconvenient outlier", "justify and disclose"],
+          ["Unbalanced scaling", "lie factor 10", "keep both changes proportional"],
+          ["Range distortion", "axis starts at 97 for 98 and 100", "start at a meaningful zero"],
+          ["Abusing dimensionality", "double side of a cube", "use length or position"],
+          ["Chart junk", "3D shadows behind bars", "make decoration optional"],
+          ["Raw vs derived", "only a smooth fit", "show both"],
+          ["Absolute judgement", "guess a bar length", "add grid or show residuals"],
         ],
       },
-      walkthrough: "fsa",
-      note:
-        "Write the 5-tuple first, then the transition table, then the state trace. The accepting state q5 is the final mark-earning detail.",
     },
     {
       id: "u5-evaluation",
       question:
-        "Explain information system evaluation. Discuss precision, recall, fallout, unique relevance recall, novelty ratio, coverage ratio, sought recall and the TREC results.",
+        "Define system design evaluation and explain the criteria for measuring the quality of a designed visualization.",
       marks: 10,
       freq: 3,
       papers:
-        "Asked in the IRS question bank and the R18 notes as information system evaluation and TREC; related Part A questions ask for recall and evaluation measures.",
+        "Asked in Dec-2025/Jan-2026 and RKR21 May-2026 as a 10-mark evaluation question.",
       sections: [
         {
-          heading: "Why evaluate an IRS",
+          heading: "Definition",
           bullets: [
-            "Evaluation helps in the **selection of a system** to procure and in monitoring system effectiveness.",
-            "It evaluates the **query generation process** for improvements and provides inputs to **cost-benefit analysis**.",
-            "It determines the effects of changes made to an existing information system.",
-            "Measurements can be made from the **user perspective** or the **system perspective**, and they can be **objective** or **subjective**.",
+            "**System design evaluation** is the formal measurement of whether a visualization system helps users perform their tasks better than an alternative.",
+            "It is part of the wider research issue of **evaluation**, which asks whether visualization actually helps analysis and decisions.",
           ],
         },
         {
-          heading: "Response time",
+          heading: "Why evaluation is needed",
           bullets: [
-            "**Response time** is the time it takes to execute the search.",
-            "It is a metric frequently collected to determine the efficiency of search execution.",
-            "Automatic indexing measurements also include resources such as memory and processing cycles and the time to process an item from arrival to availability.",
-            "Response time measures efficiency, while precision and recall measure the quality of the results.",
+            "Early research rarely evaluated; it assumed that some visualization is better than none and used a side-by-side image comparison.",
+            "Formal evaluation quantifies improvements and proves measurable benefits.",
+            "It moves visualization from **ad hoc methods to a science** and can borrow methods from HCI and sociology.",
           ],
         },
         {
-          heading: "Precision and recall",
+          heading: "Criteria",
           bullets: [
-            "**Precision = Number_Retrieved_Relevant / Number_Total_Retrieved**.",
-            "**Recall = Number_Retrieved_Relevant / Number_Possible_Relevant**.",
-            "Precision measures how clean the hit file is, and recall measures how complete it is.",
-            "Recall is hard to calculate operationally because the total set of relevant items is unknown.",
+            "**Effectiveness**: does the user complete the task and reach the correct insight?",
+            "**Efficiency**: how long, and with how much effort, does the task take?",
+            "**Accuracy**: how many errors are made, including interpretation errors?",
+            "**Usability and learnability**: can a new user understand the controls and the encoding?",
+            "**User satisfaction and engagement**: is the display pleasant and trustworthy?",
+            "**Expressiveness**: does the display show all the information and nothing extra?",
           ],
         },
         {
-          heading: "Fallout",
+          heading: "Methods",
           bullets: [
-            "**Fallout** measures the retrieval of non-relevant items relative to all non-relevant items in the database.",
-            "**Fallout = Number_Retrieved_NonRelevant / Number_Possible_NonRelevant**.",
-            "It is directly related to the noise that the system adds to the user's review.",
-            "A system can have high recall but poor fallout if it retrieves almost everything.",
-          ],
-        },
-        {
-          heading: "Unique Relevance Recall and other measures",
-          bullets: [
-            "**Unique Relevance Recall (URR)** compares two or more algorithms or systems.",
-            "It measures the number of relevant items retrieved by one algorithm that are not retrieved by the others.",
-            "The **Novelty Ratio** is the ratio of relevant and previously unknown items to the total relevant retrieved.",
-            "The **Coverage Ratio** is the ratio of relevant items retrieved to the total relevant items known to the user before the search.",
-            "**Sought Recall** is the ratio of the total relevant items reviewed by the user after the search to the total relevant items the user would have liked to examine.",
-          ],
-        },
-        {
-          heading: "TREC and Cranfield",
-          bullets: [
-            "The **Text Retrieval Conference (TREC)** was created by **DARPA** and **NIST** to provide a standard database of gigabytes of test data, search statements and expected results.",
-            "TREC placed a standard baseline into comparisons of algorithms and gave researchers a common forum.",
-            "One of the first test databases was associated with the **Cranfield I and II** tests and contained **1400 documents and 225 queries**.",
-            "TREC search topics are **user-need statements** rather than specific queries, which gives researchers flexibility in translating a need into a query.",
-            "TREC-4 introduced shorter queries, with the average falling from **119 terms in TREC-3 to 16 terms in TREC-4**, and introduced new test areas called **tracks**.",
+            "**Controlled experiments** compare task time and error rates across designs.",
+            "**Field studies and case studies** observe real users in their domain.",
+            "**Heuristic evaluation** checks the design against perception, colour and interaction guidelines.",
+            "**Metrics and benchmarks** such as task completion, insight count and recall/precision of visual search make results comparable.",
           ],
         },
       ],
-      formula:
-        "Precision = retrieved relevant / total retrieved\nRecall = retrieved relevant / possible relevant\nFallout = retrieved non-relevant / possible non-relevant\nNovelty ratio = (relevant and unknown) / relevant retrieved\nCoverage ratio = relevant retrieved / relevant known before search\nSought recall = relevant reviewed after search / relevant the user wanted to examine",
       table: {
-        head: ["Measure", "Numerator", "Denominator", "Perspective"],
+        head: ["Criterion", "Question"],
         rows: [
-          ["**Precision**", "retrieved relevant", "total retrieved", "result cleanliness"],
-          ["**Recall**", "retrieved relevant", "all relevant", "result completeness"],
-          ["**Fallout**", "retrieved non-relevant", "all non-relevant", "noise"],
-          ["**URR**", "relevant found only by this system", "all relevant", "algorithm comparison"],
-          ["**Novelty ratio**", "relevant and unknown", "relevant retrieved", "new information"],
-          ["**Coverage ratio**", "relevant retrieved", "relevant known before search", "user knowledge"],
-          ["**Sought recall**", "relevant reviewed", "relevant the user wanted", "user satisfaction"],
+          ["Effectiveness", "Was the task completed correctly?"],
+          ["Efficiency", "How fast and with what effort?"],
+          ["Accuracy", "How many errors were made?"],
+          ["Usability", "Can a new user operate it?"],
+          ["Satisfaction", "Does the user trust and enjoy it?"],
+          ["Expressiveness", "Is the mapping complete and honest?"],
         ],
       },
-      note:
-        "The TREC paragraph is a guaranteed source of easy marks: DARPA + NIST, standard database, user-need topics and the TREC-3 to TREC-4 query-length change.",
     },
     {
-      id: "u5-multimedia",
+      id: "u5-research-data",
       question:
-        "Explain multimedia information retrieval. Discuss spoken language audio, non-speech audio, graph retrieval, imagery retrieval and video retrieval.",
+        "Discuss the key issues associated with research directions in visualization, especially the issues of data.",
       marks: 10,
-      freq: 2,
+      freq: 4,
       papers:
-        "Asked in the IRS question bank and the NR20 model paper as multimedia information retrieval and as separate audio, graph, image and video questions.",
+        "Asked in Jan-2025, Dec-2025/Jan-2026 and RKR21 May-2026 as a research-issues question.",
       sections: [
         {
-          heading: "Multimedia retrieval scope",
+          heading: "The six research families",
           bullets: [
-            "A **multimedia information retrieval system** retrieves text, image, audio and video items in response to a user request.",
-            "The query may be text, an example image, an audio clip or a combination of media.",
-            "Retrieval can be **description-based**, using captions and keywords, or **content-based**, using extracted features.",
-            "Content-based retrieval compares colour, texture, shape, motion and spatial-temporal composition.",
+            "The notes group research issues into **data**, **cognition/perception/reasoning**, **system design**, **evaluation**, **hardware** and **applications**.",
           ],
         },
         {
-          heading: "Spoken language audio retrieval",
+          heading: "Scale",
           bullets: [
-            "**Speech retrieval** is the task of retrieving specific pieces of spoken audio from a large collection that pertain to a user query.",
-            "In the basic scenario, the user gives a query and the system returns a **rank-ordered list of documents**.",
-            "The query is generally assumed to be a string of text-based words, even when the collection is speech.",
-            "**Spoken Utterance Retrieval (SUR)** retrieves utterances related to a query even when multiple utterances exist within one longer document.",
-            "Applications include browsing broadcast news, voicemail, teleconferences and lectures.",
+            "Data grows from kilobytes to terabytes; **massive data** does not fit in memory.",
+            "Solutions under research are **clustering, sampling and abstraction**.",
           ],
         },
         {
-          heading: "Non-speech audio retrieval",
+          heading: "Static versus dynamic",
           bullets: [
-            "**Non-speech audio** includes audio cues that accompany specific events and music such as instrumental audio.",
-            "Audio cues have given humans feedback on important information for centuries, and a fire alarm is a modern example.",
-            "Non-speech audio input uses sounds such as humming or hissing to enter data or control the user interface.",
-            "The user must be alert to sounds for notifications, mail arrival and system updates.",
-            "The system must make the meaning of each sound clear, because a user cannot easily review an audio list.",
+            "Most techniques assume static data in files or databases.",
+            "**Streaming** sources arrive continuously, must be analysed in real time and often cannot be stored.",
+            "Analysts care about how the data is **changing**, not only its current state.",
           ],
         },
         {
-          heading: "Graph retrieval",
+          heading: "Spatial versus nonspatial",
           bullets: [
-            "A **graph-based information retrieval system** accepts a query expressed as a **graph of topics and subtopics**.",
-            "Documents are ranked with respect to relationships among documents, relationships among topics and relationships between query terms and documents.",
-            "The results are shown as bar charts, pie charts or other pictorial representations that are easy to understand.",
-            "The **Sagebook** system is the textbook example of graph retrieval.",
-            "Graph retrieval is useful for result analysis, such as pass/fail percentages by group, and it is fast and scalable.",
+            "Many fields have both spatial and nonspatial data, so research focuses on **integrating scientific and information visualization**.",
+            "The **links between views** are critical for relating the two.",
           ],
         },
         {
-          heading: "Imagery retrieval",
+          heading: "Nominal versus ordinal",
           bullets: [
-            "An **image retrieval system** browses, searches and retrieves images from a large database of digital images.",
-            "Traditional retrieval adds **metadata** such as captions, keywords, titles and descriptions, and searches the annotation words.",
-            "Manual image annotation is time-consuming, laborious and expensive, so **automatic image annotation** is an active research area.",
-            "**Content-Based Image Retrieval (CBIR)** uses primitive features such as **colour, texture and shape**.",
-            "Users may also need access based on abstract concepts and symbolic imagery, which is much harder than matching primitive features.",
+            "Graphical attributes are mostly quantitative, but gene names and addresses are not.",
+            "Mapping nominal data must not create a **fake order**; use colours and symbols that impose none, or numbers that preserve similarities.",
           ],
         },
         {
-          heading: "Video retrieval",
+          heading: "Structured versus unstructured",
           bullets: [
-            "Video is an electronic medium for recording, copying, playback, broadcasting and display of moving visual media.",
-            "A video retrieval application takes video frames from users and retrieves information from a database of still video frames, audio and video.",
-            "Video is split into **shots**, and each shot is represented by **key frames** or a representative frame.",
-            "The most common visual features used in similarity matching are **colour, texture, shape, motion and spatial-temporal composition**.",
-            "Social media platforms such as YouTube have increased the need for video retrieval and semantic annotation.",
+            "Tables are highly structured, articles are unstructured and e-mail is **semi-structured**.",
+            "Research must extract information from the unstructured part and use the structured part to index it.",
+          ],
+        },
+        {
+          heading: "Time and variable quality",
+          bullets: [
+            "**Time** is a special variable; spatio-temporal databases and pattern similarity involving time are open problems.",
+            "**Variable quality** includes missing fields, old information, noisy sensors and typing errors; visualization must show **uncertainty** and keep the analyst informed.",
           ],
         },
       ],
       table: {
-        head: ["Media", "Query form", "Main features", "Example system or task"],
+        head: ["Data issue", "Hook", "Example"],
         rows: [
-          ["**Speech**", "text words", "transcript, utterance boundaries", "broadcast news browsing"],
-          ["**Non-speech audio**", "sound event or cue", "audio cue, music", "alerts and interface sounds"],
-          ["**Graph**", "graph of topics", "document and topic relationships", "Sagebook"],
-          ["**Image**", "example image or keywords", "colour, texture, shape", "CBIR"],
-          ["**Video**", "example clip or keywords", "shots, key frames, motion", "video search and summarisation"],
+          ["Scale", "too big for memory", "terabytes; clustering, sampling"],
+          ["Static vs dynamic", "streaming", "real-time analysis"],
+          ["Spatial vs nonspatial", "maps plus charts", "linked scientific and information views"],
+          ["Nominal vs ordinal", "no fake order", "gene names, addresses"],
+          ["Structured vs unstructured", "table vs article", "e-mail is semi-structured"],
+          ["Time", "special variable", "spatio-temporal data"],
+          ["Variable quality", "missing or noisy", "sensor faults, uncertainty"],
         ],
       },
+    },
+    {
+      id: "u5-research-cognition",
+      question:
+        "Analyse the influence of perception and cognition on visualization effectiveness, and explain the issues of cognition, system design and evaluation.",
+      marks: 10,
+      freq: 4,
+      papers:
+        "Asked in Jan-2025, Jun-2025 and RKR21 May-2026 as an issues-of-cognition or research question.",
+      sections: [
+        {
+          heading: "Perception versus cognition",
+          bullets: [
+            "**Perception** is how we see colour, size and position; **cognition and reasoning** are how we think about what we see.",
+            "Visualization uses perception research heavily, but cognition and reasoning research much less.",
+            "The **Gestalt laws** of grouping are the main exception that is widely applied.",
+          ],
+        },
+        {
+          heading: "Cognition issues",
+          bullets: [
+            "Future work should study how humans **solve problems** with interactive visual displays.",
+            "Raise the task level: instead of only spotting a cluster, build a **mental model** of the whole phenomenon.",
+            "Higher-level discoveries help analysts form, confirm or refute hypotheses and gain confidence in decisions.",
+            "Visualization can support **learning** (concrete or abstract, sequential or random) and **memory** (a display as a note to yourself).",
+            "The hard measurement problem is **transfer from screen to human**; data-to-screen transfer is easy to measure.",
+          ],
+        },
+        {
+          heading: "System design issues",
+          bullets: [
+            "Integrate **computational analysis** with **interactive visual analysis**; no system yet has a seamless blend.",
+            "Develop new **interaction paradigms** for causes, what-if scenarios and non-expert users.",
+            "We do not yet have a full **science of visualization**; designs still rest on experience and heuristics.",
+            "Automatic generation needs tasks, evaluation and metrics.",
+          ],
+        },
+        {
+          heading: "Evaluation issues",
+          bullets: [
+            "Early work assumed some visualization is better than none and used side-by-side images.",
+            "Formal evaluation with measurable benefits is now needed, borrowing methods from **HCI and sociology**.",
+            "Evaluation is what turns visualization from an ad hoc craft into a science.",
+          ],
+        },
+        {
+          heading: "Effect on effectiveness",
+          bullets: [
+            "A design that overloads working memory or violates perceptual grouping is measurably slower and more error-prone.",
+            "A design that matches perception and supports reasoning produces faster, more accurate and more confident decisions.",
+            "Therefore perception and cognition are not background theory; they are the mechanism through which a visualization succeeds or fails.",
+          ],
+        },
+      ],
       note:
-        "For the 10-mark answer, define multimedia retrieval, then give one paragraph each for audio, graph, image and video. The feature list colour, texture, shape and motion is the common thread.",
+        "Structure: perception vs cognition, three cognition issues, three system-design issues, the evaluation gap, then one paragraph on why this determines effectiveness.",
+    },
+    {
+      id: "u5-research-hw",
+      question:
+        "Discuss the various issues of hardware and applications in visualization.",
+      marks: 10,
+      freq: 4,
+      papers:
+        "Asked in Jun-2025 and RKR21 May-2026 as a 5- or 10-mark question.",
+      sections: [
+        {
+          heading: "The five hardware issues",
+          bullets: [
+            "**Handheld displays**: phones, PDAs, game devices and tablets; most visualization was designed for desktops, so limited display space must be used well. Examples are wiring and plumbing diagrams for technicians, crisis management and border-crossing risk checks.",
+            "**Display walls**: multiple panels 10–30 feet wide; porting desktop solutions wastes space, so the environment should be redesigned so many views stay visible, as in control centres.",
+            "**Immersive environments**: virtual and augmented reality, with the virtual wind tunnel as an early example; walk-throughs and fly-throughs are used in architecture, medicine and aeronautics. Rendering with **minimal latency** is the key technical problem.",
+            "**GPUs**: GPU performance grew faster than CPU performance, driven by games; CPU algorithms usually need a near-total redesign for a GPU.",
+            "**Interaction devices**: voice and sound, force-feedback tactile devices, game controllers and gesture wands, head and eye trackers, interactive tables and brain control.",
+          ],
+        },
+        {
+          heading: "The two application issues",
+          bullets: [
+            "**Depth-based innovations** make tools truly useful for **one domain**; designers must understand the domain and the tasks.",
+            "Designers who only look at the data format make useless tools, and domain experts who design alone ignore perception and cognition; the best systems come from **tight cooperation**.",
+            "**Breadth-based innovations** broaden the number of domains where visualization is used, as visual presentation replaces text in weather, stock-market and health reports.",
+            "Breadth requires finding the right **visual representations and interaction metaphors** for each new domain and converting unstructured data into structured form.",
+          ],
+        },
+        {
+          heading: "Why these are research issues",
+          bullets: [
+            "New hardware changes what is possible faster than design guidelines change.",
+            "Applications reveal requirements that generic techniques miss.",
+            "Together they push visualization research toward new displays, new devices and new domains.",
+          ],
+        },
+      ],
+      table: {
+        head: ["Hardware", "Keywords", "Example"],
+        rows: [
+          ["Handheld displays", "small screen, limited interaction", "technician wiring diagrams"],
+          ["Display walls", "10–30 feet, redesign the environment", "control centres"],
+          ["Immersive environments", "VR, AR, low latency", "virtual wind tunnel"],
+          ["GPUs", "faster than CPUs, games-driven", "near-total algorithm redesign"],
+          ["Interaction devices", "voice, tactile, controllers, trackers", "force-feedback surgery"],
+        ],
+      },
     },
   ],
 };

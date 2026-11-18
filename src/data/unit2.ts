@@ -3,715 +3,513 @@ import type { Unit } from "./types";
 export const unit2: Unit = {
   id: "unit2",
   roman: "II",
-  title: "Unit II · Cataloging, Indexing & Data Structures",
+  title: "Unit II · Foundations for Visualization",
   subtitle:
-    "Cataloguing and the indexing process, automatic indexing and information extraction, stemming, inverted files, N-grams, PAT trees, signature files and hypertext/XML structures.",
-  color: "var(--v-teal)",
+    "Visualization stages, the semiology of graphical symbols, the eight visual variables, the historical perspective, taxonomies, experimental semiotics, Gibson's affordance theory and the model of perceptual processing.",
+  color: "var(--v-blue)",
   questions: [
     {
-      id: "u2-indexing-process",
+      id: "u2-stages",
       question:
-        "Explain cataloguing and the indexing process in Information Retrieval Systems with a neat diagram. Discuss objectives, scope, exhaustivity, specificity and pre-coordination.",
-      marks: 10,
-      freq: 3,
+        "Explain the stages of the visualization process with a neat illustration and the role of interaction.",
+      marks: 5,
+      freq: 5,
       papers:
-        "Asked in the IRS question bank as 'explain the indexing process with a neat diagram' and in JNTUH Feb 2022 as 'history and objectives of indexing'.",
-      sections: [
-        {
-          heading: "Cataloguing and its types",
-          bullets: [
-            "**Cataloguing** is the systematic arrangement of items in alphabetical or another logical order with a brief description.",
-            "A **catalogue** is the record of a library collection, and the card catalogue has largely been replaced by the **Online Public Access Catalogue (OPAC)**.",
-            "An **author catalogue** uses author names as headings, including writers, illustrators, performers, producers and translators.",
-            "A **title catalogue** uses titles as headings, while an **author/title catalogue** files both types of entry together.",
-            "A **subject catalogue** uses the subject of the document as its heading, such as *cars* or *lawyers*, arranged alphabetically or by a classification scheme.",
-          ],
-        },
-        {
-          heading: "Indexing and its history",
-          bullets: [
-            "**Indexing** reduces documents to the informative terms they contain and creates the searchable data structure.",
-            "The transformation from a received item to a searchable data structure is called indexing, and it can be **manual or automatic**.",
-            "Indexing was originally called **cataloguing**, the oldest technique for identifying the contents of items to assist retrieval.",
-            "Both cataloguing and indexing are systematic arrangements, and they overlap with **full-item indexing**, **public indexing** and **private indexing**.",
-          ],
-        },
-        {
-          heading: "Objectives of indexing",
-          bullets: [
-            "The primary objective is to **represent the concepts within an item** so that users can find relevant information.",
-            "The public file indexer must consider the information needs of **all users** of the library system.",
-            "Users may use public index files to **increase recall**, and they can constrain a search with private index files to improve precision.",
-            "Indexing must decide both the **scope** and the **level of detail** based on the usage scenario of the users.",
-          ],
-        },
-        {
-          heading: "The indexing process",
-          bullets: [
-            "Indexing is the **collecting, parsing and storing** of data to facilitate fast and accurate information retrieval.",
-            "Index design combines ideas from **linguistics**, **cognitive psychology**, **mathematics**, **informatics** and **computer science**.",
-            "The data flow is: standardize input → zone → identify processing tokens → apply stop lists → characterize tokens → stem → create the searchable data structure → create the hit list.",
-            "The first two steps, zoning and token identification, are common to all systems, while the later search strategy differs between statistical, natural-language and concept systems.",
-          ],
-        },
-        {
-          heading: "Text-processing phases",
-          bullets: [
-            "**Document parsing** breaks a document into components and splits multi-part items such as an email with attachments.",
-            "**Lexical analysis** tokenizes the text into words and must handle accents, abbreviations, dates and case.",
-            "**Stop-word removal** deletes high-frequency words such as *the*, *is* and *of*.",
-            "**Phrase detection** identifies noun groups and other phrases so meaning is not reduced to a bag of words.",
-            "**Stemming and lemmatization** normalize word endings, and **weighting** assigns importance values to terms.",
-          ],
-        },
-        {
-          heading: "Scope: exhaustivity, specificity and portion",
-          bullets: [
-            "**Exhaustivity** is the extent to which the different concepts in an item are indexed, so high exhaustivity indexes even briefly mentioned topics.",
-            "**Specificity** is the preciseness of the index terms, so indexing *Pentium* is more specific than indexing *processor*.",
-            "Indexing only the most important concept with general terms yields **low exhaustivity and low specificity**.",
-            "The simplest scope decision is to index only the **title and abstract zone**, which saves effort but can lose precision and recall.",
-            "Manual indexing problems arise from differences between the **author's vocabulary domain** and the **indexer's vocabulary domain**.",
-          ],
-        },
-        {
-          heading: "Pre-coordination, post-coordination and linkages",
-          bullets: [
-            "**Linkages** determine whether relationships between index terms are stored at index time.",
-            "**Pre-coordination** correlates attributes at index time, for example storing *drilling of oil wells in Mexico by CITGO* as one coordinated concept.",
-            "**Post-coordination** delays coordination to search time, usually by **AND**-ing index terms in the query.",
-            "A linkage decision must fix the number of terms that can be related and the roles that each term plays.",
-            "Pre-coordination increases precision but reduces flexibility, while post-coordination is flexible but can produce false combinations.",
-          ],
-        },
+        "Asked as 'define visualization stages' in Part A and as an explanatory question in Jan-2025, Jun-2025 and May-2026.",
+      answer: [
+        "The visualization pipeline has three stages: **data preprocessing and transformation → mapping for visualization → rendering transformations**.",
+        "**Data preprocessing** converts raw data to fundamental computer types and handles missing values, errors, noise and data that is too large; interpolation, sampling, filtering, aggregation or partitioning may be used.",
+        "**Mapping for visualization** chooses a visual representation: geometry, colour and sound. A bad mapping creates a nonsense picture or the wrong message, so expressiveness and effectiveness must be judged.",
+        "**Rendering transformations** map geometry to the image using the graphics API, view parameters, shading and device transformations.",
+        "Any transformation or computation can be placed at **any stage**, user interaction should be possible at **every point**, and every link is a **many-to-many mapping**.",
+        "Many systems show several visualizations at once, so there are multiple representation mappings and corresponding renderings.",
       ],
       table: {
-        head: ["Decision", "Question", "Effect"],
+        head: ["Stage", "Main job", "Typical operations"],
         rows: [
-          ["**Exhaustivity**", "How many concepts in the item should be indexed?", "High exhaustivity raises recall, costs more effort"],
-          ["**Specificity**", "How precise should each index term be?", "High specificity raises precision, may reduce recall"],
-          ["**Portion**", "Which part of the item is indexed?", "Title/abstract only is cheap but less complete"],
-          ["**Pre-coordination**", "Are term relationships fixed at index time?", "Higher precision, less search flexibility"],
-          ["**Post-coordination**", "Are terms combined at search time?", "Flexible searches, risk of false combinations"],
+          ["Preprocessing", "Make raw data usable", "cleansing, interpolation, sampling, filtering, aggregation"],
+          ["Mapping", "Choose the visual form", "geometry, colour, sound, position, size, shape"],
+          ["Rendering", "Generate the image", "view transform, shading, device transform, output"],
         ],
       },
-      note:
-        "Draw the data-flow diagram from standardize input to create hit list. The examiner rewards the words exhaustivity, specificity, pre-coordination and post-coordination.",
+      diagrams: ["pipeline"],
     },
     {
-      id: "u2-automatic-indexing",
+      id: "u2-semiology",
       question:
-        "Explain automatic indexing and its classes. Differentiate weighted and unweighted indexing and describe the data flow of an information processing system.",
-      marks: 10,
-      freq: 3,
-      papers:
-        "Asked in the IRS question bank as 'automatic indexing' and 'classes of automatic indexing'; also a Part-A question in JNTUH Feb 2023.",
-      sections: [
-        {
-          heading: "Definition and purpose",
-          bullets: [
-            "**Automatic indexing** is the computerized process of scanning large volumes of documents against a controlled vocabulary, taxonomy or ontology.",
-            "It then uses those controlled terms to quickly and effectively index large electronic document depositories.",
-            "It supports **total document indexing** and can generate indexes in seconds depending on the processor and algorithm complexity.",
-            "The output is an **index**, which is the data structure created to support a particular search strategy.",
-          ],
-        },
-        {
-          heading: "Weighted versus unweighted indexing",
-          bullets: [
-            "A **weighted indexing system** places a value on each index term to represent the importance of its concept in the document.",
-            "The weight is usually based on the **frequency of occurrence** of the term in the item, and values are normalized between **0 and 1**.",
-            "An **unweighted indexing system** stores only the existence of an index term in a document and sometimes its word location.",
-            "Weighted results are presented in **rank order** from the highest value to the lowest value, while unweighted results are not ranked by term importance.",
-          ],
-        },
-        {
-          heading: "Indexing by term: statistical versus natural language",
-          bullets: [
-            "**Indexing by term** uses the vocabulary of the original item as the basis of the index process.",
-            "The two major techniques are **statistical indexing** and **natural language indexing**.",
-            "**Statistical indexing** calculates weights from information such as word frequency and can use vector models, probabilistic models and Bayesian models.",
-            "**Natural language indexing** also uses statistical information but performs more complex parsing to define the final set of index concepts.",
-            "A **vectorised information system** stores a weight for each term, with one vector per document and one position per unique processing token.",
-          ],
-        },
-        {
-          heading: "The four classes of automatic indexing",
-          bullets: [
-            "**Statistical indexing** uses the frequency of occurrence of processing tokens to calculate relevance values and ranking scores.",
-            "**Natural language processing** uses semantic information, syntax and context to produce phrases and thematic representations.",
-            "**Concept indexing** maps words to a canonical set of concepts and generalizes specific words to concept values.",
-            "**Hypertext linkage indexing** creates virtual threads of concepts between items through manually or automatically created links.",
-          ],
-        },
-        {
-          heading: "Human versus automatic indexing",
-          bullets: [
-            "**Human indexing** uses an expert indexer who understands the domain, selects concepts and assigns controlled vocabulary terms.",
-            "**Automatic indexing** uses algorithms to extract terms from the item text and is much faster on large electronic collections.",
-            "The advantages of automatic indexing are **speed**, **consistency**, **low cost** and the ability to handle very large document volumes.",
-            "The disadvantages are weaker **semantic understanding**, dependence on the quality of the text and difficulty with ambiguous or multimedia content.",
-            "Human indexing gives better conceptual quality, but it is slow, expensive and subject to differences between indexers.",
-          ],
-        },
-        {
-          heading: "Multimedia indexing",
-          bullets: [
-            "**Multimedia indexing** differs from text indexing because the raw data is image, audio or video rather than words.",
-            "Indexing video or images can be accomplished at the **raw data level** by extracting low-level features.",
-            "Image features include **colour, texture and shape**, audio features include spectral and energy measures, and video adds **motion** and **spatial-temporal composition**.",
-            "A second approach is **description-based indexing**, which attaches captions, keywords and metadata to the media item.",
-            "Content-based indexing is harder because low-level features do not always match the user's high-level concept of relevance.",
-          ],
-        },
-        {
-          heading: "Data flow in an information processing system",
-          bullets: [
-            "The flow starts with **standardize input** and **logical subsetting (zoning)**.",
-            "It continues with **identify processing tokens**, **apply stop lists**, **characterize tokens**, **apply stemming** and **create the searchable data structure**.",
-            "The searchable structure updates the document file and supports the creation of the **hit list** when a user command arrives.",
-            "All systems pass through zoning and token identification, but the later steps depend on the chosen search strategy.",
-          ],
-        },
-      ],
-      table: {
-        head: ["Class", "Basis", "Strength", "Typical output"],
-        rows: [
-          ["**Statistical**", "frequency of terms", "simple, fast, broad commercial use", "weighted terms and ranks"],
-          ["**Natural language**", "syntax, semantics, phrases", "higher precision, fewer false hits", "phrases and thematic concepts"],
-          ["**Concept**", "canonical concepts and neural nets", "higher recall across vocabulary", "concept classes or vectors"],
-          ["**Hypertext linkage**", "links between items", "adds a new retrieval dimension", "linked item network"],
-        ],
-      },
-      note:
-        "The four classes are the most repeated Unit-II list: statistical, natural language, concept and hypertext linkage. Write one line of explanation and one example for each.",
-    },
-    {
-      id: "u2-information-extraction",
-      question:
-        "Explain the two processes associated with information extraction. Discuss recall, precision, overgeneration, fallout and document summarization.",
-      marks: 10,
-      freq: 2,
-      papers:
-        "Asked as a Part-B subquestion in the IRS question bank and directly in JNTUH Feb 2023 as 'illustrate the two processes associated with information extraction'.",
-      sections: [
-        {
-          heading: "The two extraction processes",
-          bullets: [
-            "The first process is the **determination of facts** that go into structured fields in a database.",
-            "The second process is the **extraction of text** that can be used to summarize an item.",
-            "The process of extracting facts for indexes is called **Automatic File Build (AFB)**.",
-            "AFB selects incoming documents, applies automatic file build profiles and produces **candidate index records** for review and editing by a user.",
-          ],
-        },
-        {
-          heading: "Extraction metrics",
-          bullets: [
-            "In information extraction, **recall** is how much correct and relevant information was extracted compared with how much should have been extracted from the item.",
-            "**Precision** is how much extracted information is accurate compared with the total information extracted.",
-            "**Overgeneration** measures the amount of irrelevant information that is extracted, such as templates filled for topics that were not intended.",
-            "**Fallout** measures how often a system assigns incorrect slot fillers, and it is also used for extraction quality.",
-            "These measures apply to both human and automated extraction processes.",
-          ],
-        },
-        {
-          heading: "Document summarization",
-          bullets: [
-            "**Document summarization** extracts a summary that keeps the most important ideas while significantly reducing size.",
-            "It differs from fact extraction because it does not try to fill specific slots; it compresses the item's content.",
-            "Titles, tables of contents and abstracts are common summaries, and the **abstract** is the closest to a true summary.",
-            "An abstract can represent the item for search or help a user judge utility without reading the complete item.",
-          ],
-        },
-        {
-          heading: "Why information extraction matters",
-          bullets: [
-            "Extraction turns unstructured text into structured facts that can be queried, joined and aggregated.",
-            "It reduces the user's reading overhead because the relevant facts are already isolated.",
-            "The main risk is that extraction errors silently populate a database, so precision and overgeneration must be monitored.",
-          ],
-        },
-      ],
-      table: {
-        head: ["Measure", "Question it answers", "Failure it detects"],
-        rows: [
-          ["**Recall**", "How much of the correct information was extracted?", "missed facts"],
-          ["**Precision**", "How much of the extracted information is correct?", "wrong facts"],
-          ["**Overgeneration**", "How much irrelevant information was extracted?", "filling templates for the wrong topic"],
-          ["**Fallout**", "How often are incorrect slot fillers assigned?", "bad slot values"],
-        ],
-      },
-      note:
-        "The two-process answer is short: facts into structured fields, and text into a summary. Add the four extraction metrics for the 10-mark version.",
-    },
-    {
-      id: "u2-stemming",
-      question:
-        "Explain stemming algorithms in detail. Compare table-lookup, Porter, dictionary look-up and successor stemming, and state the advantages and limitations of stemming.",
+        "Explain the semiology of graphical symbols and their significance in data visualization.",
       marks: 10,
       freq: 4,
       papers:
-        "Asked in both JNTUH R18 papers (dictionary versus successor stemmers, Porter algorithm) and repeated in the question bank as a major data-structure question.",
+        "Asked in Jan-2025 Q4(a), May-2026 and RKR21 May-2026 as a 5- or 10-mark question.",
       sections: [
         {
-          heading: "What stemming is and why it is used",
+          heading: "What semiology is",
           bullets: [
-            "**Stemming** is the cutting and trimming of words to a common stem that represents the concept.",
-            "The goal is to **improve performance** and require fewer system resources by reducing the number of unique words the system must contain.",
-            "Stemming improves **recall**, reduces **diversity**, increases search **efficiency** and performs **conflation** of word variants.",
-            "The cost is reduced **precision**, because unrelated words can collapse to the same stem.",
-            "Stemming is applied to the user's query as well as to the incoming text, so a bad stem can confuse the user and damage trust in the system.",
+            "A **visual object** used in a display is a **graphical symbol**; arrows, labels, marks and icons are all symbols.",
+            "**Semiology** is the science of graphical symbols and marks, and every construction in the Euclidean plane is a graphical representation made of symbols.",
+            "Semiology uses the qualities of the plane and its objects to create **similarity, ordering and proportionality** features that humans can see.",
           ],
         },
         {
-          heading: "Table-lookup stemming",
+          heading: "Symbols and preattentive recognition",
           bullets: [
-            "**Table-lookup stemming** uses a large data structure that maps each word form to its stem.",
-            "It is used in systems such as **RetrievalWare** that already contain a large thesaurus or concept network.",
-            "It is accurate for known words but expensive in storage and unable to handle words that are not in the table.",
+            "A good symbol, such as a yield sign, is **universally recognisable** and is perceived **preattentively in one step** as a simple association of meaning.",
+            "A complex figure needs **attentive effort**: first the major elements are identified, then the relationships between them, and finally the most interesting patterns or objects.",
+            "Without external cognitive identification, a graphic is unusable; the identification must be directly readable and understandable.",
           ],
         },
         {
-          heading: "Porter stemming algorithm",
+          heading: "Features of graphics",
           bullets: [
-            "The **Porter algorithm** is based on a set of **conditions on the stem, suffix and prefix** and associated actions.",
-            "The **measure m** is the number of VC sequences in **C(VC)ᵐV**, where the initial C and final V are optional.",
-            "The stem conditions are ***<X>** (ends with X), ***v*** (contains a vowel), ***d** (ends in a double consonant) and ***o** (ends in CVC, final consonant not w, x or y).",
-            "Rules are grouped into steps 1a to 5, and only **one rule per step** is applied, for example **stresses → stress**, **making → mak**, **happy → happi**, **formaliti → formal**, **duplicate → duplic**, **adjustable → adjust** and **inflate → inflat**.",
-            "The worked word **duplicatable** becomes **duplicat** by rule 4, then **duplicate** by rule 1b1, then **duplic** by rule 2.",
+            "Graphics have **three or more dimensions**: a position in x, a position in y and a value in z encoded by size, colour or another attribute.",
+            "A 3D view with height and a 2D view with size can carry the same z value, but the interpretation differs.",
+            "The set of points in the image represents the relations among the dimensions, so a pattern in the picture implies a pattern in the data.",
           ],
         },
         {
-          heading: "Dictionary look-up and K-stem",
+          heading: "Bertin's rules of a graphic",
           bullets: [
-            "**Dictionary look-up stemming** still applies simple rules but looks the original or stemmed word up in a dictionary.",
-            "The **Kstem** algorithm in the INQUERY system is a morphological analyzer that tries to avoid collapsing words with different meanings.",
-            "Kstem returns real words instead of truncated forms, so it generally requires the word to be in the dictionary before reduction.",
-            "Kstem uses six major data files: the **dictionary**, the **supplement**, the **exceptions list**, **direct conflation**, **country-nationality conflation** and **proper nouns**.",
-            "Examples are *British → Britain* and the exception that *suites → suite* but *suited → suit*.",
+            "The aim is to discover **groups or orders in x and in y** that are formed on z-values.",
+            "The (x, y, z) construction makes these groups discoverable; permutations and classifications handle the upper level of information.",
+            "A graphic with more than three factors that departs from the (x, y, z) construction destroys the unity of the graphic.",
+            "Pictures must be readable and understandable by a human, which is why perception matters as much as the data.",
           ],
         },
         {
-          heading: "Successor stemming",
+          heading: "Analysis of a graphic",
           bullets: [
-            "**Successor stemming** uses the length of prefixes that optimally stem expansions of additional suffixes.",
-            "The **successor variety** of a word segment is the number of distinct letters that can follow it, measured from a symbol tree.",
-            "A symbol tree for *bag, barn, bring, box, bottle* shows that the successor variety of *b* is 3 and of *ba* is 2.",
-            "The four segmentation methods are **cutoff**, **peak and plateau**, **complete word** and **entropy**.",
-            "After segmentation, the first segment is selected as the stem if it occurs in 12 or fewer words; otherwise the second segment is used.",
-          ],
-        },
-        {
-          heading: "Dictionary look-up versus successor stemming",
-          bullets: [
-            "**Dictionary look-up stemming** uses a lexicon of known words and can return a real word rather than a truncated fragment.",
-            "**Successor stemming** is data-driven and uses the distribution of letters after each prefix to split a word into segments.",
-            "Dictionary stemming preserves meaning better, while successor stemming adapts to a new vocabulary without a dictionary.",
-            "Dictionary methods are limited by dictionary coverage, and successor methods are limited by the training set and threshold choices.",
-          ],
-        },
-        {
-          heading: "Advantages and limitations",
-          bullets: [
-            "Stemming is efficient and depends strongly on the nature of the vocabulary.",
-            "Studies show that stemming is about as effective as **manual conflation** and generally has a positive effect on recall.",
-            "It can over-stem unrelated words, under-stem related forms and introduce anomalies that reduce precision.",
-            "Proper names and acronyms should not be stemmed, and stemming can remove information needed by natural language processing systems.",
+            "First we perceive groups **preattentively**, then we characterise them **cognitively**, and finally we examine special cases and relationships between groups.",
+            "This can happen at many levels and with many different visualizations.",
+            "Supporting computation, such as clustering and showing the result, speeds up the perception of groups.",
           ],
         },
       ],
-      formula:
-        "Porter measure: C(VC)ᵐV → m = number of VC sequences\nExamples: m = 0 (free, why), m = 1 (frees, whose), m = 2 (prologue, compute)\nWord variants: connect, connected, connecting, connection, connections → connect",
-      table: {
-        head: ["Stemmer", "Method", "Example", "Trade-off"],
-        rows: [
-          ["**Table lookup**", "large mapping table", "RetrievalWare", "accurate but storage-heavy"],
-          ["**Porter**", "condition-action suffix rules", "stresses → stress", "simple, but can over-stem"],
-          ["**Dictionary (K-stem)**", "rules + dictionary + exception files", "British → Britain", "better meaning preservation, needs a dictionary"],
-          ["**Successor**", "symbol tree and successor variety", "boxer → box", "data-driven, but needs a training vocabulary"],
-        ],
-      },
-      walkthrough: "porter",
       note:
-        "The walkthrough on this page shows Steps 1a–5 and the duplicatable case. In the exam, write the m definition, the four conditions and at least six rule examples.",
+        "Bertin's key separation is between the **content** (information to encode) and the **container** (properties of the graphic system). The eight visual variables are the vocabulary of that container.",
     },
     {
-      id: "u2-inverted-file",
+      id: "u2-graphics-features",
       question:
-        "Explain the inverted file structure in detail. Describe its three basic files, the search process, B-tree use and its advantages and limitations.",
+        "Write short notes on (i) symbols and visualization and (ii) features of graphics.",
+      marks: 5,
+      freq: 3,
+      papers: "Asked in the Jan-2025 paper as a short-note question.",
+      answer: [
+        "A **graphical symbol** is any visual object used to carry meaning; symbols range from a single mark to an icon, a label or a complex glyph.",
+        "Symbols can be **preattentive** (recognised in one step, such as a warning sign) or require **attentive pattern extraction** (such as a dense technical diagram).",
+        "A graphic has at least **three dimensions**: x-position, y-position and a z-value encoded by size, brightness, colour or another attribute.",
+        "The **rules of a graphic** state that groups and orders in x and y formed on z-values are the target, and that a construction with more than three factors must preserve the unity of the graphic.",
+        "**Analysis** proceeds from preattentive grouping to cognitive characterisation and then to special cases and relationships between groups.",
+        "The practical consequence is that a visualization must be designed around how people read symbols and groups, not only around the data.",
+      ],
+    },
+    {
+      id: "u2-eight-variables",
+      question:
+        "List and explain the eight visual variables used in visualization. Give an example of each.",
+      marks: 10,
+      freq: 6,
+      papers:
+        "The single most repeated Unit-II question: asked in Jan-2025, Jun-2025, Dec-2025/Jan-2026, RKR21 May-2026 and KR20 May/Jun-2026.",
+      sections: [
+        {
+          heading: "The eight variables",
+          bullets: [
+            "**Position**: the placement of a mark in 1D, 2D or 3D display space, and the most important variable because spatial arrangement is read first.",
+            "**Mark or shape**: the graphical primitive used for a record, such as a point, line, area, volume, letter or icon.",
+            "**Size**: length, area or volume of a mark; it maps naturally to interval and continuous data but only to categories with very small cardinality.",
+            "**Brightness or luminance**: how light or dark a mark is; a perceptually linear brightness scale is recommended because the eye cannot distinguish every pair of levels.",
+            "**Colour**: defined by hue and saturation; colour maps relate value ranges to colours and suit interval and continuous variables.",
+            "**Orientation**: how a mark is rotated; it works best for marks with a natural single axis and cannot be used for a circle.",
+            "**Texture**: a combination of marks, colour and orientation, as in dashed or dotted lines and patterned regions.",
+            "**Motion**: change over time, including speed, direction and flashing; it can be attached to any other variable.",
+          ],
+        },
+        {
+          heading: "Position and mark",
+          bullets: [
+            "The best positioning scheme gives each graphic a **unique position** so nothing overlaps; the worst maps everything to the same point and only the last draw is visible.",
+            "Marks must be **easy to distinguish** and should have similar area and complexity so one mark is not accidentally emphasised.",
+          ],
+        },
+        {
+          heading: "Size, brightness and colour",
+          bullets: [
+            "Size supports gradual increments over a range, but near-equal sizes are hard to distinguish, so size is poor for many categories.",
+            "Brightness is limited by perception; a reduced, sampled brightness scale gives accurate mark distinction.",
+            "Colour maps are useful for interval and continuous data, but colour perception changes with the surrounding colours and about 10% of males have a colour deficiency.",
+          ],
+        },
+        {
+          heading: "Orientation, texture and motion",
+          bullets: [
+            "Orientation is tied to preattentive vision and is used in stick-figure icons, wind arrows and direction fields.",
+            "Texture is common on polygons, regions and surfaces; a modest number of distinct textures can be distinguished.",
+            "Motion draws attention through behaviour and outliers, and the direction of motion can encode a variable.",
+          ],
+        },
+      ],
+      table: {
+        head: ["#", "Variable", "What it encodes", "Example"],
+        rows: [
+          ["1", "Position", "x, y, z values", "scatterplot location"],
+          ["2", "Mark / shape", "category or identity", "triangle = school"],
+          ["3", "Size", "interval / continuous value", "bigger circle = bigger city"],
+          ["4", "Brightness", "relative magnitude", "darker = higher rainfall"],
+          ["5", "Colour", "hue and saturation", "blue = water, green = forest"],
+          ["6", "Orientation", "direction or angle", "wind arrow"],
+          ["7", "Texture", "pattern or region value", "close hatching = dense population"],
+          ["8", "Motion", "change over time", "flashing alarm, moving particle"],
+        ],
+      },
+      diagrams: ["visual-variables"],
+      note:
+        "Never write fewer than eight. Position first, then mark, size, brightness, colour, orientation, texture and motion. Add one example to each line.",
+    },
+    {
+      id: "u2-visual-variables-design",
+      question:
+        "Explain the importance of visual variables in the design of graphics.",
+      marks: 10,
+      freq: 4,
+      papers:
+        "Asked as a full question in Jun-2025, Jan-2025 and the May-2026 papers.",
+      sections: [
+        {
+          heading: "The design problem",
+          bullets: [
+            "A visual variable is a feature of a picture that can be changed to encode data: position, shape, size, brightness, colour, orientation, texture and motion.",
+            "The designer chooses a **mapping** from each data dimension to one or more visual variables.",
+            "No single visualization is best for every task, so the mapping must fit the **data type, the task and the user**.",
+          ],
+        },
+        {
+          heading: "Matching data scales to visual scales",
+          bullets: [
+            "Ordered data should map to **ordered visual variables** such as position, size, brightness or saturation.",
+            "Nominal data should map to **unordered cues** such as hue, shape or texture, so the picture does not imply a fake order.",
+            "Mapping a nominal field such as country to bar length is a design error because length is ordered.",
+            "Position is the most accurate variable, followed by length and angle; area, volume and colour are less accurate, so important comparisons should use position or length.",
+          ],
+        },
+        {
+          heading: "Expressiveness and effectiveness",
+          bullets: [
+            "**Expressiveness** means the graphic encodes all the information and only the information in the data.",
+            "**Effectiveness** means the viewer can read the intended relationship quickly and accurately.",
+            "Redundant mappings, such as colour plus size for the same field, improve accuracy and accessibility.",
+            "Too many variables on one mark create clutter and make the individual encodings hard to separate.",
+          ],
+        },
+        {
+          heading: "Perceptual limits",
+          bullets: [
+            "Brightness and colour discrimination is limited, so only a modest number of levels should be used for absolute judgement.",
+            "Colour deficiency affects a large fraction of males, so colour must be reinforced by another cue.",
+            "Gestalt grouping principles, such as proximity, similarity and closure, decide how marks are grouped and therefore how the mapping is read.",
+            "Motion and orientation are strong for preattentive search but cannot be used on every mark.",
+          ],
+        },
+        {
+          heading: "Practical checklist",
+          bullets: [
+            "Choose **position** for the two most important dimensions.",
+            "Use **size or length** for a third ordered dimension and **hue or shape** for categories.",
+            "Keep the number of levels low, label the mapping and provide a key or colour bar.",
+            "Check the design in greyscale and with a colour-blind simulation before adding decorative colour.",
+          ],
+        },
+      ],
+      diagrams: ["visual-variables"],
+    },
+    {
+      id: "u2-history",
+      question:
+        "Explain the historical perspective of visualization and the formal models proposed over the years.",
       marks: 10,
       freq: 3,
       papers:
-        "Asked in the IRS question bank and the NR20 model paper as 'explain inverted file structure'; it is also the most common data structure in IRS notes.",
+        "Asked as a 10-mark historical question in May-2026 and as a 5-mark short note in RKR21 May-2026.",
       sections: [
         {
-          heading: "The two major data structures in any IRS",
+          heading: "Why formal models matter",
           bullets: [
-            "The first major structure is the **document manager**, which stores and manages received items in their normalized form.",
-            "The second major structure contains the **processing tokens and associated data** that support search.",
-            "The document manager returns the original item after a hit, while the search structure locates the hit.",
-            "An inverted file is the most common search structure, but PAT trees, signature files and N-gram structures are alternatives.",
+            "Robertson first proposed the need for formal models as a foundation for visualization systems.",
+            "The history of visualization is a history of attempts to formalise the mapping from data to graphics.",
           ],
         },
         {
-          heading: "The three basic files",
+          heading: "Semiology and automatic design",
           bullets: [
-            "An **inverted file structure** is the most common data structure in both database management and information retrieval systems.",
-            "It is composed of a **document file**, a **dictionary** and one or more **inversion lists**.",
-            "The **document file** stores the normalized items in arrival order and provides the full item for retrieval.",
-            "The **dictionary** stores the sorted vocabulary together with the document frequency and a pointer to the posting list.",
-            "The **inversion lists** store the posting lists, that is, the identifiers of the items that contain each term.",
+            "**Bertin (1967)**, Semiology of Graphics, gave the first rigorous attempt to define graphics and its application to information, with a strict separation of content and container.",
+            "**Mackinlay (1986)** introduced **APT (A Presentation Tool)**, an automatic graphical presentation designer that extracts information from a database and renders a graphical design.",
+            "**Bergeron and Grinstein (1989)** defined the **Visualization Reference Model**, a four-stage pipeline: source, model transformation, view specification and association.",
           ],
         },
         {
-          heading: "How a search works",
+          heading: "Task- and scene-based models",
           bullets: [
-            "The query terms are looked up in the **dictionary**, which gives the address of their posting lists.",
-            "The posting lists are merged or intersected according to the Boolean operators in the query.",
-            "For the query *Computer AND Memory*, the posting list of *Computer* is [1, 3, 4] and the posting list of *Memory* is [1, 2, 4], so the intersection is [1, 4].",
-            "The resulting item identifiers form the **hit file**, and the document manager retrieves the selected items.",
-            "This design avoids scanning every document for every query, which is why inversion lists give optimum performance on large databases.",
+            "**Wehrend and Lewis (1990)** built a two-dimensional catalog of encoding techniques classified by objects and operations.",
+            "**Robertson (1990)** proposed the **Natural Scene Paradigm**, using realistic scenes with height, material, density, phase and wetness.",
+            "**Roth (1991)** created **Visage** with **SAGE**, a knowledge-based automatic graphic design tool and an information-centric environment.",
           ],
         },
         {
-          heading: "B-tree alternative",
+          heading: "Perceptual and constraint models",
           bullets: [
-            "A **B-tree** can replace the dictionary for large dynamic vocabularies.",
-            "A B-tree of order m has a root with 2 to 2m keys, internal nodes with m to 2m keys, and all leaves at the same level.",
-            "Keys are kept in sorted order, and the inversion lists may be stored at the leaf level or referenced by higher-level pointers.",
-            "The B-tree keeps lookup and update costs logarithmic while keeping the index balanced.",
+            "**Casner (1991)** developed **BOZ**, which replaces logical task descriptions with perceptually equivalent tasks to make inferences visually.",
+            "**Beshers and Feiner (1992)** built **AutoVisual** for the n-Vision system using worlds-within-worlds and a hierarchy of interactors.",
+            "**Senay and Ignatius (1994)** developed **VISTA**, a knowledge-based scientific visualization designer using perceptual experiments and heuristics.",
           ],
         },
         {
-          heading: "Features and advantages",
+          heading: "Data- and grammar-based models",
           bullets: [
-            "The inverted file increases **precision** because the dictionary gives exact term matching and the posting lists can be ranked.",
-            "It supports **zoning** by storing the zone or field of each term occurrence.",
-            "It supports **ranking** by storing term frequencies and weights with the posting entries.",
-            "It is well suited to storing **concepts and their relationships** because the dictionary can point to concept records.",
-            "It supports natural language processing and is efficient for large databases because only the relevant posting lists are read.",
+            "**Hibbard (1994)** proposed the **lattice model**, focusing on data-to-display transformations rather than graphic primitives.",
+            "**Golovchinsky (1995)** built **AVE**, generating diagrams as rectangles and relations as lines or arrows.",
+            "**Card, Mackinlay and Shneiderman (1999)** described data transformations, visual mappings and view transformations, with the spatial substrate as the key visual structure.",
           ],
         },
         {
-          heading: "Limitations",
+          heading: "Later formalisations",
           bullets: [
-            "The index can be large, and its size grows with the number of distinct terms and postings.",
-            "Updating an inversion list is expensive because a new item must be inserted into every list for its terms.",
-            "It is less suitable for substring or pattern queries because the dictionary stores whole words, not all text positions.",
-            "Storage and update overhead are the main reasons alternatives such as signature files and PAT trees are used.",
+            "**Kamps (1999)** extended AVE into **EAVE** with a language for defining diagrams and user preferences.",
+            "**Wilkinson (1999)** published the **Grammar of Graphics** for statistical graphics.",
+            "**Hoffman (2000)** formalised **table visualizations**, combining survey plots, scatterplots, RadViz and parallel coordinates.",
           ],
         },
       ],
       table: {
-        head: ["File", "Stores", "Example", "Purpose"],
+        head: ["Year", "Researcher", "Contribution"],
         rows: [
-          ["**Document file**", "normalized items and their text", "DOC1: Chips, Computer, Memory", "returns the full item"],
-          ["**Dictionary**", "term, document frequency, pointer", "Computer · DF 3 · P2", "finds the term quickly"],
-          ["**Inversion list**", "posting list of item IDs", "P2: Computer → [1, 3, 4]", "supports Boolean set operations"],
+          ["1967", "Bertin", "Semiology of Graphics"],
+          ["1986", "Mackinlay", "APT automatic presentation tool"],
+          ["1989", "Bergeron & Grinstein", "Visualization Reference Model"],
+          ["1990", "Wehrend & Lewis", "Catalog of objects and operations"],
+          ["1991", "Roth", "Visage and SAGE"],
+          ["1991", "Casner", "BOZ perceptual task design"],
+          ["1994", "Hibbard", "Lattice model"],
+          ["1999", "Card, Mackinlay & Shneiderman", "Reference model with spatial substrate"],
+          ["1999", "Wilkinson", "Grammar of Graphics"],
         ],
       },
-      diagrams: ["inverted"],
       note:
-        "Draw the three columns and one arrow from each dictionary entry to its posting list. Then write the Computer AND Memory intersection example.",
+        "A 10-mark answer does not need every name in detail. Give Bertin, Mackinlay, Bergeron–Grinstein, Card et al. and Wilkinson in full, then two or three names briefly.",
     },
     {
-      id: "u2-ngram",
+      id: "u2-taxonomies",
       question:
-        "Explain the N-gram data structure with examples. State the maximum number of n-grams, its advantages and its disadvantages.",
+        "Discuss the different forms of taxonomies used in visualization and explain the major classification schemes.",
       marks: 10,
-      freq: 2,
+      freq: 4,
       papers:
-        "Asked in the IRS question bank as 'write short notes on the N-gram data structure' and as a Part-B subquestion on data structures.",
+        "Asked in Dec-2025/Jan-2026, RKR21 May-2026 and May-2026 as a 5- or 10-mark question.",
       sections: [
         {
-          heading: "Definition",
+          heading: "What a taxonomy is",
           bullets: [
-            "An **n-gram** is a fixed-length consecutive series of **n characters** taken from a processing token or from continuous text.",
-            "A **bigram** has 2 characters, a **trigram** has 3 characters, and a **pentagram** has 5 characters.",
-            "N-grams can be viewed as a special technique for **conflation** and as a unique data structure in information systems.",
-            "Unlike stemming, n-grams do not care about the semantic meaning of the word; they operate on character fragments.",
+            "A **taxonomy** is a means to convey a classification; it is often hierarchical and groups similar objects while defining relationships.",
+            "In visualization, taxonomies classify **data, techniques, tasks and interaction methods**.",
           ],
         },
         {
-          heading: "Construction and examples",
+          heading: "Keller and Keller (1994)",
           bullets: [
-            "For the phrase *sea colony*, the bigrams are **se, ea, co, ol, lo, on, ny** when inter-word symbols are ignored.",
-            "The trigrams without inter-word symbols are **sea, col, olo, lon, ony**.",
-            "With the inter-word symbol **#**, the trigrams become **#se, sea, ea#, #co, col, olo, lon, ony, ny#**.",
-            "The inter-word symbol represents a blank, period, semicolon or colon and makes word boundaries explicit.",
-            "The maximum number of n-grams for a token of length L is given by the formula **(L − n + 1)**, and the notes express the general bound as **MAX Segₙ = (λ)ⁿ**.",
+            "Classifies techniques by the **type of data** and the **user's task**.",
+            "Data types: **scalar or scalar field, nominal, direction field, shape, position and spatially extended region or object (SERO)**.",
+            "The task list is a useful starting point for designing a visualization for a particular application.",
           ],
         },
         {
-          heading: "Advantages",
+          heading: "Shneiderman (1996)",
           bullets: [
-            "N-grams were first used in **World War II by cryptographers** and are still used for spelling error detection and correction.",
-            "The frequency of an n-gram pattern can identify the **language of an item**.",
-            "Because the data structure has fixed processing-token bounds, optimized performance techniques can be applied to index mapping and query processing.",
-            "N-grams handle misspellings and morphological variants without a dictionary, which makes them robust for noisy text.",
+            "Classifies by **data type by task**.",
+            "Data types: **one-dimensional linear, two-dimensional map, three-dimensional world, temporal, multidimensional, tree and network**.",
+            "Tasks focus on the behaviour of analysts as they extract knowledge from the data.",
           ],
         },
         {
-          heading: "Disadvantages",
+          heading: "Keim (2002)",
           bullets: [
-            "There is **no semantic meaning** in a particular n-gram because it is only a fragment of a processing token.",
-            "N-grams are therefore a **poor representation of concepts and their relationships**.",
-            "Longer n-grams produce poor results and are expensive, while shorter n-grams produce many false matches.",
-            "The index is larger than a word index because every character position generates a fragment.",
-          ],
-        },
-        {
-          heading: "Applications",
-          bullets: [
-            "N-grams are used in **spelling correction**, **language identification**, **OCR error correction** and **approximate string matching**.",
-            "They are useful for **multilingual** collections because they do not depend on a word dictionary.",
-            "They are also used as a feature representation in text classification and plagiarism detection.",
+            "Classifies visualization systems along **three dimensions**: data types, visualization techniques and interaction/distortion methods.",
+            "**Six data types**: one-dimensional, two-dimensional, multidimensional, text and hypertext, hierarchies and graphs, and algorithm/software.",
+            "**Five technique classes**: standard 2D/3D displays, geometrically transformed displays, iconic displays, dense pixel displays and stacked displays.",
+            "**Five interaction classes**: dynamic projection, interactive filtering, interactive zooming, interactive distortion, and interactive linking and brushing.",
           ],
         },
       ],
-      formula:
-        "Number of n-grams in a token of length L: L − n + 1\nExample: sea colony → bigrams se, ea, co, ol, lo, on, ny\nTrigrams with boundary: #se, sea, ea#, #co, col, olo, lon, ony, ny#",
       table: {
-        head: ["n", "Name", "Example for sea colony", "Main use"],
+        head: ["Data type (Keim)", "Example", "Technique example"],
         rows: [
-          ["2", "bigram", "se, ea, co, ol, lo, on, ny", "spelling and language detection"],
-          ["3", "trigram", "sea, col, olo, lon, ony", "approximate matching"],
-          ["5", "pentagram", "#sea#, #colo, colon, olony, lony#", "more specific fragment matching"],
+          ["One-dimensional", "time series, stock prices, text", "line graph, color bar"],
+          ["Two-dimensional", "maps, floor plans", "image, map, contour"],
+          ["Multidimensional", "spreadsheets, relational tables", "scatterplot matrix, PCP"],
+          ["Text and hypertext", "news, web documents", "word cloud, TileBars"],
+          ["Hierarchies and graphs", "network traffic, organisation", "treemap, node-link"],
+          ["Algorithm and software", "code, execution traces", "SeeSoft"],
         ],
       },
       note:
-        "Write the definition, the bigram and trigram example and the formula, then balance two advantages against two disadvantages. The semantic weakness is the key exam point.",
+        "For the 'apply taxonomy' version, take three techniques (say scatterplot, treemap and theme river) and classify each by data type, technique class and interaction class.",
     },
     {
-      id: "u2-pat",
+      id: "u2-taxonomy-apply",
       question:
-        "Explain the PAT data structure and how to create a PAT tree with example data. State its properties, search use and advantages.",
-      marks: 10,
+        "Apply taxonomy techniques to classify different visualization methods for suitable applications.",
+      marks: 4,
       freq: 3,
-      papers:
-        "Asked directly in JNTUH Feb 2023 as 'how to create a PAT tree? Explain with example data' and repeated in the question bank data-structure section.",
-      sections: [
-        {
-          heading: "What PAT means",
-          bullets: [
-            "**PAT** stands for **Practical Algorithm To Retrieve Information Coded in Alphanumerics**.",
-            "A **PAT tree** is an unbalanced **binary digital tree** that allows very efficient searching of continuous text.",
-            "The input stream is transformed into a searchable data structure consisting of **substrings called sistrings**.",
-            "A **sistring** is a semi-infinite string that starts at a position in the text and continues to the end of the input, with null padding if necessary.",
-            "For a text of **n** characters there are **n leaf nodes** and at most **n − 1** higher-level nodes.",
-          ],
-        },
-        {
-          heading: "Creating the sistrings",
-          bullets: [
-            "Every position in the input string is an **anchor point** for a sistring.",
-            "For the input **100110001101**, sistring 1 is **100110001101**, sistring 2 is **001100011010** and sistring 12 is **100000000000**.",
-            "All substrings are unique, so each sistring can be identified by its **starting location and length**.",
-            "Sistrings that run past the end of the text are padded with null characters so that they remain comparable.",
-          ],
-        },
-        {
-          heading: "Building the Patricia tree",
-          bullets: [
-            "Start with the first sistring as a **root leaf**.",
-            "Insert the next sistring by comparing it bit by bit with the existing leaf until the first **differing bit** is found.",
-            "Create an internal node at that **bit position**, with **0 branching left** and **1 branching right**.",
-            "Each internal node stores the bit position used for its test, not a whole key.",
-            "The finished tree has all key values at the **leaf nodes**, and the internal nodes only guide the search.",
-          ],
-        },
-        {
-          heading: "Searching a PAT tree",
-          bullets: [
-            "Search for a pattern by tracing its bits from the root and following the branches.",
-            "The leaves reached by the pattern identify the starting positions of matching sistrings.",
-            "PAT trees support **prefix search**, **range search** and **substring search** because the text is logically sorted by bits.",
-            "A **PAT array** stores the sorted sistring positions and can be searched with binary search instead of following tree pointers.",
-          ],
-        },
-        {
-          heading: "Advantages and limitations",
-          bullets: [
-            "PAT trees avoid word-boundary errors because they index every text position rather than whole words.",
-            "They are more accurate than an inverted file for string and substring search.",
-            "They are not balanced, so their shape depends on the input and can become deep.",
-            "They consume more space than a word index because one leaf is stored per character.",
-          ],
-        },
+      papers: "Asked in the Dec-2025/Jan-2026 and RKR21 May-2026 papers as a 4- or 5-mark application question.",
+      answer: [
+        "Use **Keim's three axes**: data type, visualization technique and interaction method.",
+        "A **scatterplot** is multidimensional data, a standard 2D display or geometrically transformed display, with interactive linking and brushing for selection.",
+        "A **treemap** is hierarchical data, a stacked or space-filling display, with drill-down and filtering interactions.",
+        "A **parallel coordinates plot** is multidimensional data, a geometrically transformed display, with reordering and brushing.",
+        "A **word cloud** is text data, an iconic/standard display, with simple filtering by frequency.",
+        "A **ThemeRiver** is temporal text data, a stacked display, with selection and time filtering.",
+        "The classification shows why the method suits its application: the data structure and the task, not the visual style alone, decide the choice.",
       ],
-      formula:
-        "Sistring at position i = text[i … n] + null padding\nNumber of leaves = n\nMaximum internal nodes = n − 1\nBranch rule: bit 0 → left, bit 1 → right",
-      table: {
-        head: ["Sistring", "Bits for 100110001101", "First differing bit"],
-        rows: [
-          ["s1", "100110001101", "—"],
-          ["s2", "001100011010", "bit 1"],
-          ["s3", "011000110100", "bit 2"],
-          ["s4", "110001101000", "bit 2"],
-          ["s5", "100011010000", "bit 4"],
-          ["s12", "100000000000", "bit 5"],
-        ],
-      },
-      walkthrough: "pat",
-      note:
-        "The examiner wants the word sistring, the 0-left/1-right rule, the bit-position labels and the leaf-only keys. Draw at least the first three insertions.",
     },
     {
-      id: "u2-signature",
+      id: "u2-semiotics",
       question:
-        "Explain the signature file structure with superimposed coding. Using the PYQ text, compute h(made), the block signature and explain a false drop.",
-      marks: 10,
-      freq: 3,
+        "Explain experimental semiotics based on perception and justify the need for experimental semiotics in visualization design.",
+      marks: 5,
+      freq: 4,
       papers:
-        "Asked in the IRS question bank and the NR20 model paper with the exact text 'This is text A text has many words…'; the theory also appears in the data-structure question.",
-      sections: [
-        {
-          heading: "Goal of a signature file",
-          bullets: [
-            "The goal of a **signature file structure** is to provide a fast test that eliminates the majority of items that are not related to a query.",
-            "The text of each item is represented in a **highly compressed form** that facilitates the fast test.",
-            "The file is compressed and unordered, so it requires significantly less space than an inverted file structure.",
-            "New items are concatenated to the end of the structure, and deleted items are left in place and marked deleted.",
-            "Signature file search is a **linear scan** of the compressed signatures, so response time is linear with respect to file size.",
-          ],
-        },
-        {
-          heading: "Superimposed coding",
-          bullets: [
-            "The surrogate signature file is created through **superimposed coding** based on the words in the item.",
-            "Each word is mapped to a **word signature**, which is a fixed-length code with a fixed number of bits set to 1.",
-            "The bit positions set to 1 are determined by a **hash function** of the word.",
-            "The word signatures are **ORed together** to create the signature of an item or block.",
-            "To avoid signatures becoming too dense with 1s, a maximum number of words is specified and the item is partitioned into **blocks** of that size.",
-          ],
-        },
-        {
-          heading: "The exact PYQ data",
-          bullets: [
-            "The question gives **Text: “This is text A text has many words, words are made from letters”**.",
-            "The hash values are **h(text) = 000101**, **h(many) = 110000**, **h(words) = 100100**, **h(made) = 001100** and **h(letters) = 100001**.",
-            "The value asked in the paper is **h(made) = 001100**.",
-            "ORing the five word signatures gives **000101 OR 110000 OR 100100 OR 001100 OR 100001 = 111101**, which is the block signature.",
-          ],
-        },
-        {
-          heading: "Searching with a query template",
-          bullets: [
-            "The words in a query are mapped to their signatures and ORed to form a **query template**.",
-            "Search is accomplished by **template matching** on the bit positions specified by the query words.",
-            "If every 1 bit of the query template is present in the block signature, the block is a **candidate** for a full-text check.",
-            "For example, the query *text made* has template **000101 OR 001100 = 001101**, which is a subset of the block signature **111101**.",
-          ],
-        },
-        {
-          heading: "False drops",
-          bullets: [
-            "A **false drop** occurs when a query template passes the bit test even though the item does not contain the query words.",
-            "The OR operation loses the identity of the word that set each bit, so unrelated words can cover the same bit positions.",
-            "The textbook example is the word *hard* with signature 1000 0111 0010 0000, which incorrectly matches the block signature 1001 0111 1110 0110.",
-            "The fix is to verify every candidate against the original text, or to use longer codes and fewer 1 bits per word to reduce collisions.",
-          ],
-        },
-        {
-          heading: "Design trade-offs and applications",
-          bullets: [
-            "A **longer code length** reduces hash collisions, while **fewer bits per code** reduces false drops but increases storage for the same terms.",
-            "The textbook design uses a **block size of five words**, a **16-bit code** and **five 1-bits per word**.",
-            "Search of the signature matrix is O(N), and performance can be improved by **horizontal partitioning**, **two-level signatures** or **B-tree clustering**.",
-            "Signature files are used for **medium-size databases**, databases with low-frequency terms, **WORM devices**, parallel machines and distributed environments.",
-          ],
-        },
+        "Asked in Jan-2025, May-2026 and RKR21 May-2026 as a short note or justification question.",
+      answer: [
+        "**Semiotics** is the study of symbols and how they convey meaning; it began with C.S. Peirce in the United States and was developed in Europe by Ferdinand de Saussure.",
+        "The traditional semiotic view says diagrams are **arbitrary** like words: we learn the conventions, and one diagram is as good as another once the code is learned.",
+        "The perceptual view says many symbols are **sensory**: their power comes from the early stages of neural processing, so they are stable across individuals, cultures and time.",
+        "A cave drawing of a hunt still conveys meaning after millennia, which supports the sensory view; the written word 'dog' has no perceptual relation to the animal, which supports the arbitrary view.",
+        "Real graphical languages are neither purely sensory nor purely arbitrary, so **experiments** are needed to find which encodings are read quickly and accurately.",
+        "Experimental semiotics therefore supplies evidence-based guidelines for visualization design, instead of relying only on convention or opinion.",
       ],
-      formula:
-        "Block signature = OR of all word signatures\nQuery template = OR of all query-word signatures\nCandidate test: (template AND block signature) = template\nPYQ: h(text)=000101, h(many)=110000, h(words)=100100, h(made)=001100, h(letters)=100001\nBlock = 000101 OR 110000 OR 100100 OR 001100 OR 100001 = 111101",
-      table: {
-        head: ["Word", "Signature", "Meaning"],
-        rows: [
-          ["text", "000101", "sets bits 4 and 6"],
-          ["many", "110000", "sets bits 1 and 2"],
-          ["words", "100100", "sets bits 1 and 4"],
-          ["made", "001100", "sets bits 3 and 4"],
-          ["letters", "100001", "sets bits 1 and 6"],
-          ["**Block**", "**111101**", "union of all five patterns"],
-        ],
-      },
-      walkthrough: "signature",
       note:
-        "The walkthrough shows the exact PYQ values, the OR table, two passing queries and a false-drop check. Write h(made) first so the examiner sees the direct answer.",
+        "Key contrast for the exam: sensory = understood through perception; arbitrary = understood through learned convention.",
     },
     {
-      id: "u2-hypertext-xml",
+      id: "u2-affordance",
       question:
-        "Describe the hypertext and XML data structures. Explain nodes, links, HTML tags, XML components and the Hidden Markov Model.",
+        "Explain Gibson's Affordance Theory with an example and discuss its significance and limitations for visualization.",
       marks: 10,
-      freq: 3,
+      freq: 5,
       papers:
-        "Asked in JNTUH Feb 2022 as 'describe hypertext and XML data structures' and repeated in the IRS question bank as hypertext and XML features.",
+        "Asked as a Part-A definition and as a Part-B significance/explanation question in Jan-2025, Dec-2025/Jan-2026, RKR21 May-2026 and KR20 May/Jun-2026.",
       sections: [
         {
-          heading: "Hypertext structure",
+          heading: "The theory",
           bullets: [
-            "The **hypertext data structure** is used extensively in the internet environment and requires electronic media storage for the item.",
-            "Hypertext allows one item to reference another item through an **embedded pointer**.",
-            "Each separate item is called a **node**, and the reference pointer is called a **link**.",
-            "Each node is displayed by a viewer defined for the file type associated with that node.",
-            "The referenced item may be of the same or a different data type, such as a text node that references a photograph.",
+            "Gibson assumed that we perceive **in order to operate on the environment**: perception is designed for action.",
+            "An **affordance** is a perceivable possibility for action offered by the environment: a surface affords walking, a handle affords pulling, a tool affords manipulating.",
+            "Gibson claimed that affordances are perceived **directly and immediately**, not inferred by piecing together sensory evidence.",
+            "His approach is **top-down** and ecological; he rejected the atomistic idea that we first perceive points of light and build up the world from them.",
           ],
         },
         {
-          heading: "HTML and tags",
+          heading: "Evidence",
           bullets: [
-            "**HTML** defines the internal structure for information exchange across the World Wide Web.",
-            "A document is composed of the text of the item together with **HTML tags** that describe how to display the document.",
-            "Tags are formatting or structural keywords contained between less-than and greater-than symbols, such as `<title>` and `<strong>`.",
-            "The hypertext link tag is `<a href=\"…\">…</a>`, where **a** is the anchor and **href** is the hypertext reference.",
-            "The **href** contains a file name for a local item or a **Uniform Resource Locator (URL)** and file name for a remote item.",
+            "Warren (1984) showed that people accurately judge the **climbability of staircases**, and the judgement depends on their own leg length.",
+            "This supports the idea that perception is tuned to the **relationship between the observer and the environment**, not to abstract geometry.",
           ],
         },
         {
-          heading: "XML structure",
+          heading: "Application to interfaces",
           bullets: [
-            "**XML** provides a detailed description of subsets of text, similar to zoning, and it is defined by a **Document Type Definition (DTD)**.",
-            "The **Document Object Model (DOM)** exposes the XML document as a tree of elements and attributes.",
-            "**XSL** is used to transform or present XML content in another form.",
-            "XML separates content from presentation, so the same content can be displayed on different devices.",
-            "An XML document is well formed when every element is properly nested and closed, and valid when it conforms to its DTD.",
+            "The interface principle is to create controls with **appropriate affordances** so the user's task is easy.",
+            "For a 3D object-manipulation task, the object should show **handles** for lifting and rotating.",
+            "Houde's (1992) design makes the handles even clearer by adding illustrations of gripping hands.",
           ],
         },
         {
-          heading: "Hypertext versus XML",
+          heading: "Problems for visualization",
           bullets: [
-            "Hypertext is a **graph of nodes and links**, while XML is a **hierarchical element tree**.",
-            "Hypertext supports navigation and link analysis, while XML supports structured exchange, validation and querying.",
-            "Both provide detailed descriptions of text subsets that are similar to zoning.",
-            "HTML is a fixed-tag hypertext language, while XML lets the author define tags for a domain.",
-          ],
-        },
-        {
-          heading: "Hidden Markov Model",
-          bullets: [
-            "The **Hidden Markov Model (HMM)** models a statistical process whose output is equivalent to the set of queries that would make a document relevant.",
-            "The output is produced by passing an unknown key through state transitions in a noisy channel, where the query is the output and the relevant documents are the unknown keys.",
-            "The **channel** represents the mismatch between the author's way of expressing ideas and the user's ability to specify a query.",
-            "The approach begins with **Bayes' rule**: P(A/B) = P(B/A) P(A) / P(B).",
-            "The biggest problem is estimating the transition probability matrix and the output for every document; a large training database with the **Expectation-Maximization** algorithm can solve it.",
+            "Visualization of data through graphics is **indirect**: many processing layers sit between the data and its representation, and the source may be invisible or abstract.",
+            "A screen button has **no clear physical affordance**; we must learn that pressing a picture of a button does something.",
+            "Gibson rejected the study of visual mechanisms, but colour perception and display technology depend on understanding those mechanisms.",
+            "For visualization, the useful idea is not literal direct perception but the design habit of making actions and possibilities **visible and obvious**.",
           ],
         },
       ],
-      formula:
-        "Bayes' rule: P(A/B) = P(B/A) P(A) / P(B)\nHTML link: <a href=\"URL\">anchor text</a>\nXML: DTD defines the grammar, DOM represents the tree, XSL transforms presentation",
+      note:
+        "Write the definition, one supporting experiment, one interface example and the three problems. The three problems are the marks that most students miss.",
+    },
+    {
+      id: "u2-perception",
+      question:
+        "Explain the three-stage model of perceptual processing with suitable examples.",
+      marks: 10,
+      freq: 5,
+      papers:
+        "Asked in Jan-2025, Jun-2025, Dec-2025/Jan-2026 and May-2026.",
+      sections: [
+        {
+          heading: "Stage 1 · Parallel feature extraction",
+          bullets: [
+            "Visual information is first processed by large arrays of neurons in the eye and the primary visual cortex.",
+            "Individual neurons are selectively tuned to features such as **edge orientation** or the **colour of a patch**.",
+            "Billions of neurons work **in parallel**, extracting features from every part of the visual field simultaneously.",
+            "The process is rapid, largely independent of attention and briefly held in an **iconic store**.",
+            "Features include **orientation, colour, texture and movement**; this is a bottom-up, data-driven stage.",
+          ],
+        },
+        {
+          heading: "Stage 2 · Pattern perception",
+          bullets: [
+            "Rapid active processes divide the visual field into **regions and simple patterns**: continuous contours, regions of the same colour and regions of the same texture.",
+            "This stage is slower and serial compared with Stage 1, and it uses both **working memory and long-term memory**.",
+            "It places more emphasis on the **arbitrary aspects of symbols**, because learned meaning enters here.",
+            "Processing combines **bottom-up feature information and top-down attention**.",
+            "Different pathways handle object recognition and visually guided motion.",
+          ],
+        },
+        {
+          heading: "Stage 3 · Sequential goal-directed processing",
+          bullets: [
+            "At the highest level, only a few objects are held in **visual working memory** by active attention.",
+            "The viewer constructs a sequence of **visual queries** and answers them through visual search strategies.",
+            "Example: reading a road map for a route means searching for connected red contours between two city symbols.",
+            "Because working memory is limited, a display with too many objects or labels forces repeated searching and slows the user.",
+          ],
+        },
+        {
+          heading: "Design consequences",
+          bullets: [
+            "Make important features detectable by **Stage 1**: strong position, clear colour difference, distinct orientation or motion.",
+            "Support **Stage 2** grouping with Gestalt principles such as proximity, similarity, continuity, closure and connectedness.",
+            "Do not exceed the capacity of **Stage 3**: limit the number of objects, provide external memory aids and keep labels stable.",
+            "Animation and interaction should guide attention without forcing the viewer to rebuild the whole scene.",
+          ],
+        },
+      ],
       table: {
-        head: ["Structure", "Model", "Strength", "Limitation"],
+        head: ["Stage", "Speed and mode", "What happens", "Design implication"],
         rows: [
-          ["**Hypertext**", "graph of nodes and links", "navigation and link analysis", "link rot and lost orientation"],
-          ["**HTML**", "fixed tags over hypertext", "universal web display", "presentation mixed with content"],
-          ["**XML**", "hierarchical element tree", "structured exchange and validation", "verbose and needs a schema"],
-          ["**HMM**", "statistical noisy-channel model", "probabilistic relevance model", "hard to estimate transition probabilities"],
+          ["1 · Feature extraction", "fast, parallel", "orientation, colour, texture, motion", "encode important data in strong low-level features"],
+          ["2 · Pattern perception", "slow, serial", "contours, regions, grouping, memory", "use Gestalt grouping and clear structure"],
+          ["3 · Goal-directed", "serial, limited", "few objects in working memory, visual queries", "keep the display simple and support search"],
         ],
       },
-      diagrams: ["hypertext"],
+      diagrams: ["perception-stages"],
       note:
-        "Use the diagram: left side hypertext graph, right side XML tree. Then write the node/link definition and the DTD/DOM/XSL definitions for the XML part.",
+        "The three headings and their characteristics are the core. Finish with one design implication per stage, which is what the higher-mark questions reward.",
+    },
+    {
+      id: "u2-perception-limits",
+      question:
+        "How do limitations in human perception influence visualization design?",
+      marks: 3,
+      freq: 3,
+      papers: "Asked in the Dec-2025/Jan-2026 and RKR21 May-2026 papers as a short-answer question.",
+      answer: [
+        "People distinguish only a limited number of **brightness and colour levels**, so absolute judgements need a small number of distinct values.",
+        "**Colour deficiency** affects a large fraction of males, so colour must be paired with a redundant cue such as size, shape or labels.",
+        "Judgement accuracy falls from **position and length** to angle, area and volume, so important comparisons should use the more accurate variables.",
+        "**Working memory** holds only a few objects at a time, so crowded displays and too many labels slow search and cause errors.",
+        "Perception is relative and context dependent: a moved axis, neighbouring marks or an Ebbinghaus illusion can change the perceived value.",
+        "Design responses are simple: use position and length for important values, keep levels low, label clearly, avoid chart junk and test in greyscale.",
+      ],
     },
   ],
 };

@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 /* ------------------------------------------------------------------
-   Theme extracted from the Claude-generated "IRS Course" reference.
-   Light theme only. Layout and typography stay unchanged; the subject
-   colour moves from Data Mining olive to Information Retrieval pink.
+   Palette taken from the DVT Course reference.
+   Light theme only. The subject colour is DVT violet, with the same
+   teal/blue/amber/pink/olive accents and warm hot-note colour.
 ------------------------------------------------------------------ */
 :root {
   color-scheme: light;
@@ -17,22 +17,22 @@
   --fg: #13202f;
   --muted: #56667a;
   --accent: #2747d8;
-  --hot: #026a81;
-  --hot-bg: #e4f1f3;
+  --hot: #b93c0b;
+  --hot-bg: #fdebdc;
   --ok: #17794f;
   --ok-bg: #e1f3ea;
   --bad: #b42318;
   --bad-bg: #fde8e6;
   --v-teal: #0f766e;
   --v-blue: #2563eb;
-  --v-amber: #026a81;
+  --v-amber: #b45309;
   --v-pink: #be185d;
   --v-violet: #7c3aed;
   --v-olive: #4d7c0f;
-  --brick: #026a81;
-  --brick-bg: #e4f1f3;
-  --c: #be185d;
-  --c-ink: #9d174d;
+  --brick: #b45309;
+  --brick-bg: #fdf3e3;
+  --c: #7c3aed;
+  --c-ink: #5b21b6;
   --c-bg: color-mix(in srgb, var(--c) 9%, #ffffff);
   --c-mid: color-mix(in srgb, var(--c) 22%, #ffffff);
   --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
